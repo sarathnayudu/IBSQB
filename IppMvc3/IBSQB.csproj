@@ -520,6 +520,7 @@
     <Compile Include="utils\openid.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\SpryAccordion.css" />
     <Content Include="Content\themes\base\jquery.ui.accordion.css" />
     <Content Include="Content\themes\base\jquery.ui.all.css" />
     <Content Include="Content\themes\base\jquery.ui.autocomplete.css" />
@@ -545,9 +546,63 @@
       <LastGenOutput>IBSModel.cs</LastGenOutput>
     </Content>
     <Content Include="Global.asax" />
+    <Content Include="Images\about.jpg" />
+    <Content Include="Images\arrow.png" />
+    <Content Include="Images\bg.jpg" />
+    <Content Include="Images\bg.png" />
+    <Content Include="Images\cal.bmp" />
+    <Content Include="Images\Copy of heading-bg.gif" />
+    <Content Include="Images\Copy of lft-mnu-bg.gif" />
+    <Content Include="Images\docbg.png" />
+    <Content Include="Images\easy-business-logo.jpg" />
+    <Content Include="Images\employee.png" />
+    <Content Include="Images\globe.jpg" />
+    <Content Include="Images\greentab.jpg" />
+    <Content Include="Images\header-bg.gif" />
+    <Content Include="Images\header2.jpg" />
+    <Content Include="Images\headerbg.jpg" />
+    <Content Include="Images\heading-bg.gif" />
+    <Content Include="Images\homepage.jpg" />
+    <Content Include="Images\homepage_01.jpg" />
+    <Content Include="Images\homepage_02.jpg" />
+    <Content Include="Images\homepage_03.jpg" />
+    <Content Include="Images\homepage_04.jpg" />
+    <Content Include="Images\homepage_05.jpg" />
+    <Content Include="Images\hr-image1.gif" />
+    <Content Include="Images\hr-image2.gif" />
+    <Content Include="Images\hrms.jpg" />
     <Content Include="Images\ibs-logo.gif" />
+    <Content Include="Images\ibs-logo.jpg" />
+    <Content Include="Images\input-form.jpg" />
     <Content Include="Images\intellect-business-solution.gif" />
+    <Content Include="Images\lft-mnu-bg-hover.gif" />
+    <Content Include="Images\lft-mnu-bg.gif" />
+    <Content Include="Images\links-bg.gif" />
+    <Content Include="Images\login.jpg" />
+    <Content Include="Images\loginbg.jpg" />
+    <Content Include="Images\loginbg.png" />
+    <Content Include="Images\loginbtn.png" />
+    <Content Include="Images\logo.gif" />
+    <Content Include="Images\logo.jpg" />
     <Content Include="Images\microsoft-certified-partner.png" />
+    <Content Include="Images\monthleft.gif" />
+    <Content Include="Images\monthright.gif" />
+    <Content Include="Images\my-benefits.jpg" />
+    <Content Include="Images\my-educational-services.jpg" />
+    <Content Include="Images\my-work.jpg" />
+    <Content Include="Images\orange-star.jpg" />
+    <Content Include="Images\procedures.jpg" />
+    <Content Include="Images\Rounded.jpg" />
+    <Content Include="Images\Rounded1.jpg" />
+    <Content Include="Images\seperator.jpg" />
+    <Content Include="Images\spacer.gif" />
+    <Content Include="Images\submit-btn.jpg" />
+    <Content Include="Images\tablebgtop1.jpg" />
+    <Content Include="Images\topbg.gif" />
+    <Content Include="Images\topbg.png" />
+    <Content Include="Images\topbg1.gif" />
+    <Content Include="Images\vendor.png" />
+    <Content Include="Images\vendorbg.png" />
     <Content Include="OauthAccessTokenStorage.xml" />
     <Content Include="References\DotNetOpenAuth.dll" />
     <Content Include="Scripts\jquery-1.5.1-vsdoc.js" />
@@ -560,6 +615,7 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\modernizr-1.7.js" />
     <Content Include="Scripts\modernizr-1.7.min.js" />
+    <Content Include="Scripts\SpryAccordion.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -606,6 +662,7 @@
     <Content Include="Entity\IBSModel.edmx.diagram">
       <DependentUpon>IBSModel.edmx</DependentUpon>
     </Content>
+    <Content Include="Images\Thumbs.db" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
