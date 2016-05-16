@@ -1,0 +1,87 @@
+﻿@model IEnumerable<IntuitSampleMVC.Models.CustomerUI>
+@{
+    ViewBag.Title = "QBCustomers";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>QBCustomers</h2>
+
+@using (Html.BeginForm("NewInvoice", "IBSInvoice"))
+{
+    <p>
+        @Html.ActionLink("Create New", "Create")
+
+        <br />
+       <input type="submit" value="Create new invoice" />
+    </p>
+    <table>
+        <tr>
+
+            <th></th>
+
+            <th>Balance
+            </th>
+
+
+
+            <th>CreditLimit
+            </th>
+
+
+            <th>FullyQualifiedName
+            </th>
+
+            <th>Active
+            </th>
+
+
+
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+
+
+
+                <td>
+                     <input type="checkbox" name="Selected" value= "@item.Customer.Id" />
+                                   
+
+                </td>
+
+
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Customer.Balance)
+                </td>
+
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Customer.CreditLimit)
+                </td>
+
+
+                
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Customer.FullyQualifiedName)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Customer.Active)
+                </td>
+
+
+
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Customer.Id }) |
+            @Html.ActionLink("Details", "Details", new { id = item.Customer.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.Customer.Id })
+                </td>
+            </tr>
+        }
+
+    </table>
+}

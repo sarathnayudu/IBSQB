@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--This xml file persists the Oauth Access token so that user doen't need to go through the approval process all over again.-->
+<oauthtokenstorage>
+  <record usermailid="" encryptedaccesskey="" encryptedaccesskeysecret="" realmid="" dataSource="">
+  </record>
+  <record usermailid="peter_lavelle@intuit.com" encryptedaccesskey="k5oWT9Q9GRFeEe8EgQTguOzXzf0bR9uixunLrEPuWdBY8VGQM4DrmUS78gZq7lJBrmViDWkQjHbD9IneaJsA4uph0PUoG0qIMMepkc/D78nDLXrNK3Owwfq5UIaIWohoYsXJWXLeOUY=" encryptedaccesskeysecret="qVlygAOGJLk0UYvhVb8cB9jpF22NBSVoCW6q8YPXBUbs75X1YxwXFox4PykgT2goMCEI5TlJmvFQgHrb8Vph8afhMAxzaqKStvhQkWtuKZoG3UgCsg66dg==" realmid="655168710" dataSource="QBO" />
+  <record usermailid="sarathnayudunz@gmail.com" encryptedaccesskey="k5oWT9Q9GRE0aIPshkJlvQ2xcTLKi1/B8zr0nECjbWJqUuyw84fcQ67wUyoDbWWHJhX80lXG3FzMERDj5ZysdXwoRyoneKW5rwq/aVKFkSYLV9Lqa264bjwFI3F13+XRzZ8XdxC2ZDc=" encryptedaccesskeysecret="bFC7B1pZGzu51n4yjgmThhIdKNr0oa/vGqMRoxe6/t7aNXoKH72Ck6GWuwFRnoXkIqZFAKfupER9XtqWvXRlf6DMwVZu6pM2lfompuH4wCYKMykHHq70Lg==" realmid="1377064530" dataSource="QBO" />
+  <record usermailid="sbnayudu@nesttech.com" encryptedaccesskey="k5oWT9Q9GREybW04surxMVEBpfjCwWUxPlV5CLZ6ivdXhHxuv2JXHJhWf4uxso3CkFY/OJe1jbQdaktjeRHjtcapz/dhCd5GSopEKOWfo8wtNXxbl+NFfkcxXh8mjzbUboMm5KODMzY=" encryptedaccesskeysecret="+/EqiDzgihk6e2+sJTadXeYjgI3QwlVtxkR82QT3vce13XtQ0VUnltSBuieV/rMcRUWTEcUAfNf1oD8ibi1uyquEEYhajIJ/45/m4+l5YFV977MkNRXcFA==" realmid="123145760569617" dataSource="QBO" />
+  <record usermailid="sarathnayudu@yahoo.co.in" encryptedaccesskey="Z22rZZbEUdrr16DlK5vnUtY0ykP+ey1hFw+iLaZ4/s0aUOp561f97q0z9M1wR2kVC72kxETQrGVlr8hx+wM1zDo+Uj7+vI7YF4zlD2vof9DocK2Zr4pk50FY6YuzzuhQF8td3Q6KLmE=" encryptedaccesskeysecret="TGpeTaf7v0lOUZ/JdY5Ae92JIF35pxJjbl+OLGVxbCwQJCrHXPXOKsb0y7Hl1M8iFfc5co7F3oLDgufW5F5eveYjGav9w3Ux8LbbX/uIkAxFjjMwkOwCPw==" realmid="123145695351817" dataSource="QBO" />
+</oauthtokenstorage>

@@ -1,0 +1,55 @@
+﻿@model IntuitSampleMVC.Models.IBSHome
+
+@{
+    ViewBag.Title = "IBSHome";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    string FriendlyName = (string)HttpContext.Current.Session["FriendlyName"] + "";
+    string FriendlyEmail = (string)HttpContext.Current.Session["FriendlyEmail"];
+    string FriendlyIdentifier = (string)HttpContext.Current.Session["FriendlyIdentifier"];
+
+    string realm = (string)Session["realm"];
+    string dataSource = (string)Session["dataSource"];
+    string accessToken = (string)Session["accessToken"] + "";
+    string accessTokenSecret = (string)Session["accessTokenSecret"];
+    string invalidAccessToken = (string)Session["InvalidAccessToken"];
+}
+
+<h2>IBSHome</h2>
+ <p>
+
+      @if (FriendlyName.Length == 0)
+    { 
+        <div id="signininfo">
+            <ipp:login href="/OpenId/index"></ipp:login>
+            <br />
+        </div>
+    }
+    else
+    {
+        <div id="IntuitInfo">
+            <strong>Open Id Information:</strong><br />
+            Welcome: @FriendlyName<br />
+            E-mail Address: @FriendlyEmail<br />
+            Friendly Identifier: @FriendlyIdentifier<br />
+            <br />
+            @if (accessToken.Length > 0 && invalidAccessToken == null)
+            { 
+                <div id="oAuthinfo">
+                    <a href="/QuickBooksCustomers" id="QBCustomers">Get QuickBooks Customer List</a><br />
+                    <br />
+                    <br />
+                    <a href="#" id="Disconnect" onclick="confirmPost('/Disconnect/Index');">Disconnect from
+                        QuickBooks</a><br />
+                </div>
+            }
+            else
+            {
+                <br />
+                <ipp:connecttointuit></ipp:connecttointuit>
+            }
+        </div>
+    }
+
+
+ </p>

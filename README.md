@@ -1,2 +1,4 @@
-# IBSQB
-This is QB Invoice 
+QuickbooksV3API-DotNet-Mvc3-Sample
+==================================
+
+MVC3 Sample Code for the QuickBooks API V3

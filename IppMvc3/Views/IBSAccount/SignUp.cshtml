@@ -1,0 +1,59 @@
+﻿@model IntuitSampleMVC.Models.IBSSignUP
+@{
+    ViewBag.Title = "SignUp";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Start My FREE 14-Day Trial</h1>
+<p>Fast sign up. No credit card required. Cancel anytime.</p>
+
+@using (Html.BeginForm("Register", "IBSAccount"))
+{
+<fieldset>
+   <div>
+       @Html.LabelFor(e => e.Name);
+       @Html.TextBoxFor(e => e.Name);
+
+       
+       @Html.LabelFor(e => e.Email);
+       @Html.TextBoxFor(e => e.Email);
+
+       
+       @Html.LabelFor(e => e.PhoneNumber);
+       @Html.TextBoxFor(e => e.PhoneNumber);
+
+       
+       @Html.LabelFor(e => e.Password);
+       @Html.TextBoxFor(e => e.Password);
+
+       
+       @Html.LabelFor(e => e.ConformPassWord);
+       @Html.TextBoxFor(e => e.ConformPassWord);
+
+       
+       @Html.LabelFor(e => e.CompanyName);
+       @Html.TextBoxFor(e => e.CompanyName);'
+
+       
+       @Html.LabelFor(e => e.Country);
+       @Html.TextBoxFor(e => e.Country);
+
+   </div>
+   
+    <div id="form-completion-block">
+        <input type="checkbox" class="fine_print" name="acceptlegal" id="acceptlegal" checked style="display: none;">
+        <p class="general-form-msg"></p>
+        
+        <input id="signup_button" type="submit" value="Start My FREE 14-Day Trial" />
+            
+      
+        <span id="signup_loading" class="hidden-all">Creating your account. Please wait.</span>
+        <p class="success_message hidden-all">Congratulations! Signup successful. Check your email for some TSheets Love.</p>
+        <p id="telesuccess_message" class="hidden-all success_message">Signup successful.</p>
+        <p class="note center">
+            By signing up, you are agreeing to our
+            <a href="/terms-and-conditions" target="_blank">terms and conditions</a>. We hate spam as much as you do. No worries, your data is safe with us.
+        </p>
+    </div>
+</fieldset>
+}
