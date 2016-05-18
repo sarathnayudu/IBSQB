@@ -17,7 +17,9 @@ namespace IntuitSampleMVC.Business
         private TaxCode TaxCode { get; set; }
         private Account Account { get; set; }
         private Item Item { get; set; }
-        public Term Term { get; set; }
+        private Term Term { get; set; }
+        public string InvoiceNumber { get; set; }
+       
 
         public IBSQBInvoice()
         {           
@@ -25,16 +27,17 @@ namespace IntuitSampleMVC.Business
             Account = GetAccount();
             Item = GetItem();
             Term = GetTerm();
+            InvoiceNumber = "IBS" + "12345";
         }
 
         private Intuit.Ipp.Data.Term GetTerm()
         {
-            return DataService.FindAll(new Term(), 1, 100).ToList().FirstOrDefault();
+            return DataService.FindAll(new Term(), 1, 100).Where(e=>e.Name=="Net 30").FirstOrDefault();
         }
 
         private Intuit.Ipp.Data.Item GetItem()
         {
-            List<Item> lstItem = DataService.FindAll(new Item(), 1, 100).ToList();
+            List<Item> lstItem = DataService.FindAll(new Item(), 1, 100).Where(e=>e.Name=="HRate49").ToList();
             return lstItem.FirstOrDefault();
         }
 
@@ -66,10 +69,11 @@ namespace IntuitSampleMVC.Business
            Invoice invoice = new Invoice();
 
             //DocNumber - QBO Only, otherwise use DocNumber
-            invoice.AutoDocNumber = true;
-            invoice.AutoDocNumberSpecified = true;
+            //invoice.AutoDocNumber = false;
+            //invoice.AutoDocNumberSpecified = true;
+            invoice.DocNumber = InvoiceNumber;
 
-            invoice.EmailStatus = EmailStatusEnum.NeedToSend;
+            invoice.EmailStatus = EmailStatusEnum.EmailSent;
             invoice.EmailStatusSpecified = true;
 
 
@@ -87,9 +91,9 @@ namespace IntuitSampleMVC.Business
             //Line
             Line invoiceLine = new Line();
             //Line Description
-            invoiceLine.Description = "Invoice line description.";
+            invoiceLine.Description = "Software services provided by our employee Sarita Paladugu at Capital One.";
             //Line Amount
-            invoiceLine.Amount = 330m;
+            invoiceLine.Amount = Item.UnitPrice * 10;// 330m;
             invoiceLine.AmountSpecified = true;
             //Line Detail Type
             invoiceLine.DetailType = LineDetailTypeEnum.SalesItemLineDetail;
@@ -103,11 +107,13 @@ namespace IntuitSampleMVC.Business
                 Value = Item.Id
             };
             //Line Sales Item Line Detail - UnitPrice
-            lineSalesItemLineDetail.AnyIntuitObject = 33m;
+            lineSalesItemLineDetail.AnyIntuitObject = Item.UnitPrice;// 33m;
             lineSalesItemLineDetail.ItemElementName = ItemChoiceType.UnitPrice;
             //Line Sales Item Line Detail - Qty
             lineSalesItemLineDetail.Qty = 10;
             lineSalesItemLineDetail.QtySpecified = true;
+
+           
             //Line Sales Item Line Detail - TaxCodeRef
             //For US companies, this can be 'TAX' or 'NON'
             lineSalesItemLineDetail.TaxCodeRef = new ReferenceType()
@@ -171,6 +177,7 @@ namespace IntuitSampleMVC.Business
             shipAddr.Note = "Shipping Address Note";
             invoice.ShipAddr = shipAddr;
 
+            
             //SalesTermRef
             invoice.SalesTermRef = new ReferenceType()
             {
