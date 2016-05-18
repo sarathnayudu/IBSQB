@@ -35,7 +35,7 @@ namespace IntuitSampleMVC.Controllers
 
         public ActionResult SignUp()
         {
-            return View();
+            return View(new IBSSignUP());
         }
 
 
