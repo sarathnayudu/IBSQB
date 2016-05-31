@@ -20,24 +20,31 @@
             <tr>
                  
        @Html.TextBoxFor(e => e.Name,new { placeholder = "Name"})
+                  @Html.ValidationMessage("Name","*")
        <br />
       <br />
        @Html.TextBoxFor(e => e.Email,new { placeholder = "Email"})
+                  @Html.ValidationMessage("Email","*")
        <br />
       <br />
        @Html.TextBoxFor(e => e.PhoneNumber,new { placeholder = "Phone Number"})
+                  @Html.ValidationMessage("PhoneNumber","*")
        <br />
     <br />
        @Html.TextBoxFor(e => e.Password,new { placeholder = "Password"})
+                  @Html.ValidationMessage("Password","*")
        <br />
      <br />
        @Html.TextBoxFor(e => e.ConformPassWord,new { placeholder = "Conform Password"})
+                  @Html.ValidationMessage("ConformPassWord", "*")
        <br />
       <br />
        @Html.TextBoxFor(e => e.CompanyName,new { placeholder = "Company Name"})
+                  @Html.ValidationMessage("CompanyName","*")
        <br />
        <br />
        @Html.TextBoxFor(e => e.Country,new { placeholder = "Country"})
+                  @Html.ValidationMessage("Country","*")
 
             </tr>
 

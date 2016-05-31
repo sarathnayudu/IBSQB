@@ -10,6 +10,24 @@
     string accessTokenSecret = (string)Session["accessTokenSecret"];
     string invalidAccessToken = (string)Session["InvalidAccessToken"];
 }
+    <section>
+        @if (WebSecurity.CurrentUserId == -1)
+        {
+            <span>
+                <h5>One-Click Invoices Generate And Upload</h5>
+            </span>
+            @Html.ActionLink("Try For Free", "SignUP", "IBSAccount")              
+                
+              <h5>No credit card required.</h5>   
+            @Html.ActionLink("Sign IN", "PreLogin", "IBSAccount") 
+        }
+        else
+        {
+            <p>Welcome @WebSecurity.CurrentUserName</p>
+            @Html.ActionLink("LogOut", "LogOff", "IBSAccount", null, new { @style = "color:white;" })
+        }
+    </section>
+
 @*<p>
     <h2>@ViewBag.Message</h2>
     <p>
@@ -25,7 +43,7 @@
     <!-- OpenId Related HTML -->
     @if (FriendlyName.Length == 0)
     { 
-        <div id="signininfo">
+        <div id="PreLoginininfo">
             <ipp:login href="/OpenId/index"></ipp:login>
             <br />
         </div>

@@ -26,9 +26,9 @@ namespace IntuitSampleMVC.Controllers
             base.Initialize(requestContext);
         }
 
-        [HttpGetAttribute]
+     
         public ActionResult IBSHome()
-        {
+        {           
             return View();
         }
 
@@ -142,15 +142,17 @@ namespace IntuitSampleMVC.Controllers
                 }
                 else
                 {
+                    PreLogin obj = new PreLogin();
+                    obj.Companyname = model.CompanyName;
                     // Navigate back to the homepage and exit
                     //WebSecurityService.Login(model.Name, model.Password);
-                    return RedirectToAction("Index", "Home");
+                    return Pre2LogOn(obj);
                 }
             }
 
             // If we got this far, something failed, redisplay form
             ViewBag.PasswordLength = WebSecurityService.MinPasswordLength;
-            return View(model);
+            return View("SignUp",model);
         }
 
 
