@@ -11,7 +11,7 @@
     string invalidAccessToken = (string)Session["InvalidAccessToken"];
 }
     <section>
-        @if (WebSecurity.CurrentUserId == -1)
+        @if (!WebSecurity.HasUserId)
         {
             <span>
                 <h5>One-Click Invoices Generate And Upload</h5>
@@ -21,11 +21,7 @@
               <h5>No credit card required.</h5>   
             @Html.ActionLink("Sign IN", "PreLogin", "IBSAccount") 
         }
-        else
-        {
-            <p>Welcome @WebSecurity.CurrentUserName</p>
-            @Html.ActionLink("LogOut", "LogOff", "IBSAccount", null, new { @style = "color:white;" })
-        }
+       
     </section>
 
 @*<p>

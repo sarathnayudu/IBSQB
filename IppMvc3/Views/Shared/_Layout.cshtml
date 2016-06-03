@@ -1,72 +1,56 @@
-﻿  @{
-      string MenuProxy = Request.Url.GetLeftPart(UriPartial.Authority) + "/" + System.Configuration.ConfigurationManager.AppSettings["menuProxy"];
-      string OauthGrant = Request.Url.GetLeftPart(UriPartial.Authority) + "/" + System.Configuration.ConfigurationManager.AppSettings["grantUrl"];
+﻿@{
+    string MenuProxy = Request.Url.GetLeftPart(UriPartial.Authority) + "/" + System.Configuration.ConfigurationManager.AppSettings["menuProxy"];
+    string OauthGrant = Request.Url.GetLeftPart(UriPartial.Authority) + "/" + System.Configuration.ConfigurationManager.AppSettings["grantUrl"];
 
-      string applicationToken = System.Configuration.ConfigurationManager.AppSettings["applicationToken"];
-      string consumerKey = System.Configuration.ConfigurationManager.AppSettings["consumerKey"];
-      string consumerSecret = System.Configuration.ConfigurationManager.AppSettings["consumerSecret"];
-      bool configFlag = false;
-      if (string.IsNullOrWhiteSpace(applicationToken) || string.IsNullOrWhiteSpace(consumerKey) || string.IsNullOrWhiteSpace(consumerSecret))
-      {
-          configFlag = true;
-      }
-      else
-      {
-          configFlag = false;
-      }
+    string applicationToken = System.Configuration.ConfigurationManager.AppSettings["applicationToken"];
+    string consumerKey = System.Configuration.ConfigurationManager.AppSettings["consumerKey"];
+    string consumerSecret = System.Configuration.ConfigurationManager.AppSettings["consumerSecret"];
+    bool configFlag = false;
+    if (string.IsNullOrWhiteSpace(applicationToken) || string.IsNullOrWhiteSpace(consumerKey) || string.IsNullOrWhiteSpace(consumerSecret))
+    {
+        configFlag = true;
+    }
+    else
+    {
+        configFlag = false;
+    }
 
-      // Read value from session and check flag which decides the display of blue dot menu
-      object flag = Session["Flag"];
-      bool blueDotVisibility = false;
-      if (flag != null)
-      {
-          bool flagValue = Convert.ToBoolean(flag.ToString());
-          if (flagValue)
-          {
-              blueDotVisibility = true;
-          }
-          else
-          {
-              blueDotVisibility = false;
-          }
-      }
-      else
-      {
-          blueDotVisibility = false;
-      }
+    // Read value from session and check flag which decides the display of blue dot menu
+    object flag = Session["Flag"];
+    bool blueDotVisibility = false;
+    if (flag != null)
+    {
+        bool flagValue = Convert.ToBoolean(flag.ToString());
+        if (flagValue)
+        {
+            blueDotVisibility = true;
+        }
+        else
+        {
+            blueDotVisibility = false;
+        }
+    }
+    else
+    {
+        blueDotVisibility = false;
+    }
 
-      string FriendlyName = (string)HttpContext.Current.Session["FriendlyName"];
-      bool showLogout = false;
-      if (FriendlyName != null && FriendlyName.Length != 0)
-      {
-          showLogout = true;
-      }
+    string FriendlyName = (string)HttpContext.Current.Session["FriendlyName"];
+    bool showLogout = false;
+    if (FriendlyName != null && FriendlyName.Length != 0)
+    {
+        showLogout = true;
+    }
 
 }
 <!DOCTYPE html>
 <html xmlns:ipp="">
 <head>
     <title>@ViewBag.Title</title>
-   
-   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 
-    <!--
-     menuProxy - The URL of  the code on your site that fetches and displays the HTML for the Intuit 
-     "blue dot" menu.  This URL points to the Menu Proxy Code.
-
-     grantUrl - The URL of the code on your site that begins the user authorization 
-     flow by getting an OAuth request token.  The flow is initiated when the user 
-     clicks the Connect to QuickBooks button.  This URL points to the Request Token Code.  
-     The host name in this URL must match the Host Name Domain field on the Manage Apps tab in 
-     My Developer Center.
- 
-    The intuit.ipp.anywhere.setup() function specifies 
-    the URLs needed by the Intuit "blue dot" menu and the Connect to QuickBooks button.  
-    If a page displays either of these widgets, it must include a call to 
-    the intuit.ipp.anywhere.setup() function.
-    -->
-   
     <script type="text/javascript" src="https://js.appcenter.intuit.com/Content/IA/intuit.ipp.anywhere.js"></script>
     <script type="text/javascript">
         intuit.ipp.anywhere.setup({
@@ -105,62 +89,70 @@
             padding: 25px;
             margin-top: 2%;
         }
-        .leftDiv {
-    float: left;
-    width: 100px;
-    height: 20px;
-    margin-right: 8px;
-   
-}
-.rightDiv {
-    float: left;
-    margin-left: 108px;
-  
-}​
-
     </style>
 </head>
 <body>
-     @if (@blueDotVisibility)
-     { 
+    @if (@blueDotVisibility)
+    { 
         <ipp:bluedot></ipp:bluedot>
-     }
-    @if (showLogout)
-    {
-        <div id="userInfo">
-            <span>Welcome <b>@FriendlyName!</b></span> [ <a href="javascript:void(0);" style="color: White;"
-                onclick="return intuit.ipp.anywhere.logout(function () { window.location='/Logout/index'; });">
-                Log Off</a> 
-        </div>
-    }   
-    <div id="mainDiv"  align="center">
-        <div id="devHeader">
-             <img src="../images/homepage_01.jpg"/>
-        </div>
-      
-        <div id="leftDiv"  >
-            @if (WebSecurity.CurrentUserId > 0)
-            {
-                @Html.ActionLink("Customers", "Customers", "IBS");
-                <br />
-                <br />
-                @Html.ActionLink("Vendors", "Vendors", "IBS");
-                   <br />
-                <br />
-                @Html.ActionLink("Employes", "Employes", "IBS");
-                   <br />
-                <br />
-                @Html.ActionLink("Payrole", "Payrole", "IBS");
-            }
-            
-        </div>
-      
-        <div id="rightDiv">             
+    }
 
-            @RenderBody()
+
+    <div style="text-align: center;">
+        <div style="width: 50%; margin: 0 auto; text-align: left;">
+            <table style="width: 100%;">
+                <tr>
+                    <img src="../images/homepage_01.jpg" />
+
+                </tr>
+                <tr>
+                    <td style="width: 30%">
+                        @if (showLogout)
+                        {
+                            @Html.ActionLink("Customers", "Index", "IBSQB");
+                            <br />
+                            <br />
+                            @Html.ActionLink("Vendors", "Vendors", "IBS");
+                            <br />
+                            <br />
+                            @Html.ActionLink("Employes", "Employes", "IBS");
+                            <br />
+                            <br />
+                            @Html.ActionLink("Payrole", "Payrole", "IBS");
+                        }
+
+                    </td>
+                    <td style="width: 70%">
+                        <div>
+                            @if (showLogout)
+                            {
+                                <div id="userInfo">
+                                    <span>Welcome <b>@FriendlyName!</b></span>  <a href="javascript:void(0);"
+                                        onclick="return intuit.ipp.anywhere.logout(function () { window.location='/Logout/index'; });">Log Off</a>
+                                </div>
+                            }
+                            @if (WebSecurity.HasUserId)
+                            {
+                                <p>
+                                    Welcone @WebSecurity.CurrentUserName
+
+                                    @Html.ActionLink("LogOut", "LogOff", "IBSAccount")
+                                </p> 
+                            }
+                            @if (!showLogout)
+                            { 
+                                <h2>Connect with QuickBook To generate Invoices For Your Customers And More...</h2>                             
+                                    <div id="signininfo">
+                                    <ipp:login href="/OpenId/index"></ipp:login>
+                                    <br />
+                                </div>                             
+                            }
+                            @RenderBody()
+                        </div>
+                    </td>
+                </tr>
+            </table>
         </div>
-          
-       
-      
+    </div>
 </body>
 </html>

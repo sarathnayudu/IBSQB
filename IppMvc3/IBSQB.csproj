@@ -256,6 +256,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\IBSAccountController.cs" />
     <Compile Include="Controllers\IBSInvoiceController.cs" />
+    <Compile Include="Controllers\IBSQBController.cs" />
     <Compile Include="Controllers\LogoutController.cs" />
     <Compile Include="Controllers\MenuProxyController.cs" />
     <Compile Include="Controllers\OauthGrantController.cs" />
@@ -490,6 +491,7 @@
     <Compile Include="Entity\webpages_Roles.cs">
       <DependentUpon>IBSModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Filters\AutoQBLoginFilter.cs" />
     <Compile Include="HTMLHelpers\InputHelper.cs" />
     <Compile Include="Models\CustomerUI.cs" />
     <Compile Include="Models\IBSHome.cs" />

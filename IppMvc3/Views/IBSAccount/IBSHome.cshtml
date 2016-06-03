@@ -15,33 +15,33 @@
     string invalidAccessToken = (string)Session["InvalidAccessToken"];
 }
 
-<h2>IBSHome</h2>
+
  <p>
 
       @if (FriendlyName.Length == 0)
     { 
-        <div id="signininfo">
+       @* <div id="signininfo">
             <ipp:login href="/OpenId/index"></ipp:login>
             <br />
-        </div>
+        </div>*@
     }
     else
     {
         <div id="IntuitInfo">
-            <strong>Open Id Information:</strong><br />
+           @* <strong>Open Id Information:</strong><br />
             Welcome: @FriendlyName<br />
             E-mail Address: @FriendlyEmail<br />
             Friendly Identifier: @FriendlyIdentifier<br />
-            <br />
+            <br />*@
             @if (accessToken.Length > 0 && invalidAccessToken == null)
             { 
-                <div id="oAuthinfo">
+               @* <div id="oAuthinfo">
                     <a href="/QuickBooksCustomers" id="QBCustomers">Get QuickBooks Customer List</a><br />
                     <br />
                     <br />
                     <a href="#" id="Disconnect" onclick="confirmPost('/Disconnect/Index');">Disconnect from
                         QuickBooks</a><br />
-                </div>
+                </div>*@
             }
             else
             {
