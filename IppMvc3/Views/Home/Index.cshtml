@@ -1,5 +1,6 @@
 ﻿@{
     ViewBag.Title = "Welcome to Intuit Anywhere";
+    
     string FriendlyName = (string)HttpContext.Current.Session["FriendlyName"] + "";
     string FriendlyEmail = (string)HttpContext.Current.Session["FriendlyEmail"];
     string FriendlyIdentifier = (string)HttpContext.Current.Session["FriendlyIdentifier"];
@@ -24,7 +25,7 @@
        
     </section>
 
-@*<p>
+<p>
     <h2>@ViewBag.Message</h2>
     <p>
         To learn more about Intuit Anywhere, visit the <a href="http://developer.intuit.com/"
@@ -74,4 +75,4 @@
         </div>
     }
     <!-- OpenId Related HTML ends here -->
-</p>*@
+</p>

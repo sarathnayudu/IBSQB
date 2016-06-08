@@ -7,9 +7,7 @@ using System.Web;
 namespace IntuitSampleMVC.Models
 {
     public class CustomerUI:ModelBase
-    {
-        public bool IsChecked { get; set; }
-
-        public Customer Customer { get; set; }
+    {   
+        public object CustEmpVendorObj { get; set; }
     }
 }

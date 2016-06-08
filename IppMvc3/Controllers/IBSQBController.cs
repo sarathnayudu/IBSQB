@@ -14,9 +14,23 @@ namespace IntuitSampleMVC.Controllers
 
         public ActionResult Index()
         {
-            IBSQBCustomer obj = new IBSQBCustomer();
+            IBSQBService obj = new IBSQBService();
 
             return View("../IBSInvoice/QBCustomers", obj.GetQBCustomers());
+        }
+
+        public ActionResult Vendors()
+        {
+            IBSQBService obj = new IBSQBService();
+
+            return View("../IBSInvoice/QBCustomers", obj.GetQBVendors());
+        }
+
+        public ActionResult Employes()
+        {
+            IBSQBService obj = new IBSQBService();
+
+            return View("../IBSInvoice/QBCustomers", obj.GetQBEmployes());
         }
 
         [HttpPost]

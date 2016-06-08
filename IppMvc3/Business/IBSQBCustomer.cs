@@ -16,7 +16,7 @@ namespace IntuitSampleMVC.Business
         {
          return  DataService.FindAll(new Customer(), 1, 100).Select(e=> new CustomerUI
               {
-                  Customer=e
+                  CustEmpVendorObj=e
               }).ToList();
 
         }

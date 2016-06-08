@@ -1,9 +1,16 @@
-﻿@model IEnumerable<IntuitSampleMVC.Models.CustomerUI>
+﻿@model List<IntuitSampleMVC.Models.CustomerUI>
 @{
     ViewBag.Title = "QBCustomers";
     Layout = "~/Views/Shared/_Layout.cshtml";
-}
 
+    // Get the Type object corresponding to MyClass.
+    Type myType = @Model.FirstOrDefault().CustEmpVendorObj.GetType();
+    // Get the PropertyInfo object by passing the property name.
+    System.Reflection.PropertyInfo[] myPropInfo = myType.GetProperties();
+     
+    
+}
+3
 <h2>QBCustomers</h2>
 
 @using (Html.BeginForm("NewInvoice", "IBSInvoice"))
@@ -12,76 +19,41 @@
         @Html.ActionLink("Create New", "Create")
 
         <br />
-       <input type="submit" value="Create new invoice" />
+        <input type="submit" value="Create new invoice" />
     </p>
     <table>
-        <tr>
-
-            <th></th>
-
-            <th>Balance
-            </th>
-
-
-
-            <th>CreditLimit
-            </th>
-
-
-            <th>FullyQualifiedName
-            </th>
-
-            <th>Active
-            </th>
-
-
-
-            <th></th>
-        </tr>
-
         @foreach (var item in Model)
-        {
+        {          
             <tr>
-
-
-
-                <td>
-                     <input type="checkbox" name="Selected" value= "@item.Customer.Id" />
-                                   
-
-                </td>
-
-
-
-                <td>
-                    @Html.DisplayFor(modelItem => item.Customer.Balance)
-                </td>
-
-
-                <td>
-                    @Html.DisplayFor(modelItem => item.Customer.CreditLimit)
-                </td>
-
-
-                
-
-                <td>
-                    @Html.DisplayFor(modelItem => item.Customer.FullyQualifiedName)
-                </td>
-
-                <td>
-                    @Html.DisplayFor(modelItem => item.Customer.Active)
-                </td>
-
-
-
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.Customer.Id }) |
-            @Html.ActionLink("Details", "Details", new { id = item.Customer.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.Customer.Id })
-                </td>
-            </tr>
+                @foreach (var propObj in myPropInfo)
+                {
+                    var temp = propObj.GetValue(item.CustEmpVendorObj, null);
+                    if (Convert.GetTypeCode(temp) != TypeCode.Object)
+                    {
+                        if (temp != null)
+                        {
+                            if (Model.IndexOf(item) == 0)
+                            {
+                           
+                    <th>
+                        @Html.DisplayFor(x => propObj.Name)
+                    </th> 
+                           
+                            }
+                            else
+                            {
+                          
+                    <td>
+                        @temp.ToString()
+                    </td> 
+                            
+                            }
+                        }
+                    }
+                }
+            </tr>  
         }
 
-    </table>
+    </table>  
+ 
 }
