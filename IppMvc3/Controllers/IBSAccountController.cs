@@ -1,6 +1,8 @@
-﻿using IntuitSampleMVC.Entity;
+﻿using IntuitSampleMVC.Business;
+using IntuitSampleMVC.Entity;
 using IntuitSampleMVC.Models;
 using IntuitSampleMVC.Services;
+using IntuitSampleMVC.utils;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.Validation;
@@ -38,6 +40,32 @@ namespace IntuitSampleMVC.Controllers
             return View(new IBSSignUP());
         }
 
+        public ActionResult SignUp(IBSSignUP signupFrmQB)
+        {
+            return View("../IBSAccount/SignUP",signupFrmQB);
+        }
+
+        public ActionResult SignUpFromQB()
+        {
+            IBSSignUP signupfrmQB = new IBSSignUP();
+            signupfrmQB.Name = Session["FriendlyName"].ToString();
+            signupfrmQB.Email = Session["FriendlyEmail"].ToString();
+
+            IBSAccount ibsacc = new IBSAccount();
+            ibsacc.GetUserByNameEmail(signupfrmQB);
+
+            if (!string.IsNullOrEmpty(signupfrmQB.CompanyName))
+            {
+                PreLogin obj = new PreLogin();
+                obj.Companyname = signupfrmQB.CompanyName;
+                obj.UserName = signupfrmQB.Name;
+                // Navigate back to the homepage and exit
+                //WebSecurityService.Login(model.Name, model.Password);
+                return Pre2LogOn(obj);
+            }
+            return SignUp(signupfrmQB);
+        }
+
 
         /// <summary>
         /// Error view for the website.
@@ -59,6 +87,8 @@ namespace IntuitSampleMVC.Controllers
         {
             LogOnModel lm = new LogOnModel();
             lm.CompanyName=model.Companyname;
+            lm.UserName = model.UserName;
+            lm.Password = string.Empty;
             return View("LogOn",lm);
         }
 
@@ -69,6 +99,7 @@ namespace IntuitSampleMVC.Controllers
             {
                 if (WebSecurityService.Login(model.UserName, model.Password, model.RememberMe))
                 {
+                    CheckForSingleSignON(model);
                     if (Url.IsLocalUrl(returnUrl))
                     {
                         return Redirect(returnUrl);
@@ -87,6 +118,23 @@ namespace IntuitSampleMVC.Controllers
 
             // If we got this far, something failed, redisplay form
             return View(model);
+        }
+
+        private void CheckForSingleSignON(LogOnModel model)
+        {
+            IBSAccount srv = new IBSAccount();
+            IBSSignUP temp = srv.GetUserByID(model.UserName);
+
+          if (Session["FriendlyEmail"] == null && Session["FriendlyName"] == null)
+          {
+              Session["OpenIdResponse"] = "True";
+              Session["FriendlyEmail"] = temp.Email;
+              Session["FriendlyName"] = temp.Name;
+          }
+           //create session if  toke/secret/relm id exist and blue dot visible =true
+            //else connect to qb enable
+            //get the Oauth Access token for the user from OauthAccessTokenStorage.xml
+            OauthAccessTokenStorageHelper.GetOauthAccessTokenForUser(Session["FriendlyEmail"].ToString(), this);
         }
 
         // **************************************

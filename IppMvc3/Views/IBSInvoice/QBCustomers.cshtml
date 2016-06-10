@@ -13,7 +13,7 @@
 3
 <h2>QBCustomers</h2>
 
-@using (Html.BeginForm("NewInvoice", "IBSInvoice"))
+@using (Html.BeginForm("NewInvoice", "IBSQB"))
 {
     <p>
         @Html.ActionLink("Create New", "Create")
@@ -42,11 +42,17 @@
                             }
                             else
                             {
+                                if (myPropInfo[0] == propObj)
+                                {
+                                   var id=  myPropInfo.Where(e => e.Name == "Id").FirstOrDefault().GetValue(item.CustEmpVendorObj, null);
+                                    <td>
+                                        <input type="checkbox" name="Selected" value= "@id" />
+                                    </td> 
+                                }
                           
-                    <td>
-                        @temp.ToString()
-                    </td> 
-                            
+                                    <td>
+                                        @temp.ToString()
+                                    </td> 
                             }
                         }
                     }

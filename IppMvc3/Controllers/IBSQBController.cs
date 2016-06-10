@@ -44,7 +44,7 @@ namespace IntuitSampleMVC.Controllers
                 inv.NewInvoice(custId);
             }
 
-            return View();
+          return  RedirectToAction("Index");
         }
 
     }

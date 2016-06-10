@@ -77,6 +77,7 @@ namespace IntuitSampleMVC.Controllers
                     //get the Oauth Access token for the user from OauthAccessTokenStorage.xml
                     OauthAccessTokenStorageHelper.GetOauthAccessTokenForUser(Session["FriendlyEmail"].ToString(), this);
                 }
+                return Redirect("/IBSAccount/SignUpFromQB");
             }
 
             string query = Request.Url.Query;
@@ -87,7 +88,19 @@ namespace IntuitSampleMVC.Controllers
                 Session["Flag"] = true;
                 return Redirect("/CleanupOnDisconnect/Index");
             }
+           
+            //Connect Using OAuth
+          // return OAuthConnect();
+            return Redirect("/Home/index");
+        }
 
+        private RedirectResult OAuthConnect()
+        {
+            string fEmail = Session["FriendlyEmail"].ToString(), fName = Session["FriendlyName"].ToString();
+            if (!string.IsNullOrEmpty(fEmail) && !string.IsNullOrEmpty(fName))
+            {
+              return  Redirect("/OauthGrant/Index");
+            }
             return Redirect("/Home/index");
         }
     }

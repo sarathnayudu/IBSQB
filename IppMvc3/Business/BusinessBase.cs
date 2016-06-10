@@ -19,18 +19,21 @@ namespace IntuitSampleMVC.Business
 
         public BusinessBase()
         {
-            realmId = HttpContext.Current.Session["realm"].ToString();
-            accessToken = HttpContext.Current.Session["accessToken"].ToString();
-            accessTokenSecret = HttpContext.Current.Session["accessTokenSecret"].ToString();
+            realmId = HttpContext.Current.Session["realm"]!=null?HttpContext.Current.Session["realm"].ToString():string.Empty;
+            accessToken =HttpContext.Current.Session["accessToken"]!=null? HttpContext.Current.Session["accessToken"].ToString():string.Empty;
+            accessTokenSecret = HttpContext.Current.Session["accessTokenSecret"]!=null?HttpContext.Current.Session["accessTokenSecret"].ToString():string.Empty;
             consumerKey = ConfigurationManager.AppSettings["consumerKey"].ToString();
             consumerSecret = ConfigurationManager.AppSettings["consumerSecret"].ToString();
-            dataSourcetype = HttpContext.Current.Session["dataSource"].ToString().ToLower();
+            dataSourcetype = HttpContext.Current.Session["dataSource"] != null ? HttpContext.Current.Session["dataSource"].ToString().ToLower() : string.Empty;
 
-            OAuthRequestValidator = new OAuthRequestValidator(accessToken, accessTokenSecret, consumerKey, consumerSecret);
-            ServiceContext = new ServiceContext(realmId, IntuitServicesType.QBO, OAuthRequestValidator);
-            ServiceContext.IppConfiguration.BaseUrl.Qbo = "https://sandbox-quickbooks.api.intuit.com/";
+            if (!string.IsNullOrEmpty(accessToken) && !string.IsNullOrEmpty(accessTokenSecret) && !string.IsNullOrEmpty(realmId))
+            {
+                OAuthRequestValidator = new OAuthRequestValidator(accessToken, accessTokenSecret, consumerKey, consumerSecret);
+                ServiceContext = new ServiceContext(realmId, IntuitServicesType.QBO, OAuthRequestValidator);
+                ServiceContext.IppConfiguration.BaseUrl.Qbo = "https://sandbox-quickbooks.api.intuit.com/";
 
-            DataService = new DataService(ServiceContext);
+                DataService = new DataService(ServiceContext);
+            }
         }
 
         private OAuthRequestValidator _oAuthRequestValidator;

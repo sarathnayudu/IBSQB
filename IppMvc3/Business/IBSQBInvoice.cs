@@ -37,7 +37,7 @@ namespace IntuitSampleMVC.Business
 
         private Intuit.Ipp.Data.Item GetItem()
         {
-            List<Item> lstItem = DataService.FindAll(new Item(), 1, 100).Where(e=>e.Name=="HRate49").ToList();
+            List<Item> lstItem = DataService.FindAll(new Item(), 1, 100).ToList();
             return lstItem.FirstOrDefault();
         }
 

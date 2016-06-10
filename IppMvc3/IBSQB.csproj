@@ -606,7 +606,9 @@
     <Content Include="Images\topbg1.gif" />
     <Content Include="Images\vendor.png" />
     <Content Include="Images\vendorbg.png" />
-    <Content Include="OauthAccessTokenStorage.xml" />
+    <Content Include="OauthAccessTokenStorage.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="References\DotNetOpenAuth.dll" />
     <Content Include="Scripts\jquery-1.5.1-vsdoc.js" />
     <Content Include="Scripts\jquery-1.5.1.js" />

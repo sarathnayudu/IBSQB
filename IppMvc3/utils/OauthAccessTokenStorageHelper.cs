@@ -19,7 +19,7 @@ namespace IntuitSampleMVC.utils
         internal static void RemoveInvalidOauthAccessToken(string emailID, Controller page)
         {
             string path = page.Server.MapPath("/") + @"OauthAccessTokenStorage.xml";
-            string searchUserXpath = "//record[@usermailid='" + emailID + "']";
+            string searchUserXpath = "//record[@usermailid='" + emailID.Trim() + "']";
             XmlDocument doc = new XmlDocument();
             doc.Load(path);
             XmlNode record = doc.SelectSingleNode(searchUserXpath);
@@ -43,8 +43,9 @@ namespace IntuitSampleMVC.utils
         /// <param name="emailID"></param>
         internal static void GetOauthAccessTokenForUser(string emailID, Controller page)
         {
+            //F:\MyFolder\Personal\Repositary\IBSQB\IppMvc3
             string path = page.Server.MapPath("/") + @"OauthAccessTokenStorage.xml";
-            string searchUserXpath = "//record[@usermailid='" + emailID + "']";
+            string searchUserXpath = "//record[@usermailid='" + emailID.Trim() + "']";
             XmlDocument doc = new XmlDocument();
             doc.Load(path);
             XmlNode record = doc.SelectSingleNode(searchUserXpath);
@@ -72,7 +73,7 @@ namespace IntuitSampleMVC.utils
             doc.Load(path);
             XmlNode node = doc.CreateElement("record");
             XmlAttribute userMailIdAttribute = doc.CreateAttribute("usermailid");
-            userMailIdAttribute.Value = page.Session["FriendlyEmail"].ToString();
+            userMailIdAttribute.Value = page.Session["FriendlyEmail"].ToString().Trim();
             node.Attributes.Append(userMailIdAttribute);
 
             XmlAttribute accessKeyAttribute = doc.CreateAttribute("encryptedaccesskey");

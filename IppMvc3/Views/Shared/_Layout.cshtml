@@ -6,6 +6,7 @@
     string consumerKey = System.Configuration.ConfigurationManager.AppSettings["consumerKey"];
     string consumerSecret = System.Configuration.ConfigurationManager.AppSettings["consumerSecret"];
     bool configFlag = false;
+    bool showConnect = this.Session["realm"] == null ? true : false;
     if (string.IsNullOrWhiteSpace(applicationToken) || string.IsNullOrWhiteSpace(consumerKey) || string.IsNullOrWhiteSpace(consumerSecret))
     {
         configFlag = true;
@@ -106,47 +107,51 @@
 
                 </tr>
                 <tr>
-                    <td style="width: 30%">
-                        @if (showLogout)
+                    <td style="width: 30%;vertical-align: top;text-align: left;>
+                        @if (!showConnect)
                         {
                             @Html.ActionLink("Customers", "Index", "IBSQB");
                             <br />
-                            <br />
-                            @Html.ActionLink("Vendors", "Vendors", "IBSQB");
-                            <br />
-                            <br />
-                            @Html.ActionLink("Employes", "Employes", "IBSQB");
-                            <br />
-                            <br />
-                            @Html.ActionLink("Payrole", "Payrole", "IBSQB");
+                        <br />
+                        @Html.ActionLink("Vendors", "Vendors", "IBSQB");
+                        <br />
+                        <br />
+                        @Html.ActionLink("Employes", "Employes", "IBSQB");
+                        <br />
+                        <br />
+                        @Html.ActionLink("Payrole", "Payrole", "IBSQB");
                         }
 
                     </td>
                     <td style="width: 70%">
                         <div>
-                            @if (showLogout)
-                            {
-                                <div id="userInfo">
-                                    <span>Welcome <b>@FriendlyName!</b></span>  <a href="javascript:void(0);"
-                                        onclick="return intuit.ipp.anywhere.logout(function () { window.location='/Logout/index'; });">Log Off</a>
-                                </div>
-                            }
-                            @if (WebSecurity.HasUserId)
+                            @if (WebSecurity.HasUserId && !showConnect)
                             {
                                 <p>
                                     Welcone @WebSecurity.CurrentUserName
+                                    <a href="javascript:void(0);"
+                                        onclick="return intuit.ipp.anywhere.logout(function () { window.location='/Logout/index'; });">Disconnect From QB</a>
 
-                                    @Html.ActionLink("LogOut", "LogOff", "IBSAccount")
+                                     @Html.ActionLink("LogOut", "LogOff", "IBSAccount")
                                 </p> 
                             }
                             @if (!showLogout)
-                            { 
+                            {
                                 <h2>Connect with QuickBook To generate Invoices For Your Customers And More...</h2>                             
-                                    <div id="signininfo">
+                                <div id="signininfo">
                                     <ipp:login href="/OpenId/index"></ipp:login>
                                     <br />
-                                </div>                             
+                                </div>  
                             }
+                            else
+                            {
+                                if(showConnect)
+                                { 
+<br />
+<ipp:connecttointuit></ipp:connecttointuit>
+                                }
+                            }
+
                             @RenderBody()
                         </div>
                     </td>

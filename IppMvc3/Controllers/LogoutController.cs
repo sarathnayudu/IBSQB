@@ -1,4 +1,5 @@
-﻿using System;
+﻿using IntuitSampleMVC.utils;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -14,9 +15,11 @@ namespace IntuitSampleMVC.Controllers
 
         public ActionResult Index()
         {
+            OauthAccessTokenStorageHelper.RemoveInvalidOauthAccessToken(Session["FriendlyEmail"].ToString(), this);
             Session.RemoveAll();
+            
             //Redirect user to the Home page
-            return Redirect("/Home/index");
+            return Redirect("/IBSAccount/LogOff");
 
         }
 

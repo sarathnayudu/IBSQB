@@ -13,6 +13,7 @@ namespace IntuitSampleMVC.Models
     public class PreLogin:ModelBase
     {
         public string Companyname { get; set; }
+        public string UserName { get; set; }
     }
     public class LogOnModel
     {
