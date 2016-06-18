@@ -93,9 +93,12 @@
     </style>
 </head>
 <body>
-    @if (@blueDotVisibility)
-    { 
-        <ipp:bluedot></ipp:bluedot>
+    @if (WebSecurity.HasUserId)
+    {
+        if (@blueDotVisibility)
+        { 
+<ipp:bluedot></ipp:bluedot>
+        }
     }
 
 
@@ -107,32 +110,34 @@
 
                 </tr>
                 <tr>
-                    <td style="width: 30%;vertical-align: top;text-align: left;>
-                        @if (!showConnect)
+                    <td style="width: 30%; vertical-align: top; text-align: left;">
+                        @if (WebSecurity.HasUserId && !showConnect)
                         {
                             @Html.ActionLink("Customers", "Index", "IBSQB");
                             <br />
-                        <br />
-                        @Html.ActionLink("Vendors", "Vendors", "IBSQB");
-                        <br />
-                        <br />
-                        @Html.ActionLink("Employes", "Employes", "IBSQB");
-                        <br />
-                        <br />
-                        @Html.ActionLink("Payrole", "Payrole", "IBSQB");
+                            <br />
+                            @Html.ActionLink("Vendors", "Vendors", "IBSQB");
+                            <br />
+                            <br />
+                            @Html.ActionLink("Employes", "Employes", "IBSQB");
+                            <br />
+                            <br />
+                            @Html.ActionLink("Payrole", "Payrole", "IBSQB");
                         }
 
                     </td>
                     <td style="width: 70%">
                         <div>
-                            @if (WebSecurity.HasUserId && !showConnect)
+                            @if (WebSecurity.HasUserId)
                             {
                                 <p>
                                     Welcone @WebSecurity.CurrentUserName
-                                    <a href="javascript:void(0);"
-                                        onclick="return intuit.ipp.anywhere.logout(function () { window.location='/Logout/index'; });">Disconnect From QB</a>
-
-                                     @Html.ActionLink("LogOut", "LogOff", "IBSAccount")
+                                    @if (!showConnect)
+                                    {
+                                        <a href="javascript:void(0);"
+                                            onclick="return intuit.ipp.anywhere.logout(function () { window.location='/Logout/index'; });">Disconnect From QB</a>
+                                    }
+                                    @Html.ActionLink("LogOut", "LogOff", "IBSAccount")
                                 </p> 
                             }
                             @if (!showLogout)
@@ -145,10 +150,10 @@
                             }
                             else
                             {
-                                if(showConnect)
+                                if (showConnect)
                                 { 
-<br />
-<ipp:connecttointuit></ipp:connecttointuit>
+                                <br />
+                                <ipp:connecttointuit></ipp:connecttointuit>
                                 }
                             }
 

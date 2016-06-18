@@ -22,7 +22,7 @@ namespace IntuitSampleMVC.Business
         {
             IBSSignUP temp = new IBSSignUP();
             ibshr121414Entities entity = new ibshr121414Entities();
-            UserProfile uf= entity.UserProfiles.Where(e => e.UserName == userName).FirstOrDefault();
+            UserProfile uf= entity.UserProfiles.Where(e => e.Email == userName).FirstOrDefault();
             if (uf != null)
             {
                 temp.Email = uf.Email;

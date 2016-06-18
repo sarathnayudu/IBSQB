@@ -7,6 +7,7 @@ using Intuit.Ipp.Core;
 using Intuit.Ipp.Data;
 using Intuit.Ipp.DataService;
 using Intuit.Ipp.Security;
+using IntuitSampleMVC.Entity;
 
 namespace IntuitSampleMVC.Business
 {
@@ -30,7 +31,7 @@ namespace IntuitSampleMVC.Business
             {
                 OAuthRequestValidator = new OAuthRequestValidator(accessToken, accessTokenSecret, consumerKey, consumerSecret);
                 ServiceContext = new ServiceContext(realmId, IntuitServicesType.QBO, OAuthRequestValidator);
-                ServiceContext.IppConfiguration.BaseUrl.Qbo = "https://sandbox-quickbooks.api.intuit.com/";
+                //ServiceContext.IppConfiguration.BaseUrl.Qbo = "https://sandbox-quickbooks.api.intuit.com/";
 
                 DataService = new DataService(ServiceContext);
             }
@@ -58,7 +59,16 @@ namespace IntuitSampleMVC.Business
             get { return _dataService; }
             set { _dataService = value; }
         }
-        
-        
+
+        public ibshr121414Entities _context 
+        {
+            get
+            {
+                return new ibshr121414Entities();
+            }
+           
+
+        }
+      
     }
 }

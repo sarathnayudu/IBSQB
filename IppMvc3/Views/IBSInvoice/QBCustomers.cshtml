@@ -4,9 +4,9 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 
     // Get the Type object corresponding to MyClass.
-    Type myType = @Model.FirstOrDefault().CustEmpVendorObj.GetType();
+    Type myType = @Model.Count()>0 ? @Model.FirstOrDefault().CustEmpVendorObj.GetType() : null;
     // Get the PropertyInfo object by passing the property name.
-    System.Reflection.PropertyInfo[] myPropInfo = myType.GetProperties();
+    System.Reflection.PropertyInfo[] myPropInfo =myType!=null? myType.GetProperties():null;
      
     
 }

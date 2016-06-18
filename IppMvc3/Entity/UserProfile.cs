@@ -27,6 +27,10 @@ namespace IntuitSampleMVC.Entity
         public string Country { get; set; }
         public Nullable<System.DateTime> CreatedDate { get; set; }
         public Nullable<System.DateTime> UpdatedDate { get; set; }
+        public string AccesKey { get; set; }
+        public string AccesSecret { get; set; }
+        public string RelamID { get; set; }
+        public string DataSource { get; set; }
     
         public virtual ICollection<webpages_Roles> webpages_Roles { get; set; }
     }

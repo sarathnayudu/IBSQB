@@ -40,9 +40,9 @@ namespace IntuitSampleMVC.Controllers
             return View(new IBSSignUP());
         }
 
-        public ActionResult SignUp(IBSSignUP signupFrmQB)
+        public ActionResult SignUpviaQB(IBSSignUP signupFrmQB)
         {
-            return View("../IBSAccount/SignUP",signupFrmQB);
+            return View("../IBSAccount/SignUP", signupFrmQB);
         }
 
         public ActionResult SignUpFromQB()
@@ -63,7 +63,7 @@ namespace IntuitSampleMVC.Controllers
                 //WebSecurityService.Login(model.Name, model.Password);
                 return Pre2LogOn(obj);
             }
-            return SignUp(signupfrmQB);
+            return SignUpviaQB(signupfrmQB);
         }
 
 
@@ -370,6 +370,10 @@ namespace IntuitSampleMVC.Controllers
             pl.Companyname = message;
             return View(pl);
         }
-
+        public ActionResult UnderLaw(int? flag)
+        {
+            ViewBag.flag = flag;
+            return View();
+        }
     }
 }

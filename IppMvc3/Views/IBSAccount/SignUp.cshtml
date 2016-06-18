@@ -10,7 +10,7 @@
         <thead>
             <tr>
 
-                 <h1>Start My FREE 14-Day Trial</h1>
+                 <h1>Register My FREE Account</h1>
 <p>Fast sign up. No credit card required. Cancel anytime.</p>
 
             </tr>
@@ -31,7 +31,7 @@
                   @Html.ValidationMessage("PhoneNumber","*")
        <br />
     <br />
-       @Html.TextBoxFor(e => e.Password,new { placeholder = "Password"})
+       @Html.PasswordFor(e => e.Password,new { placeholder = "Password"})
                   @Html.ValidationMessage("Password","*")
        <br />
      <br />
@@ -61,16 +61,7 @@
         <input type="checkbox" class="fine_print" name="acceptlegal" id="acceptlegal" checked style="display: none;">
         <p class="general-form-msg"></p>
         
-        <input id="signup_button" type="submit" value="Start My FREE 14-Day Trial" />
-            
-      
-        <span id="signup_loading" class="hidden-all">Creating your account. Please wait.</span>
-        <p class="success_message hidden-all">Congratulations! Signup successful. Check your email for some TSheets Love.</p>
-        <p id="telesuccess_message" class="hidden-all success_message">Signup successful.</p>
-        <p class="note center">
-            By signing up, you are agreeing to our
-            <a href="/terms-and-conditions" target="_blank">terms and conditions</a>. We hate spam as much as you do. No worries, your data is safe with us.
-        </p>
+        <input id="signup_button" type="submit" value="Register My FREE Account" />
     </div>
 </table>
 }

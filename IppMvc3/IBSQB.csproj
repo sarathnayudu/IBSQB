@@ -258,6 +258,7 @@
     <Compile Include="Controllers\IBSAccountController.cs" />
     <Compile Include="Controllers\IBSInvoiceController.cs" />
     <Compile Include="Controllers\IBSQBController.cs" />
+    <Compile Include="Controllers\IBSQBOAuthController.cs" />
     <Compile Include="Controllers\LogoutController.cs" />
     <Compile Include="Controllers\MenuProxyController.cs" />
     <Compile Include="Controllers\OauthGrantController.cs" />
@@ -660,6 +661,7 @@
     <Content Include="packages.config">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="Images\Thumbs.db" />
     <EntityDeploy Include="Entity\IBSModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>IBSModel.Designer.cs</LastGenOutput>
@@ -667,7 +669,6 @@
     <Content Include="Entity\IBSModel.edmx.diagram">
       <DependentUpon>IBSModel.edmx</DependentUpon>
     </Content>
-    <Content Include="Images\Thumbs.db" />
     <None Include="Properties\PublishProfiles\Arvixe.pubxml" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -692,6 +693,7 @@
     <Content Include="Views\IBSAccount\PreLogin.cshtml" />
     <Content Include="Views\IBSAccount\LogOn.cshtml" />
     <Content Include="Views\IBSInvoice\QBCustomers.cshtml" />
+    <Content Include="Views\IBSAccount\UnderLaw.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

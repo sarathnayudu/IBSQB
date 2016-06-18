@@ -20,7 +20,7 @@ namespace IntuitSampleMVC.App_Start
 		public static void Initialize()
 		{
 			// Modify the settings below as appropriate for your application
-            WebSecurity.InitializeDatabaseConnection(connectionStringName: "ApplicationServices", userTableName: "UserProfile", userIdColumn: "UserId", userNameColumn: "Username", autoCreateTables: true);
+            WebSecurity.InitializeDatabaseConnection(connectionStringName: "ApplicationServices", userTableName: "UserProfile", userIdColumn: "UserId", userNameColumn: "Email", autoCreateTables: true);
 			
 			// Comment the line above and uncomment these lines to use the IWebSecurityService abstraction
 			//var webSecurityService = DependencyResolver.Current.GetService<IWebSecurityService>();

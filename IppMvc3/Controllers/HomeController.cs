@@ -1,4 +1,11 @@
-﻿using System.Web.Mvc;
+﻿using DevDefined.OAuth.Consumer;
+using DevDefined.OAuth.Framework;
+using DotNetOpenAuth.OpenId.Extensions.AttributeExchange;
+using DotNetOpenAuth.OpenId.RelyingParty;
+using IntuitSampleMVC.utils;
+using System;
+using System.Configuration;
+using System.Web.Mvc;
 
 namespace IntuitSampleMVC.Controllers
 {
@@ -28,10 +35,12 @@ namespace IntuitSampleMVC.Controllers
                 }
             }
 
-            ViewBag.Message = "Welcome to ASP.NET MVC!";
+            //return Redirect("/OauthGrant/Index");
+          
+           // ViewBag.Message = "Welcome to ASP.NET MVC!";
 
             return View();
-        }
+        }     
 
         /// <summary>
         /// About view for the website.

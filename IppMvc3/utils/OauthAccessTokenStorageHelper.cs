@@ -4,6 +4,9 @@ using System.Web.SessionState;
 using System.Web.UI;
 using System.Configuration;
 using System.Web.Mvc;
+using IntuitSampleMVC.Business;
+using IntuitSampleMVC.Entity;
+using System.Collections.Generic;
 
 namespace IntuitSampleMVC.utils
 {
@@ -18,6 +21,9 @@ namespace IntuitSampleMVC.utils
         /// <param name="emailID"></param>
         internal static void RemoveInvalidOauthAccessToken(string emailID, Controller page)
         {
+        //    IBSQBService srv = new IBSQBService();
+        //    srv.RemoveInvalidOauthAccessToken(emailID);
+
             string path = page.Server.MapPath("/") + @"OauthAccessTokenStorage.xml";
             string searchUserXpath = "//record[@usermailid='" + emailID.Trim() + "']";
             XmlDocument doc = new XmlDocument();
@@ -43,7 +49,20 @@ namespace IntuitSampleMVC.utils
         /// <param name="emailID"></param>
         internal static void GetOauthAccessTokenForUser(string emailID, Controller page)
         {
-            //F:\MyFolder\Personal\Repositary\IBSQB\IppMvc3
+           // IBSQBService srv = new IBSQBService();
+           //List<string> lstkeys= srv.GetOauthAccessTokenForUser(emailID);
+           //if (lstkeys.Count > 0)
+           //{
+           //    page.Session["realm"] = lstkeys[2];
+           //    page.Session["dataSource"] = lstkeys[3];
+           //    string secuirtyKey = ConfigurationManager.AppSettings["securityKey"];
+           //    page.Session["accessToken"] = CryptographyHelper.DecryptData(lstkeys[0], secuirtyKey);
+           //    page.Session["accessTokenSecret"] = CryptographyHelper.DecryptData(lstkeys[1], secuirtyKey);
+
+           //    // Add flag to session which tells that accessToken is in session
+           //    page.Session["Flag"] = true;
+           //}
+           
             string path = page.Server.MapPath("/") + @"OauthAccessTokenStorage.xml";
             string searchUserXpath = "//record[@usermailid='" + emailID.Trim() + "']";
             XmlDocument doc = new XmlDocument();
@@ -60,20 +79,29 @@ namespace IntuitSampleMVC.utils
                 // Add flag to session which tells that accessToken is in session
                 page.Session["Flag"] = true;
             }
-
         }
+        
 
         /// <summary>
         /// persist the Oauth access token in OauthAccessTokenStorage.xml file
         /// </summary>
         internal static void StoreOauthAccessToken(Controller page)
         {
+            //IBSQBService srv = new IBSQBService();
+            //List<string> lstkeys = new List<string>();
+            //string secuirtyKey = ConfigurationManager.AppSettings["securityKey"];
+            //lstkeys.Add(CryptographyHelper.EncryptData(page.Session["accessToken"].ToString(), secuirtyKey));
+            //lstkeys.Add(CryptographyHelper.EncryptData(page.Session["accessTokenSecret"].ToString(), secuirtyKey));
+            //lstkeys.Add(page.Session["realm"].ToString());
+            //lstkeys.Add("QBO");
+            //srv.StoreOauthAccessToken(lstkeys);
+
             string path = page.Server.MapPath("/") + @"OauthAccessTokenStorage.xml";
             XmlDocument doc = new XmlDocument();
             doc.Load(path);
             XmlNode node = doc.CreateElement("record");
             XmlAttribute userMailIdAttribute = doc.CreateAttribute("usermailid");
-            userMailIdAttribute.Value = page.Session["FriendlyEmail"].ToString().Trim();
+            userMailIdAttribute.Value = page.Session["FriendlyEmail"].ToString();
             node.Attributes.Append(userMailIdAttribute);
 
             XmlAttribute accessKeyAttribute = doc.CreateAttribute("encryptedaccesskey");
@@ -96,7 +124,6 @@ namespace IntuitSampleMVC.utils
             doc.DocumentElement.AppendChild(node);
             doc.Save(path);
         }
-
 
     }
 }
