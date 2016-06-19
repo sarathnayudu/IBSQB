@@ -670,6 +670,7 @@
       <DependentUpon>IBSModel.edmx</DependentUpon>
     </Content>
     <None Include="Properties\PublishProfiles\Arvixe.pubxml" />
+    <None Include="Properties\PublishProfiles\Local.pubxml" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -694,6 +695,7 @@
     <Content Include="Views\IBSAccount\LogOn.cshtml" />
     <Content Include="Views\IBSInvoice\QBCustomers.cshtml" />
     <Content Include="Views\IBSAccount\UnderLaw.cshtml" />
+    <Content Include="Views\IBSQBOAuth\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

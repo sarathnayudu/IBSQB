@@ -89,8 +89,8 @@ namespace IntuitSampleMVC
 
         protected void Session_Start()
         {
-            //Response.Redirect("IBSQBOAuth");
-            Response.Redirect("Home");
+            Response.Redirect("IBSQBOAuth");
+           // Response.Redirect("Home");
         }
     }
 }
