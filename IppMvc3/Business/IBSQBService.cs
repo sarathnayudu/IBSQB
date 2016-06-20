@@ -5,6 +5,7 @@ using IntuitSampleMVC.Entity;
 using IntuitSampleMVC.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Validation;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -118,20 +119,53 @@ namespace IntuitSampleMVC.Business
             return lstkeys;
         }
 
-        internal void StoreOauthAccessToken(List<string> lstkeys)
+        internal void StoreOauthAccessToken(IBSSignUP signup)
         {
-            UserProfile uf = _context.UserProfiles.Where(e => e.UserId == WebSecurity.CurrentUserId).FirstOrDefault();
+            ibshr121414Entities entity = new ibshr121414Entities();
+            UserProfile uf = entity.UserProfiles.Where(e => e.Email == signup.Email).FirstOrDefault();
             if (uf != null)
             {
 
-                uf.AccesKey = lstkeys[0];
-                uf.AccesSecret = lstkeys[1];
-                uf.RelamID = lstkeys[2];
-                uf.DataSource = lstkeys[3];
+                uf.AccesKey = signup.QBParamObj.AccesKey;
+                uf.AccesSecret = signup.QBParamObj.AccesSecret;
+                uf.RelamID = signup.QBParamObj.Releam;
+                uf.DataSource = signup.QBParamObj.DataSource;
                 uf.UpdatedDate = DateTime.Now;
-            } 
-               
-                _context.SaveChanges();
+            }
+
+            entity.SaveChanges();
+        }
+
+        public void UpdateUserDetails(IBSSignUP model)
+        {
+            try
+            {
+                ibshr121414Entities entity = new ibshr121414Entities();
+                UserProfile uf = entity.UserProfiles.Where(e => e.Email == model.Email).FirstOrDefault();
+                if (uf != null)
+                {
+                    uf.UserName = model.Name;
+                    uf.CompanyName = model.CompanyName;
+                    uf.Country = model.Country;
+                    uf.CreatedDate = DateTime.Now;
+                    uf.UpdatedDate = DateTime.Now;
+                   // uf.Email = model.Email;
+                    uf.PhoneNumber = model.PhoneNumber;
+                    // entity.UserProfiles.Add(uf);
+                    uf.webpages_Roles.Add(entity.webpages_Roles.FirstOrDefault());
+
+                    uf.AccesKey = model.QBParamObj.AccesKey;
+                    uf.AccesSecret = model.QBParamObj.AccesSecret;
+                    uf.RelamID = model.QBParamObj.Releam;
+                    uf.DataSource = model.QBParamObj.DataSource;
+                    uf.UpdatedDate = DateTime.Now;
+
+                    entity.SaveChanges();
+                }
+            }
+            catch (DbEntityValidationException ex)
+            {
+            }
         }
     }
 }

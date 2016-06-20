@@ -22,5 +22,14 @@ namespace IntuitSampleMVC.Models
         public string CompanyName { get; set; }
         [Required]
         public string Country { get; set; }
+
+        public QBParam QBParamObj { get; set; }
+    }
+    public class QBParam
+    {
+        public string AccesKey { get; set; }
+        public string AccesSecret { get; set; }
+        public string  DataSource { get; set; }
+        public string Releam { get; set; }       
     }
 }

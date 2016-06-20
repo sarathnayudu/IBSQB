@@ -21,12 +21,10 @@ namespace IntuitSampleMVC.Controllers
         private static OpenIdRelyingParty openid = new OpenIdRelyingParty();
         public ActionResult Index()
         {
-            List<string> lstkeys = new List<string>();
-            var openid_identifier = ConfigurationManager.AppSettings["openid_identifier"].ToString(); ;
+           var openid_identifier = ConfigurationManager.AppSettings["openid_identifier"].ToString(); ;
             var response = openid.GetResponse();
             if (response == null)
             {
-                lstkeys.Add("responce null");
                 // Stage 2: user submitting Identifier
                 Identifier id;
                 if (Identifier.TryParse(openid_identifier, out id))
@@ -48,7 +46,6 @@ namespace IntuitSampleMVC.Controllers
             }
             else
             {
-                lstkeys.Add("responce full");
                 if (response.FriendlyIdentifierForDisplay == null)
                 {
                     Response.Redirect("/OpenId");
@@ -69,24 +66,7 @@ namespace IntuitSampleMVC.Controllers
 
 
             }
-
-            foreach (string key in Request.QueryString.Keys)
-            {
-
-                string s = key + "/////" + Request.QueryString[key];
-                lstkeys.Add(s);
-
-            }
-            if (Session["FriendlyEmail"] != null)
-                lstkeys.Add(Session["FriendlyEmail"].ToString());
-            ViewBag.lst = lstkeys;
-
            return GrantMethod();
-
-
-
-
-
            // return View();
         }
         private String consumerSecret, consumerKey, oauthLink, RequestToken, TokenSecret, oauth_callback_url;

@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using IntuitSampleMVC.Business;
 using IntuitSampleMVC.Entity;
 using System.Collections.Generic;
+using IntuitSampleMVC.Models;
 
 namespace IntuitSampleMVC.utils
 {
@@ -86,16 +87,7 @@ namespace IntuitSampleMVC.utils
         /// persist the Oauth access token in OauthAccessTokenStorage.xml file
         /// </summary>
         internal static void StoreOauthAccessToken(Controller page)
-        {
-            //IBSQBService srv = new IBSQBService();
-            //List<string> lstkeys = new List<string>();
-            //string secuirtyKey = ConfigurationManager.AppSettings["securityKey"];
-            //lstkeys.Add(CryptographyHelper.EncryptData(page.Session["accessToken"].ToString(), secuirtyKey));
-            //lstkeys.Add(CryptographyHelper.EncryptData(page.Session["accessTokenSecret"].ToString(), secuirtyKey));
-            //lstkeys.Add(page.Session["realm"].ToString());
-            //lstkeys.Add("QBO");
-            //srv.StoreOauthAccessToken(lstkeys);
-
+        {    
             string path = page.Server.MapPath("/") + @"OauthAccessTokenStorage.xml";
             XmlDocument doc = new XmlDocument();
             doc.Load(path);

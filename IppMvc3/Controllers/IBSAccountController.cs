@@ -92,6 +92,28 @@ namespace IntuitSampleMVC.Controllers
             return View("LogOn",lm);
         }
 
+        public ActionResult LogOnFromQB(LogOnModel model)
+         {            
+                 model = new LogOnModel();
+                 model.UserName = Session["FriendlyEmail"].ToString();
+                 model.Password = "nayudunz";
+            
+             if (ModelState.IsValid)
+             {
+                 if (WebSecurityService.Login(model.UserName, model.Password, model.RememberMe))
+                 {
+                       return RedirectToAction("IBSHome");
+                    // return RedirectToAction("Index", "Home");                   
+                 }
+                 else
+                 {
+                     ModelState.AddModelError("", "The user name or password provided is incorrect.");
+                 }
+             }
+             // If we got this far, something failed, redisplay form
+             return RedirectToAction("IBSHome");
+         }
+
         [HttpPost]
         public ActionResult LogOn(LogOnModel model, string returnUrl)
         {
@@ -167,7 +189,8 @@ namespace IntuitSampleMVC.Controllers
                 // Attempt to register the user
                 var requireEmailConfirmation = false;
                 var token = WebSecurityService.CreateUserAndAccount(model.Name, model.Password, requireConfirmationToken: requireEmailConfirmation);
-                UpdateUserDetails(model);
+                IBSQBService srv = new IBSQBService();
+                srv.UpdateUserDetails(model);
                 if (requireEmailConfirmation)
                 {
                     // Send email to user with confirmation token
@@ -201,32 +224,6 @@ namespace IntuitSampleMVC.Controllers
             // If we got this far, something failed, redisplay form
             ViewBag.PasswordLength = WebSecurityService.MinPasswordLength;
             return View("SignUp",model);
-        }
-
-
-
-        private void UpdateUserDetails(IBSSignUP model)
-        {
-            try
-            {
-                ibshr121414Entities entity = new ibshr121414Entities();
-                UserProfile uf = entity.UserProfiles.Where(e => e.UserName == model.Name).FirstOrDefault();
-                if (uf != null)
-                {
-                    uf.CompanyName = model.CompanyName;
-                    uf.Country = model.Country;
-                    uf.CreatedDate = DateTime.Now;
-                    uf.UpdatedDate = DateTime.Now;
-                    uf.Email = model.Email;
-                    uf.PhoneNumber = model.PhoneNumber;
-                    // entity.UserProfiles.Add(uf);
-                     uf.webpages_Roles.Add(entity.webpages_Roles.FirstOrDefault());
-                    entity.SaveChanges();
-                }
-            }
-            catch (DbEntityValidationException ex)
-            {
-            }
         }
 
         public ActionResult Confirm()

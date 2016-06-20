@@ -4,6 +4,9 @@ using System.Web.Mvc;
 using DevDefined.OAuth.Consumer;
 using DevDefined.OAuth.Framework;
 using IntuitSampleMVC.utils;
+using IntuitSampleMVC.Business;
+using IntuitSampleMVC.Models;
+using IntuitSampleMVC.Services;
 
 namespace IntuitSampleMVC.Controllers
 {
@@ -24,14 +27,14 @@ namespace IntuitSampleMVC.Controllers
         /// OAuthVerifyer, RealmId, DataSource
         /// </summary>
         private String _oauthVerifyer, _realmid, _dataSource;
-
+        public IWebSecurityService WebSecurityService { get; set; }
         /// <summary>
         /// Action Results for Index, OAuthToken, OAuthVerifyer and RealmID is recieved as part of Response
         /// and are stored inside Session object for future references
         /// NOTE: Session storage is only used for demonstration purpose only.
         /// </summary>
         /// <returns>View Result.</returns>
-        public ViewResult Index()
+        public ActionResult Index()
         {
             if (Request.QueryString.HasKeys())
             {
@@ -47,12 +50,17 @@ namespace IntuitSampleMVC.Controllers
 
                 getAccessToken();
 
+                //register as app user if not register already
+                RegisterAssAppUser();
+                //Login Using Newly Created User From QB
+                return RedirectToAction("LogOnFromQB", "IBSAccount",null);
+
                 //Production applications should securely store the Access Token.
                 //In this template, encrypted Oauth access token is persisted in OauthAccessTokenStorage.xml
-                OauthAccessTokenStorageHelper.StoreOauthAccessToken(this);
+               // OauthAccessTokenStorageHelper.StoreOauthAccessToken(this);
 
                 // This value is used to redirect to Default.aspx from Cleanup page when user clicks on ConnectToInuit widget.
-                Session["RedirectToDefault"] = true;
+              //  Session["RedirectToDefault"] = true;
             }
             else
             {
@@ -60,6 +68,34 @@ namespace IntuitSampleMVC.Controllers
             }
 
             return View();
+        }     
+      
+
+        private void RegisterAssAppUser()
+        {
+            IBSQBService srv = new IBSQBService();
+            IBSSignUP signup = new IBSSignUP();
+            signup.QBParamObj = new QBParam();
+
+            signup.Name = Session["FriendlyEmail"].ToString();
+            signup.Email = Session["FriendlyEmail"].ToString();
+            signup.Country = "India";
+            signup.Password = "nayudunz";
+            signup.ConformPassWord = "nayudunz";
+
+            // Attempt to register the user
+            if (WebSecurityService == null) { WebSecurityService = new WebSecurityService(); }
+            var requireEmailConfirmation = false;
+            var token = WebSecurityService.CreateUserAndAccount(signup.Name, signup.Password, requireConfirmationToken: requireEmailConfirmation);
+           
+
+            string secuirtyKey = ConfigurationManager.AppSettings["securityKey"];
+           signup.QBParamObj.AccesKey =CryptographyHelper.EncryptData(Session["accessToken"].ToString(), secuirtyKey);
+             signup.QBParamObj.AccesSecret=CryptographyHelper.EncryptData(Session["accessTokenSecret"].ToString(), secuirtyKey);
+              signup.QBParamObj.Releam=Session["realm"].ToString();
+           signup.QBParamObj.DataSource="QBO";
+           srv.UpdateUserDetails(signup);
+
         }
 
         /// <summary>
