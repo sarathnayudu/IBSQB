@@ -31,6 +31,7 @@ namespace IntuitSampleMVC.Entity
         public string AccesSecret { get; set; }
         public string RelamID { get; set; }
         public string DataSource { get; set; }
+        public string QBEmail { get; set; }
     
         public virtual ICollection<webpages_Roles> webpages_Roles { get; set; }
     }

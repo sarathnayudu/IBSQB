@@ -24,7 +24,7 @@ namespace IntuitSampleMVC.Controllers
         /// Intuit Workpsace endpoint for OAuth.
         /// </summary>
         /// <returns>Redirect Result.</returns>
-        public RedirectResult Index()
+        public ActionResult Index()
         {
             oauth_callback_url = Request.Url.GetLeftPart(UriPartial.Authority) + ConfigurationManager.AppSettings["oauth_callback_url"];
             consumerKey = ConfigurationManager.AppSettings["consumerKey"];

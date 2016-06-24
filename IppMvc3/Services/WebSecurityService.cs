@@ -25,11 +25,13 @@ namespace IntuitSampleMVC.Services
 
 		public string CreateUserAndAccount(string userName, string password, object propertyValues = null, bool requireConfirmationToken = false)
 		{
+            
 			return WebSecurity.CreateUserAndAccount(userName, password, propertyValues, requireConfirmationToken);
 		}
 
 		public string GeneratePasswordResetToken(string userName, int tokenExpirationInMinutesFromNow = 0x5a0)
 		{
+            
 			return WebSecurity.GeneratePasswordResetToken(userName, tokenExpirationInMinutesFromNow);
 		}
 

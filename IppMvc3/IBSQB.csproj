@@ -499,6 +499,8 @@
     <Compile Include="Models\IBSLogin.cs" />
     <Compile Include="Models\IBSSignUP.cs" />
     <Compile Include="Models\ModelBase.cs" />
+    <Compile Include="Models\QBUser.cs" />
+    <Compile Include="Models\SignUPOrLogin.cs" />
     <Compile Include="Models\SimpleMembershipAccountModels.cs" />
     <Compile Include="Services\IMessengerService.cs" />
     <Compile Include="Services\IWebSecurityService.cs" />
@@ -696,6 +698,7 @@
     <Content Include="Views\IBSInvoice\QBCustomers.cshtml" />
     <Content Include="Views\IBSAccount\UnderLaw.cshtml" />
     <Content Include="Views\IBSQBOAuth\Index.cshtml" />
+    <Content Include="Views\IBSAccount\SignUpOrLogin.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

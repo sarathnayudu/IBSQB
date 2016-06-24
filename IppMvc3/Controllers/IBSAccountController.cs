@@ -5,6 +5,7 @@ using IntuitSampleMVC.Services;
 using IntuitSampleMVC.utils;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data.Entity.Validation;
 using System.Linq;
 using System.Web;
@@ -28,9 +29,9 @@ namespace IntuitSampleMVC.Controllers
             base.Initialize(requestContext);
         }
 
-     
+
         public ActionResult IBSHome()
-        {           
+        {
             return View();
         }
 
@@ -40,32 +41,22 @@ namespace IntuitSampleMVC.Controllers
             return View(new IBSSignUP());
         }
 
-        public ActionResult SignUpviaQB(IBSSignUP signupFrmQB)
+        public ActionResult SignUpOrLogin()
         {
-            return View("../IBSAccount/SignUP", signupFrmQB);
+            SignUPOrLogin model = new SignUPOrLogin();
+            model.IBSSignUP = new IBSSignUP();
+            model.LogOnModel = new LogOnModel();
+            model.IBSSignUP.QBParamObj = new QBParam();
+
+            model.IBSSignUP.CompanyName = "";
+            model.IBSSignUP.Email = "";
+            model.IBSSignUP.Name = "";
+
+            model.IBSSignUP.isLayout = true;
+            model.LogOnModel.isLayout = true;
+
+            return View(model);
         }
-
-        public ActionResult SignUpFromQB()
-        {
-            IBSSignUP signupfrmQB = new IBSSignUP();
-            signupfrmQB.Name = Session["FriendlyName"].ToString();
-            signupfrmQB.Email = Session["FriendlyEmail"].ToString();
-
-            IBSAccount ibsacc = new IBSAccount();
-            ibsacc.GetUserByNameEmail(signupfrmQB);
-
-            if (!string.IsNullOrEmpty(signupfrmQB.CompanyName))
-            {
-                PreLogin obj = new PreLogin();
-                obj.Companyname = signupfrmQB.CompanyName;
-                obj.UserName = signupfrmQB.Name;
-                // Navigate back to the homepage and exit
-                //WebSecurityService.Login(model.Name, model.Password);
-                return Pre2LogOn(obj);
-            }
-            return SignUpviaQB(signupfrmQB);
-        }
-
 
         /// <summary>
         /// Error view for the website.
@@ -78,41 +69,22 @@ namespace IntuitSampleMVC.Controllers
             return View();
         }
 
-
-        // **************************************
-        // URL: /Account/LogOn
-        // **************************************
-         [HttpPost]
-        public ActionResult Pre2LogOn(PreLogin model)
+        public ActionResult LogmeIn()
         {
-            LogOnModel lm = new LogOnModel();
-            lm.CompanyName=model.Companyname;
-            lm.UserName = model.UserName;
-            lm.Password = string.Empty;
-            return View("LogOn",lm);
+            return View("Logon", new LogOnModel());
         }
 
-        public ActionResult LogOnFromQB(LogOnModel model)
-         {            
-                 model = new LogOnModel();
-                 model.UserName = Session["FriendlyEmail"].ToString();
-                 model.Password = "nayudunz";
-            
-             if (ModelState.IsValid)
-             {
-                 if (WebSecurityService.Login(model.UserName, model.Password, model.RememberMe))
-                 {
-                       return RedirectToAction("IBSHome");
-                    // return RedirectToAction("Index", "Home");                   
-                 }
-                 else
-                 {
-                     ModelState.AddModelError("", "The user name or password provided is incorrect.");
-                 }
-             }
-             // If we got this far, something failed, redisplay form
-             return RedirectToAction("IBSHome");
-         }
+        [HttpPost]
+        public ActionResult LogOnFrmQB(IBSSignUP model)
+        {
+            if (!WebSecurityService.Login(model.Email, model.Password, false))
+            {
+                ModelState.AddModelError("", "The user name or password provided is incorrect.");
+            }
+
+            // If we got this far, something failed, redisplay form
+            return RedirectToAction("IBSHome");
+        }
 
         [HttpPost]
         public ActionResult LogOn(LogOnModel model, string returnUrl)
@@ -121,7 +93,7 @@ namespace IntuitSampleMVC.Controllers
             {
                 if (WebSecurityService.Login(model.UserName, model.Password, model.RememberMe))
                 {
-                    CheckForSingleSignON(model);
+                    FillQBDataIfAny();
                     if (Url.IsLocalUrl(returnUrl))
                     {
                         return Redirect(returnUrl);
@@ -129,7 +101,7 @@ namespace IntuitSampleMVC.Controllers
                     else
                     {
                         return RedirectToAction("IBSHome");
-                       // return RedirectToAction("Index", "Home");
+                        // return RedirectToAction("Index", "Home");
                     }
                 }
                 else
@@ -142,22 +114,37 @@ namespace IntuitSampleMVC.Controllers
             return View(model);
         }
 
-        private void CheckForSingleSignON(LogOnModel model)
+        private void FillQBDataIfAny()
         {
-            IBSAccount srv = new IBSAccount();
-            IBSSignUP temp = srv.GetUserByID(model.UserName);
+            IBSQBService qbsrv = new IBSQBService();
+            IBSSignUP model = qbsrv.GetOauthAccessTokenForUser(WebSecurityService.CurrentUserId);
+            if (ValidateUser(model))
+            {
+                QBUser qbusr = (QBUser)Session["QBUser"];
+                if (qbusr == null)
+                    qbusr = new QBUser();
+                string secuirtyKey = ConfigurationManager.AppSettings["securityKey"];
+                qbusr.Releam = model.QBParamObj.Releam;
+                qbusr.DataSource = model.QBParamObj.DataSource;
 
-          if (Session["FriendlyEmail"] == null && Session["FriendlyName"] == null)
-          {
-              Session["OpenIdResponse"] = "True";
-              Session["FriendlyEmail"] = temp.Email;
-              Session["FriendlyName"] = temp.Name;
-          }
-           //create session if  toke/secret/relm id exist and blue dot visible =true
-            //else connect to qb enable
-            //get the Oauth Access token for the user from OauthAccessTokenStorage.xml
-            OauthAccessTokenStorageHelper.GetOauthAccessTokenForUser(Session["FriendlyEmail"].ToString(), this);
+                qbusr.AccesKey = CryptographyHelper.DecryptData(model.QBParamObj.AccesKey, secuirtyKey);
+                qbusr.AccesSecret = CryptographyHelper.DecryptData(model.QBParamObj.AccesSecret, secuirtyKey);
+            }
         }
+        private bool ValidateUser(IBSSignUP model)
+        {
+            if (model == null)
+                return false;
+            else
+            {
+                if (string.IsNullOrEmpty(model.Email) || string.IsNullOrEmpty(model.Password)
+                    || string.IsNullOrEmpty(model.QBParamObj.QBEmail) || string.IsNullOrEmpty(model.QBParamObj.AccesKey)
+                    || string.IsNullOrEmpty(model.QBParamObj.AccesSecret) || string.IsNullOrEmpty(model.QBParamObj.Releam))
+                    return false;
+            }
+            return true;
+        }
+
 
         // **************************************
         // URL: /Account/LogOff
@@ -185,45 +172,52 @@ namespace IntuitSampleMVC.Controllers
         {
             if (ModelState.IsValid)
             {
-
                 // Attempt to register the user
-                var requireEmailConfirmation = false;
-                var token = WebSecurityService.CreateUserAndAccount(model.Name, model.Password, requireConfirmationToken: requireEmailConfirmation);
-                IBSQBService srv = new IBSQBService();
-                srv.UpdateUserDetails(model);
-                if (requireEmailConfirmation)
+                var requireEmailConfirmation = true;
+                var token = WebSecurityService.CreateUserAndAccount(model.Email, model.Password,
+                    propertyValues: new
+                                                {
+                                                    UserName = model.Name,
+                                                    CompanyName = model.CompanyName,
+                                                    Country = model.Country,
+                                                    CreatedDate = DateTime.Now,
+                                                    UpdatedDate = DateTime.Now,
+                                                    PhoneNumber = model.PhoneNumber
+                                                },
+            requireConfirmationToken: requireEmailConfirmation);
+
+                if (!Roles.IsUserInRole(model.Email, "Admin"))
+                    Roles.AddUserToRole(model.Email, "Admin");
+
+                QBUser qbusr =(QBUser) Session["QBUser"];
+                if (qbusr != null)
                 {
-                    // Send email to user with confirmation token
-                    string hostUrl = Request.Url.GetComponents(UriComponents.SchemeAndServer, UriFormat.Unescaped);
-                    string confirmationUrl = hostUrl + VirtualPathUtility.ToAbsolute("~/Account/Confirm?confirmationCode=" + HttpUtility.UrlEncode(token));
+                    IBSQBService srv = new IBSQBService();
+                    IBSSignUP signup = new IBSSignUP();
 
-                    var fromAddress = "Your Email Address";
-                    var toAddress = model.Email;
-                    var subject = "Thanks for registering but first you need to confirm your registration...";
-                    var body = string.Format("Your confirmation code is: {0}. Visit <a href=\"{1}\">{1}</a> to activate your account.", token, confirmationUrl);
+                    signup.QBParamObj = new QBParam();
+                    string secuirtyKey = ConfigurationManager.AppSettings["securityKey"];
 
-                    // NOTE: This is just for sample purposes
-                    // It's generally a best practice to not send emails (or do anything on that could take a long time and potentially fail)
-                    // on the same thread as the main site
-                    // You should probably hand this off to a background MessageSender service by queueing the email, etc.
-                    MessengerService.Send(fromAddress, toAddress, subject, body, true);
+                    signup.QBParamObj.AccesKey = CryptographyHelper.EncryptData(qbusr.AccesKey, secuirtyKey);
+                    signup.QBParamObj.AccesSecret = CryptographyHelper.EncryptData(qbusr.AccesSecret, secuirtyKey);
+                    signup.QBParamObj.Releam = qbusr.Releam;
+                    signup.QBParamObj.DataSource = qbusr.DataSource;
+                    signup.QBParamObj.QBEmail = qbusr.QBEmail;
+                    signup.QBParamObj.QBCompanyName = qbusr.CompanyName;
 
-                    // Thank the user for registering and let them know an email is on its way
-                    return RedirectToAction("Thanks", "Account");
+
+                    srv.StoreOauthAccessToken(signup,Convert.ToInt32(token));
                 }
-                else
-                {
-                    PreLogin obj = new PreLogin();
-                    obj.Companyname = model.CompanyName;
-                    // Navigate back to the homepage and exit
-                    //WebSecurityService.Login(model.Name, model.Password);
-                    return Pre2LogOn(obj);
-                }
+                LogOnModel lgmodel = new LogOnModel();
+                lgmodel.UserName = model.Email;
+                lgmodel.Password = model.Password;
+
+                return RedirectToAction("LogOn", lgmodel);
             }
 
             // If we got this far, something failed, redisplay form
             ViewBag.PasswordLength = WebSecurityService.MinPasswordLength;
-            return View("SignUp",model);
+            return RedirectToAction("LogmeIn");
         }
 
         public ActionResult Confirm()
@@ -359,6 +353,19 @@ namespace IntuitSampleMVC.Controllers
         public ActionResult Thanks()
         {
             return View();
+        }
+
+        // **************************************
+        // URL: /Account/LogOn
+        // **************************************
+        [HttpPost]
+        public ActionResult Pre2LogOn(PreLogin model)
+        {
+            LogOnModel lm = new LogOnModel();
+            lm.CompanyName = model.Companyname;
+            lm.UserName = model.UserName;
+            lm.Password = string.Empty;
+            return View("LogOn", lm);
         }
 
         public ActionResult PreLogin(string message)

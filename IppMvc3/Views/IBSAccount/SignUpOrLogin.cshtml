@@ -1,0 +1,19 @@
+﻿@model IntuitSampleMVC.Models.SignUPOrLogin
+
+@{
+    ViewBag.Title = "SignUpOrLogin";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<fieldset> 
+<legend> Register As New User ></legend> 
+<div>
+     @Html.Partial("SignUp",@Model.IBSSignUP)
+</div>
+</fieldset>
+
+<fieldset> 
+<legend> Login With Existing User ></legend> 
+<div>
+      @Html.Partial("LogOn",@Model.LogOnModel)
+</div>
+    </fieldset>

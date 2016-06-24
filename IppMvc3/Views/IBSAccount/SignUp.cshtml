@@ -1,7 +1,10 @@
 ﻿@model IntuitSampleMVC.Models.IBSSignUP
 @{
     ViewBag.Title = "SignUp";
+    if(!Model.isLayout)
+    {
     Layout = "~/Views/Shared/_Layout.cshtml";
+    }
 }
 
 @using (Html.BeginForm("Register", "IBSAccount"))
@@ -50,12 +53,6 @@
 
 
         </tbody>
-   
-
-  
-     
-
-   
    
     <div id="form-completion-block">
         <input type="checkbox" class="fine_print" name="acceptlegal" id="acceptlegal" checked style="display: none;">

@@ -104,33 +104,43 @@ namespace IntuitSampleMVC.Business
             _context.SaveChanges();
         }
 
-        internal List<string> GetOauthAccessTokenForUser(string emailID)
-        {
-            UserProfile uf = _context.UserProfiles.Where(e => e.UserId == WebSecurity.CurrentUserId).FirstOrDefault();
-            
-            List<string> lstkeys = new List<string>();
-            if (uf != null)
-            {
-                lstkeys.Add(uf.AccesKey);
-                lstkeys.Add(uf.AccesSecret);
-                lstkeys.Add(uf.RelamID);
-                lstkeys.Add(uf.DataSource);
-            }
-            return lstkeys;
-        }
-
-        internal void StoreOauthAccessToken(IBSSignUP signup)
+        internal IBSSignUP GetOauthAccessTokenForUser(string emailID,string companyName)
         {
             ibshr121414Entities entity = new ibshr121414Entities();
-            UserProfile uf = entity.UserProfiles.Where(e => e.Email == signup.Email).FirstOrDefault();
+
+            UserProfile uf = entity.UserProfiles.Where(e => e.QBEmail == emailID && e.CompanyName==companyName).FirstOrDefault();
+            IBSSignUP model = new IBSSignUP();
+
             if (uf != null)
             {
+                model.CompanyName = uf.CompanyName;
+                model.Country = uf.Country;
+                model.Email = uf.Email;
+                model.Name = uf.UserName;
+                model.PhoneNumber = uf.PhoneNumber;
+                model.QBParamObj = new QBParam();
+                model.QBParamObj.AccesKey = uf.AccesKey;
+                model.QBParamObj.AccesSecret = uf.AccesSecret;
+                model.QBParamObj.Releam = uf.RelamID;
+                model.QBParamObj.QBEmail = uf.QBEmail;
+                model.QBParamObj.DataSource = uf.DataSource;
+            }
+            return model;
+        }
 
+        internal void StoreOauthAccessToken(IBSSignUP signup,int LocaluserID)
+        {
+            ibshr121414Entities entity = new ibshr121414Entities();
+            UserProfile uf = entity.UserProfiles.Where(e => e.UserId == LocaluserID).FirstOrDefault();
+            if (uf != null)
+            {
                 uf.AccesKey = signup.QBParamObj.AccesKey;
                 uf.AccesSecret = signup.QBParamObj.AccesSecret;
                 uf.RelamID = signup.QBParamObj.Releam;
                 uf.DataSource = signup.QBParamObj.DataSource;
                 uf.UpdatedDate = DateTime.Now;
+                uf.QBEmail = signup.QBParamObj.QBEmail;
+                uf.CompanyName = signup.CompanyName;
             }
 
             entity.SaveChanges();
@@ -138,34 +148,62 @@ namespace IntuitSampleMVC.Business
 
         public void UpdateUserDetails(IBSSignUP model)
         {
-            try
+            ibshr121414Entities entity = new ibshr121414Entities();
+            UserProfile uf = entity.UserProfiles.Where(e => e.QBEmail == model.Email).FirstOrDefault();
+            if (uf != null)
             {
-                ibshr121414Entities entity = new ibshr121414Entities();
-                UserProfile uf = entity.UserProfiles.Where(e => e.Email == model.Email).FirstOrDefault();
-                if (uf != null)
-                {
-                    uf.UserName = model.Name;
-                    uf.CompanyName = model.CompanyName;
-                    uf.Country = model.Country;
-                    uf.CreatedDate = DateTime.Now;
-                    uf.UpdatedDate = DateTime.Now;
-                   // uf.Email = model.Email;
-                    uf.PhoneNumber = model.PhoneNumber;
-                    // entity.UserProfiles.Add(uf);
-                    uf.webpages_Roles.Add(entity.webpages_Roles.FirstOrDefault());
+                uf.UserName = model.Name;
+                uf.CompanyName = model.CompanyName;
+                uf.Country = model.Country;               
+                uf.CreatedDate = DateTime.Now;
+                uf.UpdatedDate = DateTime.Now;
+                // uf.Email = model.Email;
+                uf.PhoneNumber = model.PhoneNumber;
+                // entity.UserProfiles.Add(uf);
+                uf.webpages_Roles.Add(entity.webpages_Roles.FirstOrDefault());
 
-                    uf.AccesKey = model.QBParamObj.AccesKey;
-                    uf.AccesSecret = model.QBParamObj.AccesSecret;
-                    uf.RelamID = model.QBParamObj.Releam;
-                    uf.DataSource = model.QBParamObj.DataSource;
-                    uf.UpdatedDate = DateTime.Now;
+                uf.AccesKey = model.QBParamObj.AccesKey;
+                uf.AccesSecret = model.QBParamObj.AccesSecret;
+                uf.RelamID = model.QBParamObj.Releam;
+                uf.DataSource = model.QBParamObj.DataSource;
+                uf.QBEmail = model.QBParamObj.QBEmail;
+                uf.UpdatedDate = DateTime.Now;
 
-                    entity.SaveChanges();
-                }
+                entity.SaveChanges();
             }
-            catch (DbEntityValidationException ex)
+        }
+
+        internal IBSSignUP GetOauthAccessTokenForUser(int p)
+        {
+            ibshr121414Entities entity = new ibshr121414Entities();
+
+            UserProfile uf = entity.UserProfiles.Where(e => e.UserId == p).FirstOrDefault();
+            IBSSignUP model = new IBSSignUP();
+
+            if (uf != null)
             {
+                model.CompanyName = uf.CompanyName;
+                model.Country = uf.Country;
+                model.Email = uf.Email;
+                model.Name = uf.UserName;
+                model.PhoneNumber = uf.PhoneNumber;
+                model.QBParamObj = new QBParam();
+                model.QBParamObj.AccesKey = uf.AccesKey;
+                model.QBParamObj.AccesSecret = uf.AccesSecret;
+                model.QBParamObj.Releam = uf.RelamID;
+                model.QBParamObj.QBEmail = uf.QBEmail;
+                model.QBParamObj.DataSource = uf.DataSource;               
             }
+            return model;
+        }
+
+        internal bool QBCompanyUserExist(IBSSignUP signup)
+        {
+            ibshr121414Entities entity = new ibshr121414Entities();
+
+            UserProfile uf = entity.UserProfiles.Where(e => e.QBEmail == signup.QBParamObj.QBEmail).FirstOrDefault();
+
+            return !string.IsNullOrEmpty(uf.Email);
         }
     }
 }

@@ -8,6 +8,7 @@ namespace IntuitSampleMVC.Models
 {
     public class IBSSignUP:ModelBase
     {
+        public int UserID { get; set; }
         [Required]
         public string Name { get; set; }
         [Required]
@@ -24,12 +25,16 @@ namespace IntuitSampleMVC.Models
         public string Country { get; set; }
 
         public QBParam QBParamObj { get; set; }
+
+        public bool isLayout { get; set; }
     }
     public class QBParam
     {
         public string AccesKey { get; set; }
         public string AccesSecret { get; set; }
         public string  DataSource { get; set; }
-        public string Releam { get; set; }       
+        public string Releam { get; set; }
+        public string QBEmail { get; set; }
+        public string QBCompanyName { get; set; }
     }
 }

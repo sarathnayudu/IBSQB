@@ -1,7 +1,10 @@
 ﻿@model IntuitSampleMVC.Models.LogOnModel
 @{
     ViewBag.Title = "LogOn";
+    if (!Model.isLayout)
+    {
     Layout = "~/Views/Shared/_Layout.cshtml";
+    }
     string FriendlyName = (string)HttpContext.Current.Session["FriendlyName"] + "";
 }
 
@@ -15,10 +18,7 @@
 @Html.ValidationSummary(true, "Login was unsuccessful. Please correct the errors and try again.")
 <div aligon="center">
     @using (Html.BeginForm("LogOn", "IBSAccount"))
-    {
-        <div>
-            @Html.LabelFor(m => m.CompanyName) :@Model.CompanyName
-        </div>
+    {       
         <div>
            
                 <legend>Account Information</legend>

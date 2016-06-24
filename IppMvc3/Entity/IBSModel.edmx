@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="ibshr121414Model.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+    <Schema Namespace="ibshr121414Model.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
         <EntityContainer Name="ibshr121414ModelStoreContainer">
           <EntitySet Name="tblAlterScripts" EntityType="ibshr121414Model.Store.tblAlterScripts" store:Type="Tables" store:Schema="dbo" store:Name="tblAlterScripts">
             <DefiningQuery>SELECT 
@@ -798,8 +798,8 @@
             <PropertyRef Name="UserId" />
           </Key>
           <Property Name="UserId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="UserName" Type="nvarchar" Nullable="false" MaxLength="56" />
-          <Property Name="Email" Type="nchar" MaxLength="50" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="56" />
+          <Property Name="Email" Type="nchar" Nullable="false" MaxLength="50" />
           <Property Name="PhoneNumber" Type="nchar" MaxLength="10" />
           <Property Name="CompanyName" Type="nchar" MaxLength="10" />
           <Property Name="Country" Type="nchar" MaxLength="10" />
@@ -809,6 +809,7 @@
           <Property Name="AccesSecret" Type="nvarchar(max)" />
           <Property Name="RelamID" Type="nvarchar(max)" />
           <Property Name="DataSource" Type="nchar" MaxLength="3" />
+          <Property Name="QBEmail" Type="nchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="webpages_Membership">
           <Key>
@@ -2154,8 +2155,7 @@
         <Property Name="End_Date" Type="datetime" />
         <Property Name="Invoice_path" Type="varchar(max)" />
       </EntityType>-->
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="ibshr121414Model" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
@@ -2421,7 +2421,7 @@
             <Parameter Name="Approved_Status" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_ChangeForgotPassword" ReturnType="Collection(String)">
-            <Parameter Name="Emp_EmailID" Mode="In" Type="String" />
+          <Parameter Name="Emp_EmailID" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_CheckLogin" ReturnType="Collection(String)">
             <Parameter Name="Emp_EmailID" Mode="In" Type="String" />
@@ -2432,54 +2432,54 @@
             <Parameter Name="Vend_LoginPwd" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_DelCliTypDetails">
-            <Parameter Name="PK_Org_ClientTypeID" Mode="In" Type="Guid" />
+          <Parameter Name="PK_Org_ClientTypeID" Mode="In" Type="Guid" />
           </FunctionImport>
           <FunctionImport Name="sp_DelDocuments">
-            <Parameter Name="DocID" Mode="In" Type="Guid" />
+          <Parameter Name="DocID" Mode="In" Type="Guid" />
           </FunctionImport>
           <FunctionImport Name="sp_DelEmpDocuments">
-            <Parameter Name="DocID" Mode="In" Type="Guid" />
+          <Parameter Name="DocID" Mode="In" Type="Guid" />
           </FunctionImport>
           <FunctionImport Name="sp_DelEmpEvaluation">
             <Parameter Name="PK_EvaluationID" Mode="In" Type="Guid" />
             <Parameter Name="FK_Org_EmpID" Mode="In" Type="Guid" />
           </FunctionImport>
           <FunctionImport Name="sp_DelEmployeeTimeOff">
-            <Parameter Name="PK_EmpTimeOffID" Mode="In" Type="Guid" />
+          <Parameter Name="PK_EmpTimeOffID" Mode="In" Type="Guid" />
           </FunctionImport>
           <FunctionImport Name="sp_DelHolidays">
-            <Parameter Name="PK_HolidaysID" Mode="In" Type="Guid" />
+          <Parameter Name="PK_HolidaysID" Mode="In" Type="Guid" />
           </FunctionImport>
           <FunctionImport Name="sp_DelOrgCustomers">
-            <Parameter Name="PKCustID" Mode="In" Type="Guid" />
+          <Parameter Name="PKCustID" Mode="In" Type="Guid" />
           </FunctionImport>
           <FunctionImport Name="sp_DelOrgEmployees">
-            <Parameter Name="PK_Org_EmpID" Mode="In" Type="Guid" />
+          <Parameter Name="PK_Org_EmpID" Mode="In" Type="Guid" />
           </FunctionImport>
           <FunctionImport Name="sp_DelOrgRoles">
-            <Parameter Name="PK_Org_RoleID" Mode="In" Type="Guid" />
+          <Parameter Name="PK_Org_RoleID" Mode="In" Type="Guid" />
           </FunctionImport>
           <FunctionImport Name="sp_DelOrgVendors">
-            <Parameter Name="PKCustID" Mode="In" Type="Guid" />
+          <Parameter Name="PKCustID" Mode="In" Type="Guid" />
           </FunctionImport>
           <FunctionImport Name="sp_DelProjects">
-            <Parameter Name="PK_Org_ProjectID" Mode="In" Type="Guid" />
+          <Parameter Name="PK_Org_ProjectID" Mode="In" Type="Guid" />
           </FunctionImport>
           <FunctionImport Name="sp_DelTasks">
             <Parameter Name="FK_TimeSheetID" Mode="In" Type="Guid" />
             <Parameter Name="FK_Org_EmpID" Mode="In" Type="Guid" />
           </FunctionImport>
           <FunctionImport Name="sp_DelTimeOffType">
-            <Parameter Name="PK_TimeOffTypeID" Mode="In" Type="Guid" />
+          <Parameter Name="PK_TimeOffTypeID" Mode="In" Type="Guid" />
           </FunctionImport>
           <FunctionImport Name="sp_GetDocuments" ReturnType="Collection(ibshr121414Model.sp_GetDocuments_Result)">
-            <Parameter Name="Doc_Type" Mode="In" Type="String" />
+          <Parameter Name="Doc_Type" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_GetEmail" ReturnType="Collection(ibshr121414Model.sp_GetEmail_Result)">
-            <Parameter Name="ID" Mode="In" Type="Guid" />
+          <Parameter Name="ID" Mode="In" Type="Guid" />
           </FunctionImport>
           <FunctionImport Name="sp_GetEmpDocuments" ReturnType="Collection(ibshr121414Model.sp_GetEmpDocuments_Result)">
-            <Parameter Name="FK_Org_EmpID" Mode="In" Type="Guid" />
+          <Parameter Name="FK_Org_EmpID" Mode="In" Type="Guid" />
           </FunctionImport>
           <FunctionImport Name="sp_GetEmpEvaluation" ReturnType="Collection(ibshr121414Model.sp_GetEmpEvaluation_Result)">
             <Parameter Name="PK_EvaluationID" Mode="In" Type="Guid" />
@@ -2493,10 +2493,10 @@
             <Parameter Name="EndDate" Mode="In" Type="DateTime" />
           </FunctionImport>
           <FunctionImport Name="sp_GetEvaluationID" ReturnType="Collection(Guid)">
-            <Parameter Name="FK_Org_EmpID" Mode="In" Type="Guid" />
+          <Parameter Name="FK_Org_EmpID" Mode="In" Type="Guid" />
           </FunctionImport>
           <FunctionImport Name="sp_GetHolidays" ReturnType="Collection(ibshr121414Model.sp_GetHolidays_Result)">
-            <Parameter Name="PK_HolidaysID" Mode="In" Type="Guid" />
+          <Parameter Name="PK_HolidaysID" Mode="In" Type="Guid" />
           </FunctionImport>
           <FunctionImport Name="sp_GetOrgActiveEmpDetails" ReturnType="Collection(ibshr121414Model.sp_GetOrgActiveEmpDetails_Result)" />
           <FunctionImport Name="sp_GetOrgCliTypDetails" ReturnType="Collection(ibshr121414Model.sp_GetOrgCliTypDetails_Result)">
@@ -2508,7 +2508,7 @@
             <Parameter Name="FK_OrgID" Mode="In" Type="Guid" />
           </FunctionImport>
           <FunctionImport Name="sp_GetOrgDetails" ReturnType="Collection(ibshr121414Model.sp_GetOrgDetails_Result)">
-            <Parameter Name="Pk_OrgID" Mode="In" Type="Guid" />
+          <Parameter Name="Pk_OrgID" Mode="In" Type="Guid" />
           </FunctionImport>
           <FunctionImport Name="sp_GetOrgEmpDetails" ReturnType="Collection(ibshr121414Model.sp_GetOrgEmpDetails_Result)">
             <Parameter Name="PK_Org_EmpID" Mode="In" Type="Guid" />
@@ -2523,31 +2523,31 @@
             <Parameter Name="FK_OrgID" Mode="In" Type="Guid" />
           </FunctionImport>
           <FunctionImport Name="sp_GetPageDetails" ReturnType="Collection(ibshr121414Model.sp_GetPageDetails_Result)">
-            <Parameter Name="Pk_PageID" Mode="In" Type="Guid" />
+          <Parameter Name="Pk_PageID" Mode="In" Type="Guid" />
           </FunctionImport>
           <FunctionImport Name="sp_GetProjects" ReturnType="Collection(ibshr121414Model.sp_GetProjects_Result)">
             <Parameter Name="PK_Org_ProjectID" Mode="In" Type="Guid" />
             <Parameter Name="FK_Org_EmpID" Mode="In" Type="Guid" />
           </FunctionImport>
           <FunctionImport Name="sp_GetRatingScale" ReturnType="Collection(ibshr121414Model.sp_GetRatingScale_Result)">
-            <Parameter Name="PK_RatingScaleID" Mode="In" Type="Guid" />
+          <Parameter Name="PK_RatingScaleID" Mode="In" Type="Guid" />
           </FunctionImport>
           <FunctionImport Name="sp_GetRatingScaleTitle" ReturnType="Collection(ibshr121414Model.sp_GetRatingScaleTitle_Result)">
             <Parameter Name="PK_RatingScaleTitleID" Mode="In" Type="Guid" />
             <Parameter Name="FK_RatingScaleID" Mode="In" Type="Guid" />
           </FunctionImport>
           <FunctionImport Name="sp_GetRatingTemplate" ReturnType="Collection(ibshr121414Model.sp_GetRatingTemplate_Result)">
-            <Parameter Name="PK_TemplateID" Mode="In" Type="Guid" />
+          <Parameter Name="PK_TemplateID" Mode="In" Type="Guid" />
           </FunctionImport>
           <FunctionImport Name="sp_GetRatTemplQues" ReturnType="Collection(ibshr121414Model.sp_GetRatTemplQues_Result)">
             <Parameter Name="PK_QuesID" Mode="In" Type="Guid" />
             <Parameter Name="FK_TemplateID" Mode="In" Type="Guid" />
           </FunctionImport>
           <FunctionImport Name="sp_GetReviewPeriod" ReturnType="Collection(ibshr121414Model.sp_GetReviewPeriod_Result)">
-            <Parameter Name="PK_ReviewPeriodID" Mode="In" Type="Guid" />
+          <Parameter Name="PK_ReviewPeriodID" Mode="In" Type="Guid" />
           </FunctionImport>
           <FunctionImport Name="sp_GetRolePermissions">
-            <Parameter Name="Pk_RolePermission_ID" Mode="In" Type="Guid" />
+          <Parameter Name="Pk_RolePermission_ID" Mode="In" Type="Guid" />
           </FunctionImport>
           <FunctionImport Name="sp_GetState" ReturnType="Collection(ibshr121414Model.sp_GetState_Result)" />
           <FunctionImport Name="sp_GetTasks" ReturnType="Collection(ibshr121414Model.sp_GetTasks_Result)">
@@ -2556,7 +2556,7 @@
             <Parameter Name="FK_TimeSheetID" Mode="In" Type="Guid" />
           </FunctionImport>
           <FunctionImport Name="sp_GetTimeOffType" ReturnType="Collection(ibshr121414Model.sp_GetTimeOffType_Result)">
-            <Parameter Name="PK_TimeOffTypeID" Mode="In" Type="Guid" />
+          <Parameter Name="PK_TimeOffTypeID" Mode="In" Type="Guid" />
           </FunctionImport>
           <FunctionImport Name="sp_GetTimeSheetDetails" ReturnType="Collection(ibshr121414Model.sp_GetTimeSheetDetails_Result)">
             <Parameter Name="PK_Org_EmpID" Mode="In" Type="Guid" />
@@ -2564,7 +2564,7 @@
             <Parameter Name="EndDate" Mode="In" Type="DateTime" />
           </FunctionImport>
           <FunctionImport Name="sp_GetUserDetail" ReturnType="Collection(ibshr121414Model.sp_GetUserDetail_Result)">
-            <Parameter Name="Emp_Code" Mode="In" Type="String" />
+          <Parameter Name="Emp_Code" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_GetVendInsCertificate" ReturnType="Collection(ibshr121414Model.sp_GetVendInsCertificate_Result)">
             <Parameter Name="InsID" Mode="In" Type="Guid" />
@@ -2946,10 +2946,10 @@
             <Parameter Name="ActiveFlag" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="sp_SearchOrgEmpDetailsForAssignTemplate" ReturnType="Collection(ibshr121414Model.sp_SearchOrgEmpDetailsForAssignTemplate_Result)">
-            <Parameter Name="SearchText" Mode="In" Type="String" />
+          <Parameter Name="SearchText" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_SearchProjects" ReturnType="Collection(ibshr121414Model.sp_SearchProjects_Result)">
-            <Parameter Name="SearchFor" Mode="In" Type="String" />
+          <Parameter Name="SearchFor" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_SearchTimeSheetDetails" ReturnType="Collection(ibshr121414Model.sp_SearchTimeSheetDetails_Result)">
             <Parameter Name="PK_TimeSheetID" Mode="In" Type="Guid" />
@@ -2976,7 +2976,7 @@
             <Parameter Name="BillingPeriod" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="USP_UpdateInvoicesToEmail">
-            <Parameter Name="Pk_EmpInvoiceHistory_ID" Mode="In" Type="Guid" />
+          <Parameter Name="Pk_EmpInvoiceHistory_ID" Mode="In" Type="Guid" />
           </FunctionImport>
           <FunctionImport Name="USP_UpdateTimeSheetSentToQB">
             <Parameter Name="PK_TimeSheetID" Mode="In" Type="Guid" />
@@ -3586,8 +3586,8 @@
             <PropertyRef Name="UserId" />
           </Key>
           <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UserName" Type="String" Nullable="false" MaxLength="56" Unicode="true" FixedLength="false" />
-          <Property Name="Email" Type="String" MaxLength="50" Unicode="true" FixedLength="true" />
+          <Property Name="UserName" Type="String" MaxLength="56" Unicode="true" FixedLength="false" />
+          <Property Name="Email" Type="String" MaxLength="50" Unicode="true" FixedLength="true" Nullable="false" />
           <Property Name="PhoneNumber" Type="String" MaxLength="10" Unicode="true" FixedLength="true" />
           <Property Name="CompanyName" Type="String" MaxLength="10" Unicode="true" FixedLength="true" />
           <Property Name="Country" Type="String" MaxLength="10" Unicode="true" FixedLength="true" />
@@ -3598,6 +3598,7 @@
           <Property Name="RelamID" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
           <Property Name="DataSource" Type="String" MaxLength="3" Unicode="true" FixedLength="true" />
           <NavigationProperty Name="webpages_Roles" Relationship="ibshr121414Model.webpages_UsersInRoles" FromRole="UserProfile" ToRole="webpages_Roles" />
+          <Property Type="String" Name="QBEmail" MaxLength="50" FixedLength="true" Unicode="true" />
         </EntityType>
         <EntityType Name="webpages_Membership">
           <Key>
@@ -5741,6 +5742,7 @@
           <EntitySetMapping Name="UserProfiles">
             <EntityTypeMapping TypeName="ibshr121414Model.UserProfile">
               <MappingFragment StoreEntitySet="UserProfile">
+                <ScalarProperty Name="QBEmail" ColumnName="QBEmail" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
                 <ScalarProperty Name="Email" ColumnName="Email" />

@@ -7,6 +7,8 @@ using IntuitSampleMVC.utils;
 using IntuitSampleMVC.Business;
 using IntuitSampleMVC.Models;
 using IntuitSampleMVC.Services;
+using System.Web.Security;
+using WebMatrix.WebData;
 
 namespace IntuitSampleMVC.Controllers
 {
@@ -50,17 +52,15 @@ namespace IntuitSampleMVC.Controllers
 
                 getAccessToken();
 
-                //register as app user if not register already
-                RegisterAssAppUser();
-                //Login Using Newly Created User From QB
-                return RedirectToAction("LogOnFromQB", "IBSAccount",null);
+                //register as app user if not register already               
+                return RegisterAssAppUser();
 
                 //Production applications should securely store the Access Token.
                 //In this template, encrypted Oauth access token is persisted in OauthAccessTokenStorage.xml
-               // OauthAccessTokenStorageHelper.StoreOauthAccessToken(this);
+                // OauthAccessTokenStorageHelper.StoreOauthAccessToken(this);
 
                 // This value is used to redirect to Default.aspx from Cleanup page when user clicks on ConnectToInuit widget.
-              //  Session["RedirectToDefault"] = true;
+                //  Session["RedirectToDefault"] = true;
             }
             else
             {
@@ -68,34 +68,37 @@ namespace IntuitSampleMVC.Controllers
             }
 
             return View();
-        }     
-      
+        }
 
-        private void RegisterAssAppUser()
+
+        private ActionResult RegisterAssAppUser()
         {
             IBSQBService srv = new IBSQBService();
             IBSSignUP signup = new IBSSignUP();
+
             signup.QBParamObj = new QBParam();
-
-            signup.Name = Session["FriendlyEmail"].ToString();
-            signup.Email = Session["FriendlyEmail"].ToString();
-            signup.Country = "India";
-            signup.Password = "nayudunz";
-            signup.ConformPassWord = "nayudunz";
-
-            // Attempt to register the user
-            if (WebSecurityService == null) { WebSecurityService = new WebSecurityService(); }
-            var requireEmailConfirmation = false;
-            var token = WebSecurityService.CreateUserAndAccount(signup.Name, signup.Password, requireConfirmationToken: requireEmailConfirmation);
-           
-
             string secuirtyKey = ConfigurationManager.AppSettings["securityKey"];
-           signup.QBParamObj.AccesKey =CryptographyHelper.EncryptData(Session["accessToken"].ToString(), secuirtyKey);
-             signup.QBParamObj.AccesSecret=CryptographyHelper.EncryptData(Session["accessTokenSecret"].ToString(), secuirtyKey);
-              signup.QBParamObj.Releam=Session["realm"].ToString();
-           signup.QBParamObj.DataSource="QBO";
-           srv.UpdateUserDetails(signup);
 
+            QBUser qbusr = (QBUser)Session["QBUser"];
+            if (qbusr != null)
+            {
+                signup.QBParamObj.AccesKey = CryptographyHelper.EncryptData(qbusr.AccesKey, secuirtyKey);
+                signup.QBParamObj.AccesSecret = CryptographyHelper.EncryptData(qbusr.AccesSecret, secuirtyKey);
+                signup.QBParamObj.Releam = qbusr.Releam;
+                signup.QBParamObj.DataSource = qbusr.DataSource;
+                signup.QBParamObj.QBEmail = qbusr.QBEmail;
+                signup.QBParamObj.QBCompanyName = qbusr.CompanyName;
+
+                if (!WebSecurity.HasUserId)
+                {
+                    return RedirectToAction("SignUpOrLogin", "IBSAccount");
+                }
+                else
+                {
+                    srv.StoreOauthAccessToken(signup, WebSecurity.CurrentUserId);
+                }
+            }
+            return RedirectToAction("IBSHome", "IBSAccount");
         }
 
         /// <summary>
@@ -104,17 +107,25 @@ namespace IntuitSampleMVC.Controllers
         private void getAccessToken()
         {
             IOAuthSession clientSession = CreateSession();
+            QBUser qbusr = (QBUser)Session["QBUser"];
             try
             {
                 IToken accessToken = clientSession.ExchangeRequestTokenForAccessToken((IToken)Session["requestToken"], _oauthVerifyer);
-                Session["accessToken"] = accessToken.Token;
 
-                // Add flag to session which tells that accessToken is in session
-                Session["Flag"] = true;
+                if (qbusr == null)
+                    qbusr = new QBUser();
+                qbusr.AccesKey = accessToken.Token;
+                qbusr.AccesSecret = accessToken.TokenSecret;
+                Session["QBUser"] = qbusr;
 
-                // Remove the Invalid Access token since we got the new access token
-                Session.Remove("InvalidAccessToken");
-                Session["accessTokenSecret"] = accessToken.TokenSecret;
+                //Session["accessToken"] = accessToken.Token;
+
+                //// Add flag to session which tells that accessToken is in session
+                //Session["Flag"] = true;
+
+                //// Remove the Invalid Access token since we got the new access token
+                //Session.Remove("InvalidAccessToken");
+                //Session["accessTokenSecret"] = accessToken.TokenSecret;
             }
             catch (Exception ex)
             {

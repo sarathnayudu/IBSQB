@@ -23,6 +23,8 @@ namespace IntuitSampleMVC.Models
         public string Password { get; set; }
 
         public bool RememberMe { get; set; }
+
+        public bool isLayout { get; set; }
     }
     public class ChangePasswordModel
     {
