@@ -20,8 +20,8 @@ namespace IntuitSampleMVC
 
             routes.MapRoute(
                 "Default", // Route name
-                "{controller}/{action}/{id}", // URL with parameters
-                new { controller = "IBSQBOAuth", action = "Index", id = UrlParameter.Optional } // Parameter defaults
+                "{controller}/{action}/{flag}", // URL with parameters
+                new { controller = "IBSQBOAuth", action = "Index", flag = UrlParameter.Optional } // Parameter defaults
             );
 
             //routes.MapRoute(

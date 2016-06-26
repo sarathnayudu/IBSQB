@@ -23,12 +23,13 @@ namespace IntuitSampleMVC.Controllers
         {
             if (flag == 0)
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "OpenId");
                 //return RedirectToAction("SignUpOrLogin", "IBSAccount");
             }
             else
             {
-                return RedirectToAction("Index", "OpenId");
+                return RedirectToAction("Index", "Home");
+               
             }              
         }      
     }
