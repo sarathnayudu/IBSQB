@@ -32,6 +32,7 @@ namespace IntuitSampleMVC.Controllers
 
         public ActionResult IBSHome()
         {
+            FillQBDataIfAny(string.Empty);
             return View();
         }
 
@@ -93,7 +94,7 @@ namespace IntuitSampleMVC.Controllers
             {
                 if (WebSecurityService.Login(model.UserName, model.Password, model.RememberMe))
                 {
-                    FillQBDataIfAny();
+                    FillQBDataIfAny(model.UserName);
                     if (Url.IsLocalUrl(returnUrl))
                     {
                         return Redirect(returnUrl);
@@ -114,21 +115,54 @@ namespace IntuitSampleMVC.Controllers
             return View(model);
         }
 
-        private void FillQBDataIfAny()
+        private void FillQBDataIfAny(string userEmail)
         {
             IBSQBService qbsrv = new IBSQBService();
-            IBSSignUP model = qbsrv.GetOauthAccessTokenForUser(WebSecurityService.CurrentUserId);
+            IBSSignUP model = null;
+            UpdateUserQBData(userEmail);
+            if (WebSecurityService.CurrentUserId == -1)
+                model = qbsrv.GetOauthAccessTokenForUser(userEmail);
+            else
+                model = qbsrv.GetOauthAccessTokenForUser(WebSecurityService.CurrentUserId);
             if (ValidateUser(model))
             {
                 QBUser qbusr = (QBUser)Session["QBUser"];
                 if (qbusr == null)
                     qbusr = new QBUser();
                 string secuirtyKey = ConfigurationManager.AppSettings["securityKey"];
+                qbusr.QBEmail = model.QBParamObj.QBEmail;
+                qbusr.CompanyName = model.QBParamObj.QBCompanyName;
                 qbusr.Releam = model.QBParamObj.Releam;
                 qbusr.DataSource = model.QBParamObj.DataSource;
 
                 qbusr.AccesKey = CryptographyHelper.DecryptData(model.QBParamObj.AccesKey, secuirtyKey);
                 qbusr.AccesSecret = CryptographyHelper.DecryptData(model.QBParamObj.AccesSecret, secuirtyKey);
+                Session["QBUser"] = qbusr;
+            }
+        }
+
+        private void UpdateUserQBData(string userEmail)
+        {
+            QBUser qbusr = (QBUser)Session["QBUser"];
+            if (qbusr != null)
+            {
+                IBSQBService srv = new IBSQBService();
+                IBSSignUP signup = new IBSSignUP();
+
+                signup.QBParamObj = new QBParam();
+                string secuirtyKey = ConfigurationManager.AppSettings["securityKey"];
+
+                signup.QBParamObj.AccesKey = CryptographyHelper.EncryptData(qbusr.AccesKey, secuirtyKey);
+                signup.QBParamObj.AccesSecret = CryptographyHelper.EncryptData(qbusr.AccesSecret, secuirtyKey);
+                signup.QBParamObj.Releam = qbusr.Releam;
+                signup.QBParamObj.DataSource = qbusr.DataSource;
+                signup.QBParamObj.QBEmail = qbusr.QBEmail;
+                signup.QBParamObj.QBCompanyName = qbusr.CompanyName;
+
+                if (WebSecurityService.CurrentUserId == -1)
+                    srv.StoreOauthAccessToken(signup, userEmail);
+                else
+                    srv.StoreOauthAccessToken(signup, WebSecurityService.CurrentUserId);
             }
         }
         private bool ValidateUser(IBSSignUP model)
@@ -137,9 +171,8 @@ namespace IntuitSampleMVC.Controllers
                 return false;
             else
             {
-                if (string.IsNullOrEmpty(model.Email) || string.IsNullOrEmpty(model.Password)
-                    || string.IsNullOrEmpty(model.QBParamObj.QBEmail) || string.IsNullOrEmpty(model.QBParamObj.AccesKey)
-                    || string.IsNullOrEmpty(model.QBParamObj.AccesSecret) || string.IsNullOrEmpty(model.QBParamObj.Releam))
+                if (string.IsNullOrEmpty(model.Email) || string.IsNullOrEmpty(model.QBParamObj.QBEmail) || string.IsNullOrEmpty(model.QBParamObj.AccesKey)
+                    || string.IsNullOrEmpty(model.QBParamObj.AccesSecret) || string.IsNullOrEmpty(model.QBParamObj.Releam) || string.IsNullOrEmpty(model.QBParamObj.DataSource))
                     return false;
             }
             return true;
@@ -173,7 +206,7 @@ namespace IntuitSampleMVC.Controllers
             if (ModelState.IsValid)
             {
                 // Attempt to register the user
-                var requireEmailConfirmation = true;
+                var requireEmailConfirmation = false;
                 var token = WebSecurityService.CreateUserAndAccount(model.Email, model.Password,
                     propertyValues: new
                                                 {
@@ -189,30 +222,12 @@ namespace IntuitSampleMVC.Controllers
                 if (!Roles.IsUserInRole(model.Email, "Admin"))
                     Roles.AddUserToRole(model.Email, "Admin");
 
-                QBUser qbusr =(QBUser) Session["QBUser"];
-                if (qbusr != null)
-                {
-                    IBSQBService srv = new IBSQBService();
-                    IBSSignUP signup = new IBSSignUP();
 
-                    signup.QBParamObj = new QBParam();
-                    string secuirtyKey = ConfigurationManager.AppSettings["securityKey"];
-
-                    signup.QBParamObj.AccesKey = CryptographyHelper.EncryptData(qbusr.AccesKey, secuirtyKey);
-                    signup.QBParamObj.AccesSecret = CryptographyHelper.EncryptData(qbusr.AccesSecret, secuirtyKey);
-                    signup.QBParamObj.Releam = qbusr.Releam;
-                    signup.QBParamObj.DataSource = qbusr.DataSource;
-                    signup.QBParamObj.QBEmail = qbusr.QBEmail;
-                    signup.QBParamObj.QBCompanyName = qbusr.CompanyName;
-
-
-                    srv.StoreOauthAccessToken(signup,Convert.ToInt32(token));
-                }
                 LogOnModel lgmodel = new LogOnModel();
                 lgmodel.UserName = model.Email;
                 lgmodel.Password = model.Password;
 
-                return RedirectToAction("LogOn", lgmodel);
+                return LogOn(lgmodel, string.Empty);
             }
 
             // If we got this far, something failed, redisplay form

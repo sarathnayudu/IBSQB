@@ -17,6 +17,20 @@ namespace IntuitSampleMVC.Models
         public string  PhoneNumber { get; set; }
 
         public bool OpenIdResponse { get; set; }
-        public string Mobile { get; set; }      
+        public string Mobile { get; set; }
+
+        private bool isShowConnect = false;
+
+        public bool IsShowConnect
+        {
+            get { return !validateQBfields(); }
+          
+        }       
+        
+     private bool  validateQBfields()
+        {
+            return (!string.IsNullOrEmpty(AccesKey) && !string.IsNullOrEmpty(AccesSecret) && !string.IsNullOrEmpty(Releam) && !string.IsNullOrEmpty(DataSource) && !string.IsNullOrEmpty(QBEmail));
+        }
+        
     }
 }

@@ -2,47 +2,17 @@
     string MenuProxy = Request.Url.GetLeftPart(UriPartial.Authority) + "/" + System.Configuration.ConfigurationManager.AppSettings["menuProxy"];
     string OauthGrant = Request.Url.GetLeftPart(UriPartial.Authority) + "/" + System.Configuration.ConfigurationManager.AppSettings["grantUrl"];
 
-    string applicationToken = System.Configuration.ConfigurationManager.AppSettings["applicationToken"];
-    string consumerKey = System.Configuration.ConfigurationManager.AppSettings["consumerKey"];
-    string consumerSecret = System.Configuration.ConfigurationManager.AppSettings["consumerSecret"];
-    bool configFlag = false;
-    bool showConnect = this.Session["realm"] == null ? true : false;
-    if (string.IsNullOrWhiteSpace(applicationToken) || string.IsNullOrWhiteSpace(consumerKey) || string.IsNullOrWhiteSpace(consumerSecret))
+    IntuitSampleMVC.Models.QBUser qbusr = (IntuitSampleMVC.Models.QBUser)Session["QBUser"];
+    if (qbusr == null)
     {
-        configFlag = true;
+        qbusr = new IntuitSampleMVC.Models.QBUser();
     }
-    else
-    {
-        configFlag = false;
-    }
+    bool showConnect = qbusr.IsShowConnect;
+
 
     // Read value from session and check flag which decides the display of blue dot menu
-    object flag = Session["Flag"];
-    bool blueDotVisibility = false;
-    if (flag != null)
-    {
-        bool flagValue = Convert.ToBoolean(flag.ToString());
-        if (flagValue)
-        {
-            blueDotVisibility = true;
-        }
-        else
-        {
-            blueDotVisibility = false;
-        }
-    }
-    else
-    {
-        blueDotVisibility = false;
-    }
 
-    string FriendlyName = (string)HttpContext.Current.Session["FriendlyName"];
-    bool showLogout = false;
-    if (FriendlyName != null && FriendlyName.Length != 0)
-    {
-        showLogout = true;
-    }
-
+    bool blueDotVisibility = !showConnect;
 }
 <!DOCTYPE html>
 <html xmlns:ipp="">
@@ -97,7 +67,7 @@
     {
         if (@blueDotVisibility)
         { 
-<ipp:bluedot></ipp:bluedot>
+        <ipp:bluedot></ipp:bluedot>
         }
     }
 
@@ -137,26 +107,24 @@
                                         <a href="javascript:void(0);"
                                             onclick="return intuit.ipp.anywhere.logout(function () { window.location='/Logout/index'; });">Disconnect From QB</a>
                                     }
+                                    else
+                                    {
+                                        <ipp:connecttointuit></ipp:connecttointuit> 
+                                    }
                                     @Html.ActionLink("LogOut", "LogOff", "IBSAccount")
                                 </p> 
                             }
-                            @if (!showLogout)
+                            else
                             {
+                                if (showConnect)
+                                {
                                 <h2>Connect with QuickBook To generate Invoices For Your Customers And More...</h2>                             
                                 <div id="signininfo">
                                     <ipp:login href="/OpenId/index"></ipp:login>
                                     <br />
                                 </div>  
-                            }
-                            else
-                            {
-                                if (showConnect)
-                                { 
-                                <br />
-                                <ipp:connecttointuit></ipp:connecttointuit>
                                 }
                             }
-
                             @RenderBody()
                         </div>
                     </td>

@@ -8,6 +8,7 @@ using Intuit.Ipp.Data;
 using Intuit.Ipp.DataService;
 using Intuit.Ipp.Security;
 using IntuitSampleMVC.Entity;
+using IntuitSampleMVC.Models;
 
 namespace IntuitSampleMVC.Business
 {
@@ -20,12 +21,16 @@ namespace IntuitSampleMVC.Business
 
         public BusinessBase()
         {
-            realmId = HttpContext.Current.Session["realm"]!=null?HttpContext.Current.Session["realm"].ToString():string.Empty;
-            accessToken =HttpContext.Current.Session["accessToken"]!=null? HttpContext.Current.Session["accessToken"].ToString():string.Empty;
-            accessTokenSecret = HttpContext.Current.Session["accessTokenSecret"]!=null?HttpContext.Current.Session["accessTokenSecret"].ToString():string.Empty;
-            consumerKey = ConfigurationManager.AppSettings["consumerKey"].ToString();
-            consumerSecret = ConfigurationManager.AppSettings["consumerSecret"].ToString();
-            dataSourcetype = HttpContext.Current.Session["dataSource"] != null ? HttpContext.Current.Session["dataSource"].ToString().ToLower() : string.Empty;
+            QBUser qbusr = (QBUser)HttpContext.Current.Session["QBUser"];
+            if (qbusr != null)
+            {
+                realmId = qbusr.Releam;
+                accessToken = qbusr.AccesKey;
+                accessTokenSecret = qbusr.AccesSecret;
+                consumerKey = ConfigurationManager.AppSettings["consumerKey"].ToString();
+                consumerSecret = ConfigurationManager.AppSettings["consumerSecret"].ToString();
+                dataSourcetype = qbusr.DataSource;
+            }
 
             if (!string.IsNullOrEmpty(accessToken) && !string.IsNullOrEmpty(accessTokenSecret) && !string.IsNullOrEmpty(realmId))
             {

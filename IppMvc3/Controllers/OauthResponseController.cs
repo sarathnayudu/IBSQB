@@ -44,13 +44,13 @@ namespace IntuitSampleMVC.Controllers
                 _oauthVerifyer = Request.QueryString["oauth_verifier"].ToString();
 
                 _realmid = Request.QueryString["realmId"].ToString();
-                Session["realm"] = _realmid;
+                // Session["realm"] = _realmid;
 
                 //If dataSource is QBO call QuickBooks Online Services, else call QuickBooks Desktop Services
                 _dataSource = Request.QueryString["dataSource"].ToString();
-                Session["dataSource"] = _dataSource;
+                // Session["dataSource"] = _dataSource;
 
-                getAccessToken();
+                getAccessToken(_realmid, _dataSource);
 
                 //register as app user if not register already               
                 return RegisterAssAppUser();
@@ -73,30 +73,9 @@ namespace IntuitSampleMVC.Controllers
 
         private ActionResult RegisterAssAppUser()
         {
-            IBSQBService srv = new IBSQBService();
-            IBSSignUP signup = new IBSSignUP();
-
-            signup.QBParamObj = new QBParam();
-            string secuirtyKey = ConfigurationManager.AppSettings["securityKey"];
-
-            QBUser qbusr = (QBUser)Session["QBUser"];
-            if (qbusr != null)
+            if (!WebSecurity.HasUserId)
             {
-                signup.QBParamObj.AccesKey = CryptographyHelper.EncryptData(qbusr.AccesKey, secuirtyKey);
-                signup.QBParamObj.AccesSecret = CryptographyHelper.EncryptData(qbusr.AccesSecret, secuirtyKey);
-                signup.QBParamObj.Releam = qbusr.Releam;
-                signup.QBParamObj.DataSource = qbusr.DataSource;
-                signup.QBParamObj.QBEmail = qbusr.QBEmail;
-                signup.QBParamObj.QBCompanyName = qbusr.CompanyName;
-
-                if (!WebSecurity.HasUserId)
-                {
-                    return RedirectToAction("SignUpOrLogin", "IBSAccount");
-                }
-                else
-                {
-                    srv.StoreOauthAccessToken(signup, WebSecurity.CurrentUserId);
-                }
+                return RedirectToAction("SignUpOrLogin", "IBSAccount");
             }
             return RedirectToAction("IBSHome", "IBSAccount");
         }
@@ -104,7 +83,7 @@ namespace IntuitSampleMVC.Controllers
         /// <summary>
         /// Gets the OAuth Token
         /// </summary>
-        private void getAccessToken()
+        private void getAccessToken(string releam, string datasource)
         {
             IOAuthSession clientSession = CreateSession();
             QBUser qbusr = (QBUser)Session["QBUser"];
@@ -116,6 +95,8 @@ namespace IntuitSampleMVC.Controllers
                     qbusr = new QBUser();
                 qbusr.AccesKey = accessToken.Token;
                 qbusr.AccesSecret = accessToken.TokenSecret;
+                qbusr.DataSource = datasource;
+                qbusr.Releam = releam;
                 Session["QBUser"] = qbusr;
 
                 //Session["accessToken"] = accessToken.Token;

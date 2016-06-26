@@ -91,9 +91,9 @@ namespace IntuitSampleMVC.Business
         }
 
 
-        internal void RemoveInvalidOauthAccessToken(string emailID)
+        internal void RemoveInvalidOauthAccessToken(int  userID)
         {
-            UserProfile uf = _context.UserProfiles.Where(e => e.UserId == WebSecurity.CurrentUserId).FirstOrDefault();
+            UserProfile uf = _context.UserProfiles.Where(e => e.UserId == userID).FirstOrDefault();
             if (uf != null)
             {
                 uf.RelamID = string.Empty;
@@ -128,10 +128,28 @@ namespace IntuitSampleMVC.Business
             return model;
         }
 
-        internal void StoreOauthAccessToken(IBSSignUP signup,int LocaluserID)
+        internal void StoreOauthAccessToken(IBSSignUP signup,string LocaluserEmail)
         {
             ibshr121414Entities entity = new ibshr121414Entities();
-            UserProfile uf = entity.UserProfiles.Where(e => e.UserId == LocaluserID).FirstOrDefault();
+            UserProfile uf = entity.UserProfiles.Where(e => e.Email == LocaluserEmail).FirstOrDefault();
+            if (uf != null)
+            {
+                uf.AccesKey = signup.QBParamObj.AccesKey;
+                uf.AccesSecret = signup.QBParamObj.AccesSecret;
+                uf.RelamID = signup.QBParamObj.Releam;
+                uf.DataSource = signup.QBParamObj.DataSource;
+                uf.UpdatedDate = DateTime.Now;
+                uf.QBEmail = signup.QBParamObj.QBEmail;
+                uf.CompanyName = signup.CompanyName;
+            }
+
+            entity.SaveChanges();
+        }
+
+        internal void StoreOauthAccessToken(IBSSignUP signup, int LocaluserId)
+        {
+            ibshr121414Entities entity = new ibshr121414Entities();
+            UserProfile uf = entity.UserProfiles.Where(e => e.UserId == LocaluserId).FirstOrDefault();
             if (uf != null)
             {
                 uf.AccesKey = signup.QBParamObj.AccesKey;
@@ -196,6 +214,31 @@ namespace IntuitSampleMVC.Business
             }
             return model;
         }
+
+        internal IBSSignUP GetOauthAccessTokenForUser(string  uemail)
+        {
+            ibshr121414Entities entity = new ibshr121414Entities();
+
+            UserProfile uf = entity.UserProfiles.Where(e => e.Email == uemail).FirstOrDefault();
+            IBSSignUP model = new IBSSignUP();
+
+            if (uf != null)
+            {
+                model.CompanyName = string.IsNullOrEmpty(uf.CompanyName)?string.Empty: uf.CompanyName.Trim();
+                model.Country = string.IsNullOrEmpty(uf.Country) ? string.Empty : uf.Country.Trim();
+                model.Email = string.IsNullOrEmpty(uf.Email) ? string.Empty : uf.Email.Trim();
+                model.Name = string.IsNullOrEmpty(uf.UserName) ? string.Empty : uf.UserName.Trim();
+                model.PhoneNumber = uf.PhoneNumber;
+                model.QBParamObj = new QBParam();
+                model.QBParamObj.AccesKey = uf.AccesKey;
+                model.QBParamObj.AccesSecret = uf.AccesSecret;
+                model.QBParamObj.Releam = uf.RelamID;
+                model.QBParamObj.QBEmail = string.IsNullOrEmpty(uf.QBEmail) ? string.Empty : uf.QBEmail.Trim();
+                model.QBParamObj.DataSource = uf.DataSource;
+            }
+            return model;
+        }
+
 
         internal bool QBCompanyUserExist(IBSSignUP signup)
         {
