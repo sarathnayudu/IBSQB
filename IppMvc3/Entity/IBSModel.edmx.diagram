@@ -91,6 +91,7 @@
         <AssociationConnector Association="ibshr121414Model.FK__tblRatTem__FK_Te__6CD828CA" ManuallyRouted="false" />
         <AssociationConnector Association="ibshr121414Model.FK__tblTasks__FK_Tim__70A8B9AE" ManuallyRouted="false" />
         <AssociationConnector Association="ibshr121414Model.webpages_UsersInRoles" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="ibshr121414Model.Request" Width="1.5" PointX="9.794533816070544" PointY="12.918119823987652" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

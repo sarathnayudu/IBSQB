@@ -280,6 +280,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>IBSModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Entity\Request.cs">
+      <DependentUpon>IBSModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Entity\sp_AlterScripts_Result.cs">
       <DependentUpon>IBSModel.tt</DependentUpon>
     </Compile>

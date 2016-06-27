@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using IntuitSampleMVC.Business;
+using System.Web.Mvc;
 using System.Web.Routing;
 
 namespace IntuitSampleMVC
@@ -89,7 +90,11 @@ namespace IntuitSampleMVC
 
         protected void Session_Start()
         {
-            Response.Redirect("IBSQBOAuth");
+            //string s = Request.Url.AbsoluteUri;
+            //IBSQBService srv = new IBSQBService();
+            //srv.Trackrequest(s);
+
+          //  Response.Redirect("IBSQBOAuth");
            // Response.Redirect("Home");
         }
     }

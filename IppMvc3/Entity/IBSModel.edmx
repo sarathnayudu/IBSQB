@@ -68,6 +68,7 @@
           <EntitySet Name="webpages_OAuthMembership" EntityType="ibshr121414Model.Store.webpages_OAuthMembership" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="webpages_Roles" EntityType="ibshr121414Model.Store.webpages_Roles" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="webpages_UsersInRoles" EntityType="ibshr121414Model.Store.webpages_UsersInRoles" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Request" EntityType="ibshr121414Model.Store.Request" store:Type="Tables" Schema="rsmith" />
           <AssociationSet Name="FK__tblEmpDoc__FK_Or__41EDCAC5" Association="ibshr121414Model.Store.FK__tblEmpDoc__FK_Or__41EDCAC5">
             <End Role="tblOrgEmployees" EntitySet="tblOrgEmployees" />
             <End Role="tblEmpDocuments" EntitySet="tblEmpDocuments" />
@@ -850,6 +851,14 @@
           </Key>
           <Property Name="UserId" Type="int" Nullable="false" />
           <Property Name="RoleId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Request">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Request" Type="varchar(max)" />
+          <Property Name="OtherAny" Type="nchar" MaxLength="10" />
         </EntityType>
         <Association Name="FK__tblEmpDoc__FK_Or__41EDCAC5">
           <End Role="tblOrgEmployees" Type="ibshr121414Model.Store.tblOrgEmployees" Multiplicity="0..1" />
@@ -2089,72 +2098,6 @@
           <Parameter Name="PK_TimeSheetID" Type="uniqueidentifier" Mode="In" />
           <Parameter Name="status" Type="int" Mode="In" />
         </Function>
-        <!--Errors Found During Generation:
-      warning 6013: The table/view 'ibshr121414.dbo.tblDocuments' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
-      
-      <EntityType Name="tblDocuments">
-        <Property Name="DocID" Type="uniqueidentifier" />
-        <Property Name="Doc_Title" Type="varchar" MaxLength="200" />
-        <Property Name="Doc_Path" Type="varchar" MaxLength="200" />
-        <Property Name="Doc_Type" Type="varchar" MaxLength="100" />
-      </EntityType>
-      Errors Found During Generation:
-      warning 6013: The table/view 'ibshr121414.dbo.tblEmail' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
-      
-      <EntityType Name="tblEmail">
-        <Property Name="ID" Type="uniqueidentifier" />
-        <Property Name="From_Email" Type="varchar" MaxLength="100" />
-        <Property Name="Password" Type="varchar" MaxLength="20" />
-        <Property Name="To_Emails" Type="varchar" MaxLength="500" />
-        <Property Name="Smtp_Host" Type="varchar" MaxLength="50" />
-        <Property Name="Smtp_Port" Type="int" />
-      </EntityType>
-      Errors Found During Generation:
-      warning 6013: The table/view 'ibshr121414.dbo.tblEmpInvoiceDetails' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
-      
-      <EntityType Name="tblEmpInvoiceDetails">
-        <Property Name="Pk_EmpInvoiceDetail_ID" Type="uniqueidentifier" />
-        <Property Name="FK_Org_EmpID" Type="uniqueidentifier" />
-        <Property Name="FK_CustID" Type="uniqueidentifier" />
-        <Property Name="PrevBillingPeriod" Type="varchar" MaxLength="25" />
-        <Property Name="NextBillingPeriod" Type="varchar" MaxLength="25" />
-        <Property Name="DateTimeStamp" Type="datetime" />
-        <Property Name="InvoiceProcessed" Type="bit" />
-      </EntityType>
-      Errors Found During Generation:
-      warning 6013: The table/view 'ibshr121414.dbo.tblEmpInvoiceHistory' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
-      
-      <EntityType Name="tblEmpInvoiceHistory">
-        <Property Name="Pk_EmpInvoiceHistory_ID" Type="uniqueidentifier" />
-        <Property Name="FK_Org_EmpID" Type="uniqueidentifier" />
-        <Property Name="FK_CustID" Type="uniqueidentifier" />
-        <Property Name="BillingPeriod" Type="varchar" MaxLength="25" />
-        <Property Name="InvoiceNumber" Type="varchar" MaxLength="25" />
-        <Property Name="DateTimeStamp" Type="datetime" />
-        <Property Name="InvoiceGenerated" Type="bit" />
-        <Property Name="InvoiceEmailed" Type="bit" />
-      </EntityType>
-      Errors Found During Generation:
-      warning 6013: The table/view 'ibshr121414.dbo.tblVendInsCertificate' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
-      
-      <EntityType Name="tblVendInsCertificate">
-        <Property Name="InsID" Type="uniqueidentifier" />
-        <Property Name="FKCustID" Type="uniqueidentifier" />
-        <Property Name="Effect_End_Date" Type="datetime" />
-        <Property Name="Certif_path" Type="varchar(max)" />
-      </EntityType>
-      Errors Found During Generation:
-      warning 6013: The table/view 'ibshr121414.dbo.tblVendInvoice' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
-      
-      <EntityType Name="tblVendInvoice">
-        <Property Name="InvoiceID" Type="uniqueidentifier" />
-        <Property Name="FKCustID" Type="uniqueidentifier" />
-        <Property Name="Invoice_Amnt" Type="decimal" Precision="8" Scale="2" />
-        <Property Name="Consult_Name" Type="varchar" MaxLength="50" />
-        <Property Name="Start_Date" Type="datetime" />
-        <Property Name="End_Date" Type="datetime" />
-        <Property Name="Invoice_path" Type="varchar(max)" />
-      </EntityType>-->
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
@@ -2982,6 +2925,7 @@
             <Parameter Name="PK_TimeSheetID" Mode="In" Type="Guid" />
             <Parameter Name="status" Mode="In" Type="Int32" />
           </FunctionImport>
+          <EntitySet Name="Requests" EntityType="ibshr121414Model.Request" />
         </EntityContainer>
         <EntityType Name="tblAlterScript">
           <Key>
@@ -5221,6 +5165,14 @@
           <Property Type="Boolean" Name="ActiveFlag" Nullable="false" />
           <Property Type="Byte" Name="TSStatus" Nullable="false" />
         </ComplexType>
+        <EntityType Name="Request">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Int32" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Request1" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="OtherAny" MaxLength="10" FixedLength="true" Unicode="true" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -6953,6 +6905,15 @@
           <FunctionImportMapping FunctionImportName="USP_UpdateInvoiceSentToQB" FunctionName="ibshr121414Model.Store.USP_UpdateInvoiceSentToQB" />
           <FunctionImportMapping FunctionImportName="USP_UpdateInvoicesToEmail" FunctionName="ibshr121414Model.Store.USP_UpdateInvoicesToEmail" />
           <FunctionImportMapping FunctionImportName="USP_UpdateTimeSheetSentToQB" FunctionName="ibshr121414Model.Store.USP_UpdateTimeSheetSentToQB" />
+          <EntitySetMapping Name="Requests">
+            <EntityTypeMapping TypeName="ibshr121414Model.Request">
+              <MappingFragment StoreEntitySet="Request">
+                <ScalarProperty Name="OtherAny" ColumnName="OtherAny" />
+                <ScalarProperty Name="Request1" ColumnName="Request" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

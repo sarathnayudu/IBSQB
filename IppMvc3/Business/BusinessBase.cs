@@ -63,17 +63,6 @@ namespace IntuitSampleMVC.Business
         {
             get { return _dataService; }
             set { _dataService = value; }
-        }
-
-        public ibshr121414Entities _context 
-        {
-            get
-            {
-                return new ibshr121414Entities();
-            }
-           
-
-        }
-      
+        }   
     }
 }

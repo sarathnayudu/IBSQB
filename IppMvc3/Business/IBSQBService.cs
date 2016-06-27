@@ -93,15 +93,17 @@ namespace IntuitSampleMVC.Business
 
         internal void RemoveInvalidOauthAccessToken(int  userID)
         {
-            UserProfile uf = _context.UserProfiles.Where(e => e.UserId == userID).FirstOrDefault();
+            ibshr121414Entities entity = new ibshr121414Entities();
+            UserProfile uf = entity.UserProfiles.Where(e => e.UserId == userID).FirstOrDefault();
             if (uf != null)
             {
                 uf.RelamID = string.Empty;
                 uf.AccesKey = string.Empty;
                 uf.AccesSecret = string.Empty;
                 uf.DataSource = string.Empty;
+                uf.QBEmail = string.Empty;
             }
-            _context.SaveChanges();
+            entity.SaveChanges();
         }
 
         internal IBSSignUP GetOauthAccessTokenForUser(string emailID,string companyName)
@@ -247,6 +249,18 @@ namespace IntuitSampleMVC.Business
             UserProfile uf = entity.UserProfiles.Where(e => e.QBEmail == signup.QBParamObj.QBEmail).FirstOrDefault();
 
             return !string.IsNullOrEmpty(uf.Email);
+        }
+
+        internal void Trackrequest(string s)
+        {
+            ibshr121414Entities entity = new ibshr121414Entities();
+            entity.Requests.Add(new Request
+            {
+                Request1=s,
+                
+            });
+
+            entity.SaveChanges();
         }
     }
 }

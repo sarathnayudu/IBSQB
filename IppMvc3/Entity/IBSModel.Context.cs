@@ -60,6 +60,7 @@ namespace IntuitSampleMVC.Entity
         public DbSet<webpages_Membership> webpages_Membership { get; set; }
         public DbSet<webpages_OAuthMembership> webpages_OAuthMembership { get; set; }
         public DbSet<webpages_Roles> webpages_Roles { get; set; }
+        public DbSet<Request> Requests { get; set; }
     
         public virtual ObjectResult<sp_AlterScripts_Result> sp_AlterScripts(string client_Name, string @case)
         {
