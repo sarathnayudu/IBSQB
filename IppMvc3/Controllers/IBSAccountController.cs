@@ -167,15 +167,16 @@ namespace IntuitSampleMVC.Controllers
         }
         private bool ValidateUser(IBSSignUP model)
         {
+            bool isValid = true;
             if (model == null)
-                return false;
+                isValid = false;
             else
             {
-                if (string.IsNullOrEmpty(model.Email) || string.IsNullOrEmpty(model.QBParamObj.QBEmail) || string.IsNullOrEmpty(model.QBParamObj.AccesKey)
+                if (string.IsNullOrEmpty(model.Email) || string.IsNullOrEmpty(model.QBParamObj.AccesKey)
                     || string.IsNullOrEmpty(model.QBParamObj.AccesSecret) || string.IsNullOrEmpty(model.QBParamObj.Releam) || string.IsNullOrEmpty(model.QBParamObj.DataSource))
-                    return false;
+                    isValid = false;               
             }
-            return true;
+            return isValid;
         }
 
 
