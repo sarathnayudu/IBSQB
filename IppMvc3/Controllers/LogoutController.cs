@@ -23,9 +23,7 @@ namespace IntuitSampleMVC.Controllers
             Session.RemoveAll();
             
             //Redirect user to the Home page
-            return Redirect("/IBSAccount/LogOff");
-
+            return RedirectToAction("IBSHome", "IBSAccount");
         }
-
     }
 }

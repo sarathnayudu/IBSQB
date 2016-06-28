@@ -77,17 +77,17 @@ namespace IntuitSampleMVC.Controllers
                 FetchResponse fetch = response.GetExtension<FetchResponse>();
                 if (fetch != null)
                 {
-                 QBUser qbusr= (QBUser)Session["QBUser"];
-                 if (qbusr == null)
-                 {
-                     qbusr = new QBUser();
-                 }
-                 qbusr.OpenIdResponse = true;
-                      qbusr.QBEmail =fetch.GetAttributeValue(WellKnownAttributes.Contact.Email);
-                            qbusr.Name =fetch.GetAttributeValue(WellKnownAttributes.Name.FullName);
-                              qbusr.Mobile = fetch.GetAttributeValue(WellKnownAttributes.Contact.Phone.Mobile);
-                              qbusr.CompanyName = fetch.GetAttributeValue(WellKnownAttributes.Company.CompanyName);
-                              Session["QBUser"] = qbusr;
+                    QBUser qbusr = (QBUser)Session["QBUser"];
+                    if (qbusr == null)
+                    {
+                        qbusr = new QBUser();
+                    }
+                    qbusr.OpenIdResponse = true;
+                    qbusr.QBEmail = fetch.GetAttributeValue(WellKnownAttributes.Contact.Email);
+                    qbusr.Name = fetch.GetAttributeValue(WellKnownAttributes.Name.FullName);
+                    qbusr.Mobile = fetch.GetAttributeValue(WellKnownAttributes.Contact.Phone.Mobile);
+                    qbusr.CompanyName = fetch.GetAttributeValue(WellKnownAttributes.Company.CompanyName);
+                    Session["QBUser"] = qbusr;
 
                     //Session["OpenIdResponse"] = "True";
                     //Session["FriendlyEmail"] = fetch.GetAttributeValue(WellKnownAttributes.Contact.Email);// emailAddresses.Count > 0 ? emailAddresses[0] : null;
@@ -98,7 +98,7 @@ namespace IntuitSampleMVC.Controllers
 
                     ////get the Oauth Access token for the user from OauthAccessTokenStorage.xml
                     //OauthAccessTokenStorageHelper.GetOauthAccessTokenForUser(Session["FriendlyEmail"].ToString(), this);
-                }                          
+                }
             }
 
             string query = Request.Url.Query;
@@ -109,7 +109,7 @@ namespace IntuitSampleMVC.Controllers
                 Session["Flag"] = true;
                 return Redirect("/CleanupOnDisconnect/Index");
             }
-            return OAuthConnect();   
+            return OAuthConnect();
         }
 
         private ActionResult OAuthConnect()
@@ -117,7 +117,7 @@ namespace IntuitSampleMVC.Controllers
             QBUser qbusr = (QBUser)Session["QBUser"];
             if (qbusr != null)
             {
-                string fEmail = qbusr.QBEmail, fName =qbusr.Name, company=qbusr.CompanyName;
+                string fEmail = qbusr.QBEmail, fName = qbusr.Name, company = qbusr.CompanyName;
                 if (!string.IsNullOrEmpty(fEmail) && !string.IsNullOrEmpty(fName))
                 {
                     //Verify User/AccesToken Exist for this user
@@ -131,12 +131,9 @@ namespace IntuitSampleMVC.Controllers
                         qbusr.AccesSecret = model.QBParamObj.AccesSecret;
                         return RedirectToAction("SignUpOrLogin", "IBSAccount");
                     }
-
                 }
             }
-            ActionResult obj = RedirectToAction("Index", "OauthGrant");
-            Session["RedirectToDefault"] = false;
-            return obj;
+            return RedirectToAction("Index", "OauthGrant");
         }
 
         private bool ValidateUser(IBSSignUP model)
@@ -145,9 +142,9 @@ namespace IntuitSampleMVC.Controllers
                 return false;
             else
             {
-                if(string.IsNullOrEmpty(model.Email) || string.IsNullOrEmpty(model.Password)
-                    ||string.IsNullOrEmpty(model.QBParamObj.QBEmail)||string.IsNullOrEmpty(model.QBParamObj.AccesKey)
-                    ||string.IsNullOrEmpty(model.QBParamObj.AccesSecret)||string.IsNullOrEmpty(model.QBParamObj.Releam))
+                if (string.IsNullOrEmpty(model.Email) || string.IsNullOrEmpty(model.Password)
+                    || string.IsNullOrEmpty(model.QBParamObj.QBEmail) || string.IsNullOrEmpty(model.QBParamObj.AccesKey)
+                    || string.IsNullOrEmpty(model.QBParamObj.AccesSecret) || string.IsNullOrEmpty(model.QBParamObj.Releam))
                     return false;
             }
             return true;
@@ -163,9 +160,9 @@ namespace IntuitSampleMVC.Controllers
             }
             else
             {
-                return qbsrv.GetOauthAccessTokenForUser(qbusr.QBEmail,qbusr.CompanyName); 
+                return qbsrv.GetOauthAccessTokenForUser(qbusr.QBEmail, qbusr.CompanyName);
             }
-           
+
         }
     }
 }
