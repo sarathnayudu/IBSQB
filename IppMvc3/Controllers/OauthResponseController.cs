@@ -73,6 +73,7 @@ namespace IntuitSampleMVC.Controllers
 
         private ActionResult RegisterAssAppUser()
         {
+            Session["RedirectToDefault"] = true;
             if (!WebSecurity.HasUserId)
             {
                 return RedirectToAction("SignUpOrLogin", "IBSAccount");

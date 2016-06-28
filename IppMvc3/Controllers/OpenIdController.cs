@@ -134,7 +134,9 @@ namespace IntuitSampleMVC.Controllers
 
                 }
             }
-            return RedirectToAction("Index","OauthGrant");
+            ActionResult obj = RedirectToAction("Index", "OauthGrant");
+            Session["RedirectToDefault"] = false;
+            return obj;
         }
 
         private bool ValidateUser(IBSSignUP model)

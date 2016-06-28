@@ -4,3 +4,24 @@
     ViewBag.Title = "IBSHome";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
+  <script type="text/javascript">
+        try {
+            var parentlocation = window.parent.opener.location.hostname;
+            var currentlocation = window.location.hostname;
+            if (parentlocation != currentlocation) {
+
+                window.location = "/Home/Index";
+            }
+            else {
+                window.opener.location.href = "/Home/Index";
+
+                window.close();
+            }
+        }
+        catch (e) {
+            window.location = "/Home/Index";
+        }
+
+    </script>
+

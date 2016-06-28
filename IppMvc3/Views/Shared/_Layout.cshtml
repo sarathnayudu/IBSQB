@@ -102,19 +102,16 @@
                             {
                                 <p>
                                     Welcone @WebSecurity.CurrentUserName
-                                    @if (showConnect)
-                                    {
-                                         <ipp:connecttointuit></ipp:connecttointuit> 
-                                    }
-                                  @*  @if (!showConnect)
+                                   
+                                    @if (!showConnect)
                                     {
                                         <a href="javascript:void(0);"
-                                            onclick="return intuit.ipp.anywhere.logout(function () { window.location='/Logout/index'; });">Disconnect From QB</a>
+                                            onclick="return intuit.ipp.anywhere.logout(function () { window.location='/Logout/index'; });">Disconnect from QuickBooks</a>
                                     }
                                     else
                                     {
                                         <ipp:connecttointuit></ipp:connecttointuit> 
-                                    }*@
+                                    }
                                     @Html.ActionLink("LogOut", "LogOff", "IBSAccount")
                                 </p> 
                             }

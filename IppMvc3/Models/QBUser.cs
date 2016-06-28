@@ -29,7 +29,7 @@ namespace IntuitSampleMVC.Models
         
      private bool  validateQBfields()
         {
-            return (!string.IsNullOrEmpty(AccesKey) && !string.IsNullOrEmpty(AccesSecret) && !string.IsNullOrEmpty(Releam) && !string.IsNullOrEmpty(DataSource) && !string.IsNullOrEmpty(QBEmail));
+            return (!string.IsNullOrEmpty(AccesKey) && !string.IsNullOrEmpty(AccesSecret) && !string.IsNullOrEmpty(Releam) && !string.IsNullOrEmpty(DataSource));
         }
         
     }
