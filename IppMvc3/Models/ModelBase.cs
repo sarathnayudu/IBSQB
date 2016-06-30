@@ -7,5 +7,6 @@ namespace IntuitSampleMVC.Models
 {
     public class ModelBase
     {
+      
     }
 }

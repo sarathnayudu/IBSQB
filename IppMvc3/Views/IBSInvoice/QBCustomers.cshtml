@@ -1,60 +1,56 @@
-﻿@model List<IntuitSampleMVC.Models.CustomerUI>
+﻿@model IntuitSampleMVC.Models.CustomerModel
 @{
     ViewBag.Title = "QBCustomers";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-
-    // Get the Type object corresponding to MyClass.
-    Type myType = @Model.Count()>0 ? @Model.FirstOrDefault().CustEmpVendorObj.GetType() : null;
-    // Get the PropertyInfo object by passing the property name.
-    System.Reflection.PropertyInfo[] myPropInfo =myType!=null? myType.GetProperties():null;
-     
-    
+    Layout = "~/Views/Shared/_Layout.cshtml";  
 }
 @using (Html.BeginForm("NewInvoice", "IBSQB"))
 {
-    <p>  
+    if (Model != null)
+    {        
+    
+    <p>
         <br />
         <input type="submit" value="Create new invoice" />
     </p>
     <table>
-        @foreach (var item in Model)
-        {          
-            <tr>
-                @foreach (var propObj in myPropInfo)
-                {
-                    var temp = propObj.GetValue(item.CustEmpVendorObj, null);
-                    if (Convert.GetTypeCode(temp) != TypeCode.Object)
-                    {
-                        if (temp != null)
-                        {
-                            if (Model.IndexOf(item) == 0)
-                            {
-                           
-                    <th>
-                        @Html.DisplayFor(x => propObj.Name)
-                    </th> 
-                           
-                            }
-                            else
-                            {
-                                if (myPropInfo[0] == propObj)
-                                {
-                                   var id=  myPropInfo.Where(e => e.Name == "Id").FirstOrDefault().GetValue(item.CustEmpVendorObj, null);
-                                    <td>
-                                        <input type="checkbox" name="Selected" value= "@id" />
-                                    </td> 
-                                }
-                          
-                                    <td>
-                                        @temp.ToString()
-                                    </td> 
-                            }
-                        }
-                    }
-                }
-            </tr>  
-        }
 
+        <tr>
+            <th></th>
+            <th>
+                @Html.LabelFor(e=>e.LstCustomerUI.FirstOrDefault().Name)
+            </th>
+            <th>
+                @Html.LabelFor(e=>e.LstCustomerUI.FirstOrDefault().Email)
+            </th>
+            <th>
+                @Html.LabelFor(e=>e.LstCustomerUI.FirstOrDefault().ContactNumber)
+            </th>
+            '
+                  <th>
+                      @Html.LabelFor(e=>e.LstCustomerUI.FirstOrDefault().Notes)
+                  </th>
+        </tr>
+        @foreach (IntuitSampleMVC.Models.CustomerUI item in Model.LstCustomerUI)
+        {
+            <tr>
+                <td>
+                    <input type="checkbox" name="Selected" value= "@item.Id" />
+
+                </td>
+                <td>
+                    @item.Name
+                </td>
+                <td>
+                    @item.Email
+                </td>
+                <td>
+                    @item.ContactNumber
+                </td>
+                   <td>
+                    @item.Notes
+                </td>
+            </tr>
+        }
     </table>  
- 
+    }
 }

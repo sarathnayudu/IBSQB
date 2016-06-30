@@ -16,7 +16,12 @@ namespace IntuitSampleMVC.Business
         {
          return  DataService.FindAll(new Customer(), 1, 100).Select(e=> new CustomerUI
               {
-                  CustEmpVendorObj=e
+                  Id=e.Id,
+                  Name=e.FullyQualifiedName,
+                  ContactNumber=e.Mobile.FreeFormNumber,
+                  Email=e.PrimaryEmailAddr.Address,
+                  Notes=e.Notes
+
               }).ToList();
 
         }

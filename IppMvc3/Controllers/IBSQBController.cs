@@ -23,14 +23,14 @@ namespace IntuitSampleMVC.Controllers
         {
             IBSQBService obj = new IBSQBService();
 
-            return View("../IBSInvoice/QBCustomers", obj.GetQBVendors());
+            return View("../IBSInvoice/QBCustomers", null);
         }
 
         public ActionResult Employes()
         {
             IBSQBService obj = new IBSQBService();
 
-            return View("../IBSInvoice/QBCustomers", obj.GetQBEmployes());
+            return View("../IBSInvoice/QBCustomers", null);
         }
 
         [HttpPost]

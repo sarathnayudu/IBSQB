@@ -19,28 +19,18 @@ namespace IntuitSampleMVC.Business
     {
         public List<CustomerUI> GetQBCustomers()
         {
-            return DataService.FindAll(new Customer(), 1, 100).Select(e => new CustomerUI
+            return DataService.FindAll(new  Customer(), 1, 100).Select(e => new CustomerUI
             {
-                CustEmpVendorObj = e
+                Id = e.Id,
+                Name = e.FullyQualifiedName,
+                ContactNumber = e.Mobile.FreeFormNumber,
+                Email = e.PrimaryEmailAddr.Address,
+                Notes = e.Notes
+
             }).ToList();
 
         }
-
-        public List<CustomerUI> GetQBVendors()
-        {
-            return DataService.FindAll(new Vendor(), 1, 100).Select(e => new CustomerUI
-            {
-                CustEmpVendorObj = e
-            }).ToList();
-        }
-        public List<CustomerUI> GetQBEmployes()
-        {
-            return DataService.FindAll(new Employee(), 1, 100).Select(e => new CustomerUI
-            {
-                CustEmpVendorObj = e
-            }).ToList();
-
-        }
+      
 
         public static string ReconnectRealm(string consumerKey, string consumerSecret, string accessToken, string accessTokenSecret)
         {

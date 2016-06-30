@@ -497,6 +497,7 @@
       <DependentUpon>IBSModel.tt</DependentUpon>
     </Compile>
     <Compile Include="HTMLHelpers\InputHelper.cs" />
+    <Compile Include="Models\CustomerModel.cs" />
     <Compile Include="Models\CustomerUI.cs" />
     <Compile Include="Models\IBSHome.cs" />
     <Compile Include="Models\IBSLogin.cs" />
