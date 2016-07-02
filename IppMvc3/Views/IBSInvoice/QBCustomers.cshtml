@@ -17,17 +17,17 @@
         <tr>
             <th></th>
             <th>
-                @Html.LabelFor(e=>e.LstCustomerUI.FirstOrDefault().Name)
+                @Html.LabelFor(e => e.LstCustomerUI.FirstOrDefault().Name)
             </th>
             <th>
-                @Html.LabelFor(e=>e.LstCustomerUI.FirstOrDefault().Email)
+                @Html.LabelFor(e => e.LstCustomerUI.FirstOrDefault().Email)
             </th>
             <th>
-                @Html.LabelFor(e=>e.LstCustomerUI.FirstOrDefault().ContactNumber)
+                @Html.LabelFor(e => e.LstCustomerUI.FirstOrDefault().ContactNumber)
             </th>
             '
                   <th>
-                      @Html.LabelFor(e=>e.LstCustomerUI.FirstOrDefault().Notes)
+                      @Html.LabelFor(e => e.LstCustomerUI.FirstOrDefault().Notes)
                   </th>
         </tr>
         @foreach (IntuitSampleMVC.Models.CustomerUI item in Model.LstCustomerUI)
@@ -46,7 +46,7 @@
                 <td>
                     @item.ContactNumber
                 </td>
-                   <td>
+                <td>
                     @item.Notes
                 </td>
             </tr>
