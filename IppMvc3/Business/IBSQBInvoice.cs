@@ -19,10 +19,10 @@ namespace IntuitSampleMVC.Business
         private Item Item { get; set; }
         private Term Term { get; set; }
         public string InvoiceNumber { get; set; }
-       
+
 
         public IBSQBInvoice()
-        {           
+        {
             TaxCode = GetTaxCode();
             Account = GetAccount();
             Item = GetItem();
@@ -32,7 +32,7 @@ namespace IntuitSampleMVC.Business
 
         private Intuit.Ipp.Data.Term GetTerm()
         {
-            return DataService.FindAll(new Term(), 1, 100).Where(e=>e.Name=="Net 30").FirstOrDefault();
+            return DataService.FindAll(new Term(), 1, 100).Where(e => e.Name == "Net 30").FirstOrDefault();
         }
 
         private Intuit.Ipp.Data.Item GetItem()
@@ -44,19 +44,64 @@ namespace IntuitSampleMVC.Business
         private Intuit.Ipp.Data.Account GetAccount()
         {
             List<Account> lstAccount = DataService.FindAll(new Account(), 1, 100).ToList();
-            return lstAccount.Where(e => e.AccountType == AccountTypeEnum.AccountsReceivable).FirstOrDefault();
+            return lstAccount.FirstOrDefault();
         }
 
         private Intuit.Ipp.Data.TaxCode GetTaxCode()
         {
-           List<TaxCode> lstTaxCode= DataService.FindAll(new TaxCode(), 1, 100).ToList();
-           return lstTaxCode[3];
+            List<TaxCode> lstTaxCode = DataService.FindAll(new TaxCode(), 1, 100).ToList();
+            return lstTaxCode.Count() > 0 ? lstTaxCode[0] : null;
+        }
+
+        public void CreateTaxCode()
+        {
+            TaxCode TaxCode = new TaxCode();
+            TaxCode.Name = "NET30";
+            TaxCode.Description = "Description Value";
+            //Set if Active
+            TaxCode.Active = true;
+            //Set if Active Specified
+            TaxCode.ActiveSpecified = true;
+            //Set if Taxable
+            TaxCode.Taxable = false;
+
+
+
+            //Set if Taxable Specified
+            TaxCode.TaxableSpecified = true;
+            //Set if Tax Group
+            TaxCode.TaxGroup = false;
+            //Set if Tax Group Specified
+            TaxCode.TaxGroupSpecified = true;
+            //Handle field TaxCode.SalesTaxRateList (Type: Intuit.Ipp.Data.TaxRateList);
+
+            //Sage 50 to Quickbooks Migration
+            //Ad www.quickbooksrepairpro.com/
+            //Guaranteed Migration from Sage 50 to Quickbooks
+
+            //Handle field TaxCode.PurchaseTaxRateList (Type: Intuit.Ipp.Data.TaxRateList);
+            //Handle field TaxCode.AdjustmentTaxRateList (Type: Intuit.Ipp.Data.TaxRateList);
+            //Handle field TaxCode.TaxCodeEx (Type: Intuit.Ipp.Data.IntuitAnyType);
+
+
+            //Handle field TaxCode.CustomField (Type: Intuit.Ipp.Data.CustomField[]);
+
+           // TaxCode.domain = "ALL";
+
+            //Set if status Specified
+            TaxCode.statusSpecified = true;
+            //Set if updating a subset of properties for a given object
+            TaxCode.sparse = false;
+            //Set if sparse Specified
+            TaxCode.sparseSpecified = true;
+
+            DataService.Add(TaxCode);
         }
 
         public void NewInvoice(string custid)
         {
 
-            Customer = DataService.FindById(new Intuit.Ipp.Data.Customer { Id = custid }); 
+            Customer = DataService.FindById(new Intuit.Ipp.Data.Customer { Id = custid });
             DataService.Add(CreateInvoice());
         }
 
@@ -66,7 +111,7 @@ namespace IntuitSampleMVC.Business
             TaxCode taxCode = TaxCode;// FindorAdd(context, new TaxCode());
             Account account = Account;// FindOrADDAccount(context, AccountTypeEnum.AccountsReceivable, AccountClassificationEnum.Liability);
 
-           Invoice invoice = new Invoice();
+            Invoice invoice = new Invoice();
 
             //DocNumber - QBO Only, otherwise use DocNumber
             //invoice.AutoDocNumber = false;
@@ -79,7 +124,7 @@ namespace IntuitSampleMVC.Business
 
 
             invoice.BillEmail = customer.PrimaryEmailAddr;
-            
+
 
             //TxnDate
             invoice.TxnDate = DateTime.Now.Date;
@@ -113,7 +158,7 @@ namespace IntuitSampleMVC.Business
             lineSalesItemLineDetail.Qty = 10;
             lineSalesItemLineDetail.QtySpecified = true;
 
-           
+
             //Line Sales Item Line Detail - TaxCodeRef
             //For US companies, this can be 'TAX' or 'NON'
             lineSalesItemLineDetail.TaxCodeRef = new ReferenceType()
@@ -128,27 +173,29 @@ namespace IntuitSampleMVC.Business
             //Assign Line Item to Invoice
             invoice.Line = new Line[] { invoiceLine };
 
-            //TxnTaxDetail
-            TxnTaxDetail txnTaxDetail = new TxnTaxDetail();
-            txnTaxDetail.TxnTaxCodeRef = new ReferenceType()
+            if (taxCode != null)
             {
-                name = taxCode.Name,
-                Value = taxCode.Id
-            };
-            Line taxLine = new Line();
-            taxLine.DetailType = LineDetailTypeEnum.TaxLineDetail;
-            TaxLineDetail taxLineDetail = new TaxLineDetail();
+                //TxnTaxDetail
+                TxnTaxDetail txnTaxDetail = new TxnTaxDetail();
+                txnTaxDetail.TxnTaxCodeRef = new ReferenceType()
+                {
+                    name = taxCode.Name,
+                    Value = taxCode.Id
+                };
+                Line taxLine = new Line();
+                taxLine.DetailType = LineDetailTypeEnum.TaxLineDetail;
+                TaxLineDetail taxLineDetail = new TaxLineDetail();
 
-           
 
-            // taxCode.SalesTaxRateList.
- 
-            //Assigning the fist Tax Rate in this Tax Code
-            taxLineDetail.TaxRateRef = taxCode.SalesTaxRateList.TaxRateDetail[0].TaxRateRef;
-            taxLine.AnyIntuitObject = taxLineDetail;
-            txnTaxDetail.TaxLine = new Line[] { taxLine };
-            invoice.TxnTaxDetail = txnTaxDetail;
 
+                // taxCode.SalesTaxRateList.
+
+                //Assigning the fist Tax Rate in this Tax Code
+                taxLineDetail.TaxRateRef = taxCode.SalesTaxRateList.TaxRateDetail[0].TaxRateRef;
+                taxLine.AnyIntuitObject = taxLineDetail;
+                txnTaxDetail.TaxLine = new Line[] { taxLine };
+                invoice.TxnTaxDetail = txnTaxDetail;
+            }
             //Customer (Client)
             invoice.CustomerRef = new ReferenceType()
             {
@@ -177,11 +224,11 @@ namespace IntuitSampleMVC.Business
             shipAddr.Note = "Shipping Address Note";
             invoice.ShipAddr = shipAddr;
 
-            
+
             //SalesTermRef
             invoice.SalesTermRef = new ReferenceType()
             {
-                name =Term.Name,
+                name = Term.Name,
                 Value = Term.Id
             };
 
@@ -194,7 +241,7 @@ namespace IntuitSampleMVC.Business
             {
                 name = account.Name,
                 Value = account.Id
-            };           
+            };
 
 
             return invoice;

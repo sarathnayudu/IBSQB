@@ -503,6 +503,8 @@
     <Compile Include="Models\IBSLogin.cs" />
     <Compile Include="Models\IBSSignUP.cs" />
     <Compile Include="Models\ModelBase.cs" />
+    <Compile Include="Models\NewInvoice.cs" />
+    <Compile Include="Models\ProductOrService.cs" />
     <Compile Include="Models\QBUser.cs" />
     <Compile Include="Models\SignUPOrLogin.cs" />
     <Compile Include="Models\SimpleMembershipAccountModels.cs" />

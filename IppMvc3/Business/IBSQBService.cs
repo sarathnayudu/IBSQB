@@ -17,9 +17,9 @@ namespace IntuitSampleMVC.Business
 {
     public class IBSQBService : BusinessBase
     {
-        public List<CustomerUI> GetQBCustomers()
+        public CustomerModel GetQBCustomers()
         {
-            return DataService.FindAll(new  Customer(), 1, 100).Select(e => new CustomerUI
+            List<CustomerUI> lstCustUI= DataService.FindAll(new  Customer(), 1, 100).Select(e => new CustomerUI
             {
                 Id = e.Id,
                 Name = e.FullyQualifiedName,
@@ -28,6 +28,11 @@ namespace IntuitSampleMVC.Business
                 Notes = e.Notes
 
             }).ToList();
+
+            CustomerModel custmodel = new CustomerModel();
+            custmodel.LstCustomerUI = new List<CustomerUI>();
+            custmodel.LstCustomerUI = lstCustUI;
+            return custmodel;
 
         }
       
