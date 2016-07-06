@@ -190,7 +190,7 @@ namespace IntuitSampleMVC.Controllers
         {
             WebSecurityService.Logout();
 
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("IBSHome");
         }
 
         // **************************************
