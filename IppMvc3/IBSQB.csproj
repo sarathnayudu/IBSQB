@@ -251,6 +251,7 @@
     <Compile Include="Business\IBSQBCustomer.cs" />
     <Compile Include="Business\IBSQBInvoice.cs" />
     <Compile Include="Business\IBSQBService.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\CleanupOnDisconnectController.cs" />
     <Compile Include="Controllers\DirectConnectToIntuitController.cs" />
     <Compile Include="Controllers\DisconnectController.cs" />

@@ -10,7 +10,7 @@ namespace IntuitSampleMVC.Controllers
     /// <summary>
     /// Direct connect to Intuit Controller
     /// </summary>
-    public class DirectConnectToIntuitController : Controller
+    public class DirectConnectToIntuitController : BaseController
     {
         /// <summary>
         /// OpenId Relying Party.

@@ -10,7 +10,7 @@ using System.Web.Mvc;
 
 namespace IntuitSampleMVC.Controllers
 {
-    public class IBSInvoiceController : Controller
+    public class IBSInvoiceController : BaseController
     {
         //
         // GET: /IBSInvoice/

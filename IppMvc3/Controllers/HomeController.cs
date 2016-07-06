@@ -12,7 +12,7 @@ namespace IntuitSampleMVC.Controllers
     /// <summary>
     /// Home Controller.
     /// </summary>
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
         /// <summary>
         /// Default View for website.

@@ -15,7 +15,7 @@ using System.Web.Mvc;
 
 namespace IntuitSampleMVC.Controllers
 {
-    public class IBSQBOAuthController : Controller
+    public class IBSQBOAuthController : BaseController
     {
         //
         // GET: /IBSQBOAuth/

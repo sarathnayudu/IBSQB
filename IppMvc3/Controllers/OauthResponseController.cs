@@ -23,7 +23,7 @@ namespace IntuitSampleMVC.Controllers
     /// it fetches the access token from the persistent store and includes the token in the 
     /// HTTP request header.  
     /// </summary>
-    public class OauthResponseController : Controller
+    public class OauthResponseController : BaseController
     {
         /// <summary>
         /// OAuthVerifyer, RealmId, DataSource
@@ -87,18 +87,16 @@ namespace IntuitSampleMVC.Controllers
         private void getAccessToken(string releam, string datasource)
         {
             IOAuthSession clientSession = CreateSession();
-            QBUser qbusr = (QBUser)Session["QBUser"];
+            QBUser qbusr = QBUser;
             try
             {
                 IToken accessToken = clientSession.ExchangeRequestTokenForAccessToken((IToken)Session["requestToken"], _oauthVerifyer);
 
-                if (qbusr == null)
-                    qbusr = new QBUser();
                 qbusr.AccesKey = accessToken.Token;
                 qbusr.AccesSecret = accessToken.TokenSecret;
                 qbusr.DataSource = datasource;
                 qbusr.Releam = releam;
-                Session["QBUser"] = qbusr;
+                QBUser = qbusr;
 
                 //Session["accessToken"] = accessToken.Token;
 

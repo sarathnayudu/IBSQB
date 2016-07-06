@@ -13,7 +13,7 @@ namespace IntuitSampleMVC.Controllers
     /// Controller for Blue Dot Menu, Returns the HTML for the Intuit "blue dot" menu, 
     /// which shows the Intuit Anywhere apps available to the user.   
     /// </summary>
-    public class MenuProxyController : Controller
+    public class MenuProxyController : BaseController
     {
         /// <summary>
         /// Service response.

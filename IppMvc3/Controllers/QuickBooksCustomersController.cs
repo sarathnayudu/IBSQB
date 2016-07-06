@@ -23,7 +23,7 @@ namespace IntuitSampleMVC.Controllers
     /// This flow will make use of Data Service SDK V2 to create OAuthRequest and connect to 
     /// Customer Data under the service context and display data inside the grid.
     /// </summary>
-    public class QuickBooksCustomersController : Controller
+    public class QuickBooksCustomersController : BaseController
     {
         /// <summary>
         /// RealmId, AccessToken, AccessTokenSecret, ConsumerKey, ConsumerSecret, DataSourceType

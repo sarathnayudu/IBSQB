@@ -14,7 +14,7 @@ using IntuitSampleMVC.Entity;
 
 namespace IntuitSampleMVC.Controllers
 {
-	public class SimpleMembershipAccountController : Controller
+	public class SimpleMembershipAccountController : BaseController
 	{
         public IWebSecurityService WebSecurityService { get; set; }
         public IMessengerService MessengerService { get; set; }

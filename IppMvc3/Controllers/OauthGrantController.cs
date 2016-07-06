@@ -11,7 +11,7 @@ namespace IntuitSampleMVC.Controllers
     /// An existing Customer when clicks Connect to QuickBooks button, this controller will initiate Autorization flow.
     /// 
     /// </summary>
-    public class OauthGrantController : Controller
+    public class OauthGrantController : BaseController
     {
         /// <summary>
         /// CosumerSecret, ConsumerKey, OAuthLink, RequestToken, TokenSecret, OAuthCallbackUrl

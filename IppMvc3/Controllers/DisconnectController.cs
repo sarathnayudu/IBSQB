@@ -14,7 +14,7 @@ namespace IntuitSampleMVC.Controllers
     /// when the user is disconnected, your app cannot access the user's QuickBooks company data. 
     /// After disconnecting the user, your app should display the Connect to QuickBooks button.
     /// </summary>
-    public class DisconnectController : Controller
+    public class DisconnectController : BaseController
     {
         /// <summary>
         /// Service response.

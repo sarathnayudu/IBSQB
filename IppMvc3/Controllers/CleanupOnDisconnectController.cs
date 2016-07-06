@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace IntuitSampleMVC.Controllers
 {
-    public class CleanupOnDisconnectController : Controller
+    public class CleanupOnDisconnectController : BaseController
     {
         //
         // GET: /CleanupOnDisconnect/

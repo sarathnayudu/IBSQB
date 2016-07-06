@@ -10,7 +10,7 @@ using WebMatrix.WebData;
 
 namespace IntuitSampleMVC.Controllers
 {
-    public class LogoutController : Controller
+    public class LogoutController : BaseController
     {
         //
         // GET: /Logout/

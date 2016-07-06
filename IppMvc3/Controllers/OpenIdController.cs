@@ -24,7 +24,7 @@ namespace IntuitSampleMVC.Controllers
     /// 4.This page verifies the authentication response it receives from the Intuit OpenID service and stores
     /// user information inside the session object.
     /// </summary>
-    public class OpenIdController : Controller
+    public class OpenIdController : BaseController
     {
         /// <summary>
         /// OpenId Relying Party
@@ -77,17 +77,14 @@ namespace IntuitSampleMVC.Controllers
                 FetchResponse fetch = response.GetExtension<FetchResponse>();
                 if (fetch != null)
                 {
-                    QBUser qbusr = (QBUser)Session["QBUser"];
-                    if (qbusr == null)
-                    {
-                        qbusr = new QBUser();
-                    }
+                    QBUser qbusr = QBUser;
+                  
                     qbusr.OpenIdResponse = true;
                     qbusr.QBEmail = fetch.GetAttributeValue(WellKnownAttributes.Contact.Email);
                     qbusr.Name = fetch.GetAttributeValue(WellKnownAttributes.Name.FullName);
                     qbusr.Mobile = fetch.GetAttributeValue(WellKnownAttributes.Contact.Phone.Mobile);
                     qbusr.CompanyName = fetch.GetAttributeValue(WellKnownAttributes.Company.CompanyName);
-                    Session["QBUser"] = qbusr;
+                    QBUser = qbusr;
 
                     //Session["OpenIdResponse"] = "True";
                     //Session["FriendlyEmail"] = fetch.GetAttributeValue(WellKnownAttributes.Contact.Email);// emailAddresses.Count > 0 ? emailAddresses[0] : null;
@@ -114,7 +111,7 @@ namespace IntuitSampleMVC.Controllers
 
         private ActionResult OAuthConnect()
         {
-            QBUser qbusr = (QBUser)Session["QBUser"];
+            QBUser qbusr = QBUser;
             if (qbusr != null)
             {
                 string fEmail = qbusr.QBEmail, fName = qbusr.Name, company = qbusr.CompanyName;
@@ -129,6 +126,7 @@ namespace IntuitSampleMVC.Controllers
 
                         qbusr.AccesKey = model.QBParamObj.AccesKey;
                         qbusr.AccesSecret = model.QBParamObj.AccesSecret;
+                        QBUser = qbusr;
                         return RedirectToAction("SignUpOrLogin", "IBSAccount");
                     }
                 }
@@ -153,7 +151,7 @@ namespace IntuitSampleMVC.Controllers
         private IBSSignUP VerifyUserAndAccesToken()
         {
             IBSQBService qbsrv = new IBSQBService();
-            QBUser qbusr = (QBUser)Session["QBUser"];
+            QBUser qbusr = QBUser;
             if (WebSecurity.HasUserId)
             {
                 return qbsrv.GetOauthAccessTokenForUser(WebSecurity.CurrentUserId);

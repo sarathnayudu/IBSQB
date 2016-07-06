@@ -16,7 +16,7 @@ using System.Web.Security;
 
 namespace IntuitSampleMVC.Controllers
 {
-    public class IBSAccountController : Controller
+    public class IBSAccountController : BaseController
     {
         public IWebSecurityService WebSecurityService { get; set; }
         public IMessengerService MessengerService { get; set; }
@@ -49,9 +49,12 @@ namespace IntuitSampleMVC.Controllers
             model.LogOnModel = new LogOnModel();
             model.IBSSignUP.QBParamObj = new QBParam();
 
-            model.IBSSignUP.CompanyName = "";
-            model.IBSSignUP.Email = "";
-            model.IBSSignUP.Name = "";
+            QBUser qbusr = QBUser;
+            model.IBSSignUP.CompanyName = qbusr.CompanyName;
+            model.IBSSignUP.Email = qbusr.QBEmail;
+            model.IBSSignUP.Name = qbusr.Name;
+
+            model.LogOnModel.UserName = qbusr.QBEmail;
 
             model.IBSSignUP.isLayout = true;
             model.LogOnModel.isLayout = true;
@@ -126,9 +129,8 @@ namespace IntuitSampleMVC.Controllers
                 model = qbsrv.GetOauthAccessTokenForUser(WebSecurityService.CurrentUserId);
             if (ValidateUser(model))
             {
-                QBUser qbusr = (QBUser)Session["QBUser"];
-                if (qbusr == null)
-                    qbusr = new QBUser();
+                QBUser qbusr = QBUser;
+              
                 string secuirtyKey = ConfigurationManager.AppSettings["securityKey"];
                 qbusr.QBEmail = model.QBParamObj.QBEmail;
                 qbusr.CompanyName = model.QBParamObj.QBCompanyName;
@@ -137,13 +139,13 @@ namespace IntuitSampleMVC.Controllers
 
                 qbusr.AccesKey = CryptographyHelper.DecryptData(model.QBParamObj.AccesKey, secuirtyKey);
                 qbusr.AccesSecret = CryptographyHelper.DecryptData(model.QBParamObj.AccesSecret, secuirtyKey);
-                Session["QBUser"] = qbusr;
+                QBUser = qbusr;
             }
         }
 
         private void UpdateUserQBData(string userEmail)
         {
-            QBUser qbusr = (QBUser)Session["QBUser"];
+            QBUser qbusr = QBUser;
             if (qbusr != null)
             {
                 IBSQBService srv = new IBSQBService();
@@ -233,7 +235,7 @@ namespace IntuitSampleMVC.Controllers
 
             // If we got this far, something failed, redisplay form
             ViewBag.PasswordLength = WebSecurityService.MinPasswordLength;
-            return RedirectToAction("LogmeIn");
+            return View("SignUp", model);
         }
 
         public ActionResult Confirm()
