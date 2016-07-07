@@ -10,7 +10,7 @@ namespace IntuitSampleMVC.utils
     {
         public override bool ValidateUser(string username, string password)
         {
-            if (password == "frmOAuth")
+            if (!string.IsNullOrEmpty(username) && password == "frmOAuth")
             return true; 
             else return  base.ValidateUser(username, password);
         }
