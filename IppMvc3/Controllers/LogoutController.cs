@@ -17,8 +17,8 @@ namespace IntuitSampleMVC.Controllers
 
         public ActionResult Index()
         {
-            IBSQBService qbs = new IBSQBService();
-            qbs.RemoveInvalidOauthAccessToken(WebSecurity.CurrentUserId);
+            //IBSQBService qbs = new IBSQBService();
+            //qbs.RemoveInvalidOauthAccessToken(WebSecurity.CurrentUserId);
           //  OauthAccessTokenStorageHelper.RemoveInvalidOauthAccessToken(Session["FriendlyEmail"].ToString(), this);
             Session.RemoveAll();
             

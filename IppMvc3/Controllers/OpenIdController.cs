@@ -85,7 +85,7 @@ namespace IntuitSampleMVC.Controllers
                     qbusr.Mobile = fetch.GetAttributeValue(WellKnownAttributes.Contact.Phone.Mobile);
                     qbusr.CompanyName = fetch.GetAttributeValue(WellKnownAttributes.Company.CompanyName);
                     QBUser = qbusr;
-
+                    return OAuthConnect();
                     //Session["OpenIdResponse"] = "True";
                     //Session["FriendlyEmail"] = fetch.GetAttributeValue(WellKnownAttributes.Contact.Email);// emailAddresses.Count > 0 ? emailAddresses[0] : null;
                     //Session["FriendlyName"] = fetch.GetAttributeValue(WellKnownAttributes.Name.FullName);//fullNames.Count > 0 ? fullNames[0] : null;
@@ -106,7 +106,7 @@ namespace IntuitSampleMVC.Controllers
                 Session["Flag"] = true;
                 return Redirect("/CleanupOnDisconnect/Index");
             }
-            return OAuthConnect();
+            return null;
         }
 
         private ActionResult OAuthConnect()
@@ -140,8 +140,7 @@ namespace IntuitSampleMVC.Controllers
                 return false;
             else
             {
-                if (string.IsNullOrEmpty(model.Email) || string.IsNullOrEmpty(model.Password)
-                    || string.IsNullOrEmpty(model.QBParamObj.QBEmail) || string.IsNullOrEmpty(model.QBParamObj.AccesKey)
+                if (string.IsNullOrEmpty(model.QBParamObj.QBEmail) || string.IsNullOrEmpty(model.QBParamObj.AccesKey)
                     || string.IsNullOrEmpty(model.QBParamObj.AccesSecret) || string.IsNullOrEmpty(model.QBParamObj.Releam))
                     return false;
             }

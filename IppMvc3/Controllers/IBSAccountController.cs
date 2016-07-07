@@ -146,7 +146,7 @@ namespace IntuitSampleMVC.Controllers
         private void UpdateUserQBData(string userEmail)
         {
             QBUser qbusr = QBUser;
-            if (qbusr != null)
+            if (!string.IsNullOrEmpty(qbusr.QBEmail))
             {
                 IBSQBService srv = new IBSQBService();
                 IBSSignUP signup = new IBSSignUP();
@@ -190,7 +190,7 @@ namespace IntuitSampleMVC.Controllers
         {
             WebSecurityService.Logout();
 
-            return RedirectToAction("IBSHome");
+            return RedirectToAction("Index","Logout");
         }
 
         // **************************************

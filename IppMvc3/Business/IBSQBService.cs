@@ -105,7 +105,7 @@ namespace IntuitSampleMVC.Business
         {
             ibshr121414Entities entity = new ibshr121414Entities();
 
-            UserProfile uf = entity.UserProfiles.Where(e => e.QBEmail == emailID && e.CompanyName==companyName).FirstOrDefault();
+            UserProfile uf = entity.UserProfiles.Where(e => e.QBEmail == emailID).FirstOrDefault();
             IBSSignUP model = new IBSSignUP();
 
             if (uf != null)
