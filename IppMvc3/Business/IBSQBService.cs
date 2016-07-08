@@ -107,6 +107,7 @@ namespace IntuitSampleMVC.Business
 
             UserProfile uf = entity.UserProfiles.Where(e => e.QBEmail == emailID).FirstOrDefault();
             IBSSignUP model = new IBSSignUP();
+            model.QBParamObj = new QBParam();
 
             if (uf != null)
             {
@@ -114,8 +115,7 @@ namespace IntuitSampleMVC.Business
                 model.Country = uf.Country;
                 model.Email = uf.Email;
                 model.Name = uf.UserName;
-                model.PhoneNumber = uf.PhoneNumber;
-                model.QBParamObj = new QBParam();
+                model.PhoneNumber = uf.PhoneNumber;                
                 model.QBParamObj.AccesKey = uf.AccesKey;
                 model.QBParamObj.AccesSecret = uf.AccesSecret;
                 model.QBParamObj.Releam = uf.RelamID;

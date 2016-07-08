@@ -18,9 +18,7 @@ namespace IntuitSampleMVC.Models
 
         public bool OpenIdResponse { get; set; }
         public string Mobile { get; set; }
-
-        private bool isShowConnect = false;
-
+      
         public bool IsShowConnect
         {
             get { return !validateQBfields(); }

@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using DevDefined.OAuth.Consumer;
 using DevDefined.OAuth.Framework;
 using IntuitSampleMVC.utils;
+using IntuitSampleMVC.Models;
 
 namespace IntuitSampleMVC.Controllers
 {
@@ -39,6 +40,7 @@ namespace IntuitSampleMVC.Controllers
         /// </summary>
         protected void GetBlueDotMenu()
         {
+            QBUser qbusr = QBUser;
             Session["serviceEndPoint"] = Constants.IaEndPoints.BlueDotAppMenuUrl;
             OAuthConsumerContext consumerContext = new OAuthConsumerContext
             {
@@ -55,9 +57,13 @@ namespace IntuitSampleMVC.Controllers
 
             oSession.AccessToken = new TokenBase
             {
-                Token = Session["accessToken"].ToString(),
+                Token =qbusr.AccesKey,
                 ConsumerKey = ConfigurationManager.AppSettings["consumerKey"].ToString(),
-                TokenSecret = Session["accessTokenSecret"].ToString()
+                TokenSecret = qbusr.AccesSecret
+
+                //Token = Session["accessToken"].ToString(),
+                //ConsumerKey = ConfigurationManager.AppSettings["consumerKey"].ToString(),
+                //TokenSecret = Session["accessTokenSecret"].ToString()
             };
 
             IConsumerRequest conReq = oSession.Request();

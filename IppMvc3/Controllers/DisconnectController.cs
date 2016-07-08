@@ -4,6 +4,9 @@ using System.Web.Mvc;
 using DevDefined.OAuth.Consumer;
 using DevDefined.OAuth.Framework;
 using IntuitSampleMVC.utils;
+using IntuitSampleMVC.Models;
+using IntuitSampleMVC.Business;
+using WebMatrix.WebData;
 
 namespace IntuitSampleMVC.Controllers
 {
@@ -40,6 +43,8 @@ namespace IntuitSampleMVC.Controllers
         /// <returns>Action Result</returns>
         public ActionResult Index()
         {
+            QBUser qbusr = QBUser;
+
             OAuthConsumerContext consumerContext = new OAuthConsumerContext
             {
                 ConsumerKey = ConfigurationManager.AppSettings["consumerKey"].ToString(),
@@ -52,13 +57,19 @@ namespace IntuitSampleMVC.Controllers
                                   Constants.OauthEndPoints.IdFedOAuthBaseUrl + Constants.OauthEndPoints.UrlAccessToken);
 
             oSession.ConsumerContext.UseHeaderForOAuthParameters = true;
-            if ((Session["accessToken"] + "").Length > 0)
+            //if ((Session["accessToken"] + "").Length > 0)
+            //{
+            if (!string.IsNullOrEmpty(qbusr.AccesKey))
             {
                 oSession.AccessToken = new TokenBase
                 {
-                    Token = Session["accessToken"].ToString(),
+                    Token = qbusr.AccesKey,
                     ConsumerKey = ConfigurationManager.AppSettings["consumerKey"].ToString(),
-                    TokenSecret = Session["accessTokenSecret"].ToString()
+                    TokenSecret = qbusr.AccesSecret
+
+                    //Token = Session["accessToken"].ToString(),
+                    //ConsumerKey = ConfigurationManager.AppSettings["consumerKey"].ToString(),
+                    //TokenSecret = Session["accessTokenSecret"].ToString()
                 };
 
                 IConsumerRequest conReq = oSession.Request();
@@ -81,12 +92,18 @@ namespace IntuitSampleMVC.Controllers
 
                 //Reset All the Session Variables
                 Session.Remove("oauthToken");
+                qbusr.AccesSecret = string.Empty;
+                qbusr.CompanyName = string.Empty;
+                qbusr.DataSource = string.Empty;
+                qbusr.QBEmail = string.Empty;
+                qbusr.Releam = string.Empty;
+                QBUser = qbusr;
 
                 // Dont remove the access token since this is required for Reconnect btn in the Blue dot menu
                 // Session.Remove("accessToken");
 
                 // Add the invalid access token into session for the display of the Disconnect btn
-                Session["InvalidAccessToken"] = Session["accessToken"];
+                Session["InvalidAccessToken"] = qbusr.AccesKey;//Session["accessToken"];
 
                 // Dont Remove flag since we need to display the blue dot menu for Reconnect btn in the Blue dot menu
                 // Session.Remove("Flag");
@@ -94,7 +111,9 @@ namespace IntuitSampleMVC.Controllers
                 ViewBag.DisconnectFlg = "User is Disconnected from QuickBooks!";
 
                 //Remove the Oauth access token from the OauthAccessTokenStorage.xml
-                OauthAccessTokenStorageHelper.RemoveInvalidOauthAccessToken(Session["FriendlyEmail"].ToString(), this);
+               // OauthAccessTokenStorageHelper.RemoveInvalidOauthAccessToken(Session["FriendlyEmail"].ToString(), this);
+                IBSQBService qbs = new IBSQBService();
+                qbs.RemoveInvalidOauthAccessToken(WebSecurity.CurrentUserId);
             }
 
             return View();

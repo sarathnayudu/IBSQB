@@ -127,7 +127,7 @@ namespace IntuitSampleMVC.Controllers
                         qbusr.AccesKey = model.QBParamObj.AccesKey;
                         qbusr.AccesSecret = model.QBParamObj.AccesSecret;
                         QBUser = qbusr;
-                       if(WebSecurity.Login(model.Email,"frmOAuth"))
+                      if(WebSecurity.HasUserId)
                            return RedirectToAction("IBSHome", "IBSAccount");
                         else
                            return RedirectToAction("SignUpOrLogin", "IBSAccount");
