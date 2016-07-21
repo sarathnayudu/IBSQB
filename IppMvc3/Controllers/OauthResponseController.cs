@@ -76,7 +76,7 @@ namespace IntuitSampleMVC.Controllers
             Session["RedirectToDefault"] = true;
             if (!WebSecurity.HasUserId)
             {
-                return RedirectToAction("SignUpOrLogin", "IBSAccount");
+                return RedirectToAction("RegisterFromQB", "IBSAccount");
             }
             return RedirectToAction("IBSHome", "IBSAccount");
         }
@@ -96,7 +96,7 @@ namespace IntuitSampleMVC.Controllers
                 qbusr.AccesSecret = accessToken.TokenSecret;
                 qbusr.DataSource = datasource;
                 qbusr.Releam = releam;
-                qbusr.QBEmail = WebSecurity.CurrentUserName;
+                qbusr.QBEmail = string.IsNullOrEmpty(qbusr.QBEmail) ? WebSecurity.CurrentUserName : qbusr.QBEmail;
                 QBUser = qbusr;
 
                 //Session["accessToken"] = accessToken.Token;
