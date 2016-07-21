@@ -7,6 +7,11 @@ using IntuitSampleMVC.utils;
 using IntuitSampleMVC.Models;
 using IntuitSampleMVC.Business;
 using WebMatrix.WebData;
+using System.Collections.Generic;
+using DotNetOpenAuth.OpenId.RelyingParty;
+using DotNetOpenAuth.OpenId;
+using DotNetOpenAuth.OpenId.Extensions.AttributeExchange;
+using DotNetOpenAuth.Messaging;
 
 namespace IntuitSampleMVC.Controllers
 {
@@ -23,6 +28,11 @@ namespace IntuitSampleMVC.Controllers
         /// Service response.
         /// </summary>
         private String txtServiceResponse = "";
+
+        /// <summary>
+        /// OpenId Relying Party
+        /// </summary>
+        private static OpenIdRelyingParty openid = new OpenIdRelyingParty();
 
         /// <summary>
         /// Disconnect Flag.
@@ -58,7 +68,11 @@ namespace IntuitSampleMVC.Controllers
 
             oSession.ConsumerContext.UseHeaderForOAuthParameters = true;
             //if ((Session["accessToken"] + "").Length > 0)
-            //{
+            //{              
+            //}
+            if(string.IsNullOrEmpty(qbusr.AccesKey))
+            CheckOpenID();
+            qbusr = QBUser;
             if (!string.IsNullOrEmpty(qbusr.AccesKey))
             {
                 oSession.AccessToken = new TokenBase
@@ -95,7 +109,7 @@ namespace IntuitSampleMVC.Controllers
                 qbusr.AccesSecret = string.Empty;
                 qbusr.CompanyName = string.Empty;
                 qbusr.DataSource = string.Empty;
-                qbusr.QBEmail = string.Empty;
+               
                 qbusr.Releam = string.Empty;
                 QBUser = qbusr;
 
@@ -113,10 +127,61 @@ namespace IntuitSampleMVC.Controllers
                 //Remove the Oauth access token from the OauthAccessTokenStorage.xml
                // OauthAccessTokenStorageHelper.RemoveInvalidOauthAccessToken(Session["FriendlyEmail"].ToString(), this);
                 IBSQBService qbs = new IBSQBService();
-                qbs.RemoveInvalidOauthAccessToken(WebSecurity.CurrentUserId);
+                qbs.RemoveInvalidOauthAccessToken(qbusr.QBEmail);
+                qbusr.QBEmail = string.Empty;
             }
 
             return View();
+        }
+
+        private void CheckOpenID()
+        {
+
+            var openid_identifier = ConfigurationManager.AppSettings["openid_identifier"].ToString(); ;
+            var response = openid.GetResponse();
+            if (response == null)
+            {
+                // Stage 2: user submitting Identifier
+                Identifier id;
+                if (Identifier.TryParse(openid_identifier, out id))
+                {
+                    try
+                    {
+                        IAuthenticationRequest request = openid.CreateRequest(openid_identifier);
+                        FetchRequest fetch = new FetchRequest();
+                        fetch.Attributes.Add(new AttributeRequest(WellKnownAttributes.Contact.Email));
+                        fetch.Attributes.Add(new AttributeRequest(WellKnownAttributes.Name.FullName));
+
+                        fetch.Attributes.Add(new AttributeRequest(WellKnownAttributes.Contact.Phone.Mobile));
+                        fetch.Attributes.Add(new AttributeRequest(WellKnownAttributes.Company.CompanyName));
+
+                        request.AddExtension(fetch);
+                        request.RedirectToProvider();
+                    }
+                    catch (ProtocolException ex)
+                    {
+                        throw ex;
+                    }
+                }
+            }
+            else
+            {
+                if (response.FriendlyIdentifierForDisplay == null)
+                {
+                    Response.Redirect("/OpenId");
+                }
+
+                // Stage 3: OpenID Provider sending assertion response, storing the response in Session object is only for demonstration purpose
+                Session["FriendlyIdentifier"] = response.FriendlyIdentifierForDisplay;
+                FetchResponse fetch = response.GetExtension<FetchResponse>();
+                if (fetch != null)
+                {
+                    if (WebSecurityService.Login(fetch.GetAttributeValue(WellKnownAttributes.Contact.Email), "frmOAuth", false))
+                    {
+                        FillQBDataIfAny(fetch.GetAttributeValue(WellKnownAttributes.Contact.Email));                       
+                    }
+                }
+            }
         }
     }
 }

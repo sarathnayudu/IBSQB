@@ -100,6 +100,20 @@ namespace IntuitSampleMVC.Business
             }
             entity.SaveChanges();
         }
+        internal void RemoveInvalidOauthAccessToken(string userName)
+        {
+            ibshr121414Entities entity = new ibshr121414Entities();
+            UserProfile uf = entity.UserProfiles.Where(e => e.Email == userName).FirstOrDefault();
+            if (uf != null)
+            {
+                uf.RelamID = string.Empty;
+                uf.AccesKey = string.Empty;
+                uf.AccesSecret = string.Empty;
+                uf.DataSource = string.Empty;
+                uf.QBEmail = string.Empty;
+            }
+            entity.SaveChanges();
+        }
 
         internal IBSSignUP GetOauthAccessTokenForUser(string emailID,string companyName)
         {

@@ -96,6 +96,7 @@ namespace IntuitSampleMVC.Controllers
                 qbusr.AccesSecret = accessToken.TokenSecret;
                 qbusr.DataSource = datasource;
                 qbusr.Releam = releam;
+                qbusr.QBEmail = WebSecurity.CurrentUserName;
                 QBUser = qbusr;
 
                 //Session["accessToken"] = accessToken.Token;
