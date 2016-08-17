@@ -44,7 +44,7 @@ namespace IntuitSampleMVC.Controllers
             IBSQBService qbsrv = new IBSQBService();
             IBSSignUP model = null;
             UpdateUserQBData(userEmail);
-            if (WebSecurityService.CurrentUserId == -1)
+            if (!WebSecurityService.HasUserId)
                 model = qbsrv.GetOauthAccessTokenForUser(userEmail);
             else
                 model = qbsrv.GetOauthAccessTokenForUser(WebSecurityService.CurrentUserId);
