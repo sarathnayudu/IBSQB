@@ -3,7 +3,7 @@
     string realm = (string)Session["realm"];
 }
 <section>
-   @* @if (!WebSecurity.HasUserId)
+    @if (!WebSecurity.HasUserId)
     {
         <span>
             <h5>One-Click Invoices Generate And Upload</h5>
@@ -12,6 +12,6 @@
                 
         <h5>No credit card required.</h5>   
         @Html.ActionLink("Sign IN", "LogmeIn", "IBSAccount") 
-    }*@
+    }
 
 </section>

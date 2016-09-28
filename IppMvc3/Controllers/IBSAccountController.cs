@@ -20,7 +20,7 @@ namespace IntuitSampleMVC.Controllers
     {
         public ActionResult IBSHome()
         {
-            //FillQBDataIfAny(string.Empty);
+            FillQBDataIfAny(string.Empty);
             return View();
         }
 
@@ -85,7 +85,7 @@ namespace IntuitSampleMVC.Controllers
             {
                 if (WebSecurityService.Login(model.UserName, model.Password, model.RememberMe))
                 {
-                    //FillQBDataIfAny(model.UserName);
+                    FillQBDataIfAny(model.UserName);
                     if (Url.IsLocalUrl(returnUrl))
                     {
                         return Redirect(returnUrl);
