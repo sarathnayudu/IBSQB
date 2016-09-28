@@ -119,7 +119,7 @@ namespace IntuitSampleMVC.Controllers
                 {
                     //Verify User/AccesToken Exist for this user
                     IBSSignUP model = VerifyUserAndAccesToken();
-                    if (Validate1User(model))
+                    if (ValidateUser(model))
                     {
                         qbusr.Releam = model.QBParamObj.Releam;
                         qbusr.DataSource = model.QBParamObj.DataSource;
@@ -130,14 +130,14 @@ namespace IntuitSampleMVC.Controllers
                       if(WebSecurity.HasUserId)
                            return RedirectToAction("IBSHome", "IBSAccount");
                         else
-                          return RedirectToAction("LogOnFromQB", "IBSAccount");
+                           return RedirectToAction("SignUpOrLogin", "IBSAccount");
                     }
                 }
             }
             return RedirectToAction("Index", "OauthGrant");
         }
 
-        private bool Validate1User(IBSSignUP model)
+        private bool ValidateUser(IBSSignUP model)
         {
             if (model == null)
                 return false;

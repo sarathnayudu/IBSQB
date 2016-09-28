@@ -17,7 +17,7 @@ using System.Web.Security;
 namespace IntuitSampleMVC.Controllers
 {
     public class IBSAccountController : BaseController
-    {
+    {  
         public ActionResult IBSHome()
         {
             FillQBDataIfAny(string.Empty);
@@ -106,26 +106,9 @@ namespace IntuitSampleMVC.Controllers
             return View(model);
         }
 
-        public ActionResult LogOnFromQB()
-        {
-            QBUser qbusr=QBUser;
-            if (WebSecurityService.Login(qbusr.QBEmail, "frmOAuth", false))
-                {
-                    FillQBDataIfAny(qbusr.QBEmail);                   
-                        return RedirectToAction("IBSHome");
-                        // return RedirectToAction("Index", "Home");                  
-                }
-                else
-                {
-                    ModelState.AddModelError("", "The user name or password provided is incorrect.");
-                }
-            
+      
 
-            // If we got this far, something failed, redisplay form
-            return View();
-        }
-
-
+     
 
         // **************************************
         // URL: /Account/LogOff
@@ -135,7 +118,7 @@ namespace IntuitSampleMVC.Controllers
         {
             WebSecurityService.Logout();
 
-            return RedirectToAction("Index", "Logout");
+            return RedirectToAction("Index","Logout");
         }
 
         // **************************************
@@ -147,35 +130,6 @@ namespace IntuitSampleMVC.Controllers
             ViewBag.PasswordLength = WebSecurityService.MinPasswordLength;
             return View();
         }
-
-        public ActionResult RegisterFromQB()
-        {
-            QBUser qbusr = QBUser;
-            // Attempt to register the user
-            var requireEmailConfirmation = false;
-            var token = WebSecurityService.CreateUserAndAccount(qbusr.QBEmail, "nayudunz",
-                propertyValues: new
-                {
-                    UserName = qbusr.QBEmail,
-                    CompanyName = qbusr.CompanyName,
-                    Country = string.Empty,
-                    CreatedDate = DateTime.Now,
-                    UpdatedDate = DateTime.Now,
-                    PhoneNumber = qbusr.PhoneNumber
-                },
-        requireConfirmationToken: requireEmailConfirmation);
-
-            if (!Roles.IsUserInRole(qbusr.QBEmail, "Admin"))
-                Roles.AddUserToRole(qbusr.QBEmail, "Admin");
-
-
-            LogOnModel lgmodel = new LogOnModel();
-            lgmodel.UserName = qbusr.QBEmail;
-            lgmodel.Password = "frmOAuth";
-
-            return LogOn(lgmodel, string.Empty);
-        }
-
 
         [HttpPost]
         public ActionResult Register(IBSSignUP model)
