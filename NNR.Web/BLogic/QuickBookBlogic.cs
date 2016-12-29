@@ -30,12 +30,15 @@ namespace NNR.Web.BLogic
             }
         }
 
-        public int GetLatestUser(string qbUsrEmail)
+        public string GetLatestUser(string qbUsrEmail)
         {
             QBEntities qe = new QBEntities();
-           UserQbUser usrQBusr= qe.UserQbUsers.OrderByDescending(e => e.Id).FirstOrDefault();
-            return usrQBusr != null ? usrQBusr.Id : 0;
+            QbUser qbusr = qe.QbUsers.Where(e => e.Email == qbUsrEmail).FirstOrDefault();
+          
+            return qbusr != null && qbusr.UserQbUsers!=null ? 
+                qbusr.UserQbUsers.OrderByDescending(e=>e.Id).FirstOrDefault().AspNetUser.Email : string.Empty;
         }
+
 
         public QbUser GetQbUserbyUserEmail(string userEmail)
         {

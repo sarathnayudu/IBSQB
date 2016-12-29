@@ -257,6 +257,6 @@ F:\MyFolder\Personal\Repositary\IBSQB\NNR.Web\bin\Microsoft.Owin.Security.Twitte
 F:\MyFolder\Personal\Repositary\IBSQB\NNR.Web\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
 F:\MyFolder\Personal\Repositary\IBSQB\NNR.Web\bin\Org.Mentalis.Security.Cryptography.xml
 F:\MyFolder\Personal\Repositary\IBSQB\NNR.Web\bin\Mono.Math.xml
-F:\MyFolder\Personal\Repositary\IBSQB\NNR.Web\obj\Debug\NNR.Web.csprojResolveAssemblyReference.cache
 F:\MyFolder\Personal\Repositary\IBSQB\NNR.Web\obj\Debug\NNR.Web.dll
 F:\MyFolder\Personal\Repositary\IBSQB\NNR.Web\obj\Debug\NNR.Web.pdb
+F:\MyFolder\Personal\Repositary\IBSQB\NNR.Web\obj\Debug\NNR.Web.csprojResolveAssemblyReference.cache

@@ -6,6 +6,8 @@ using DotNetOpenAuth.OpenId;
 using DotNetOpenAuth.OpenId.Extensions.AttributeExchange;
 using DotNetOpenAuth.OpenId.RelyingParty;
 using NNR.Web.utils;
+using NNR.Web.BLogic;
+using NNR.Web.Models;
 
 namespace NNR.Web.QB.Controllers
 {
@@ -34,7 +36,7 @@ namespace NNR.Web.QB.Controllers
         /// and handling response recieved. 
         /// </summary>
         /// <returns></returns>
-        public RedirectResult Index()
+        public ActionResult Index()
         {
             var openid_identifier = ConfigurationManager.AppSettings["openid_identifier"].ToString(); ;
             var response = openid.GetResponse();
@@ -85,7 +87,11 @@ namespace NNR.Web.QB.Controllers
                     {
                         if (qbusr.UserQbUsers.Count > 0)
                         {
-                            return Redirect("/Account/Login");
+                            QuickBookBlogic qbLog = new QuickBookBlogic();
+                          string usrEmail=  qbLog.GetLatestUser(qbusr.Email);
+                           
+                            return RedirectToAction("LoginByQB", "Account",new { userEmail = usrEmail });
+                            
                         }
                         else
                         {
