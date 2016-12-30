@@ -1,17 +1,6 @@
 ﻿@using Microsoft.AspNet.Identity
 
-<script type="text/javascript">
-    intuit.ipp.anywhere.setup({
-        grantUrl: "http://localhost:19947/OauthGrant/Index",
-            datasources: {
-                 quickbooks : true,
-                 payments : true
-           },
-            paymentOptions:{
-                  intuitReferred : true
-           }
-    });
-</script>
+
 
 @if (Request.IsAuthenticated)
 {

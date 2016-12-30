@@ -57,7 +57,13 @@ namespace NNR.Web.QB.Controllers
                     //Add userQBuser
                     QuickBookBlogic qblog = new QuickBookBlogic();
                     qblog.RegisterUserQBUser(User.Identity.Name, Session["FriendlyEmail"].ToString());
-                    Redirect("/Home/Index");
+
+
+                    //   return RedirectToAction("/Home/Index");
+                }
+                else
+                {
+                    return RedirectToActionPermanent("Register", "Account");
                 }
               
                 // This value is used to redirect to Default.aspx from Cleanup page when user clicks on ConnectToInuit widget.
@@ -67,9 +73,10 @@ namespace NNR.Web.QB.Controllers
             {
                 Response.Write("No oauth token was received");
             }
+            // string message = "<script type = 'text / javascript' > window.opener.location.reload(true); window.close();</ script >";
+            // Response.Write(message);
 
-           
-             return   RedirectToActionPermanent("Register", "Account");
+            return View();
             
         }
 

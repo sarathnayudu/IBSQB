@@ -11,6 +11,9 @@ namespace NNR.Web.Controllers
     {
         public ActionResult Index()
         {
+            //string message = "<script type = 'text / javascript' > window.opener.location.reload(true); window.close();</ script >";
+            //Response.Write(message);
+
             if (Session["show"] != null)
             {
                 bool value = System.Convert.ToBoolean(Session["show"]);
@@ -18,9 +21,9 @@ namespace NNR.Web.Controllers
                 {
                     Session.Remove("show");
                     //show a message to the user that token is invalid
-                    string message = "<SCRIPT LANGUAGE='JavaScript'>alert('Your authorization to this application to access your quickbook data is no longer Valid.Please provide authorization again.')</SCRIPT>";
+                    string message1 = "<SCRIPT LANGUAGE='JavaScript'>alert('Your authorization to this application to access your quickbook data is no longer Valid.Please provide authorization again.')</SCRIPT>";
                     // show user the connect to quickbook page again
-                    Response.Write(message);
+                    Response.Write(message1);
                 }
             }
             return View();
