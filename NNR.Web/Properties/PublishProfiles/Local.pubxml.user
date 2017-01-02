@@ -16,10 +16,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>02/22/2013 08:43:40</publishTime>
     </File>
     <File Include="bin/App_global.asax.compiled">
-      <publishTime>12/29/2016 16:17:42</publishTime>
+      <publishTime>01/02/2017 17:19:11</publishTime>
     </File>
     <File Include="bin/App_global.asax.dll">
-      <publishTime>12/29/2016 16:17:42</publishTime>
+      <publishTime>01/02/2017 17:19:11</publishTime>
     </File>
     <File Include="bin/DevDefined.OAuth.dll">
       <publishTime>11/23/2016 13:35:20</publishTime>
@@ -139,10 +139,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>11/23/2016 13:35:20</publishTime>
     </File>
     <File Include="bin/NNR.Web.dll">
-      <publishTime>12/29/2016 16:17:31</publishTime>
+      <publishTime>01/02/2017 17:08:23</publishTime>
     </File>
     <File Include="bin/NNR.Web.pdb">
-      <publishTime>12/29/2016 16:17:31</publishTime>
+      <publishTime>01/02/2017 17:08:23</publishTime>
     </File>
     <File Include="bin/Org.Mentalis.Security.Cryptography.dll">
       <publishTime>11/25/2013 10:32:26</publishTime>
@@ -253,7 +253,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>12/20/2016 15:59:20</publishTime>
     </File>
     <File Include="PrecompiledApp.config">
-      <publishTime>12/29/2016 16:17:39</publishTime>
+      <publishTime>01/02/2017 17:19:06</publishTime>
     </File>
     <File Include="QBModel.edmx.diagram">
       <publishTime>12/22/2016 15:30:00</publishTime>
@@ -340,7 +340,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>12/20/2016 15:09:49</publishTime>
     </File>
     <File Include="Views/Home/Index.cshtml">
-      <publishTime>12/20/2016 15:09:49</publishTime>
+      <publishTime>12/30/2016 19:07:04</publishTime>
     </File>
     <File Include="Views/Manage/AddPhoneNumber.cshtml">
       <publishTime>12/20/2016 15:09:56</publishTime>
@@ -360,6 +360,12 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Views/Manage/VerifyPhoneNumber.cshtml">
       <publishTime>12/20/2016 15:09:56</publishTime>
     </File>
+    <File Include="Views/OauthResponse/Index.cshtml">
+      <publishTime>01/02/2017 15:50:44</publishTime>
+    </File>
+    <File Include="Views/OpenId/Index.cshtml">
+      <publishTime>12/30/2016 18:18:39</publishTime>
+    </File>
     <File Include="Views/Shared/Error.cshtml">
       <publishTime>12/20/2016 15:09:56</publishTime>
     </File>
@@ -367,10 +373,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>12/20/2016 15:09:56</publishTime>
     </File>
     <File Include="Views/Shared/_Layout.cshtml">
-      <publishTime>12/20/2016 17:34:55</publishTime>
+      <publishTime>12/30/2016 13:09:33</publishTime>
     </File>
     <File Include="Views/Shared/_LoginPartial.cshtml">
-      <publishTime>12/28/2016 12:39:28</publishTime>
+      <publishTime>12/30/2016 12:55:11</publishTime>
     </File>
     <File Include="Views/Web.config">
       <publishTime>12/20/2016 15:09:49</publishTime>
@@ -379,7 +385,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>12/20/2016 15:09:49</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>12/29/2016 16:17:39</publishTime>
+      <publishTime>01/02/2017 17:19:06</publishTime>
     </File>
   </ItemGroup>
 </Project>

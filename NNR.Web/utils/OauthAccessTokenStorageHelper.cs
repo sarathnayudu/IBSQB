@@ -65,8 +65,8 @@ namespace NNR.Web.utils
              QbUser qbusr=  qbLog.GetQbuser(emailID);
             if (qbusr != null)
             {
-                page.Session["realm"] = qbusr.RelaimID;
-                page.Session["dataSource"] = qbusr.DataSource;
+                page.Session["realm"] =!string.IsNullOrEmpty(qbusr.RelaimID)? qbusr.RelaimID.Trim(): qbusr.RelaimID;
+                page.Session["dataSource"] = !string.IsNullOrEmpty(qbusr.DataSource) ? qbusr.DataSource.Trim():qbusr.DataSource;
                 string secuirtyKey = ConfigurationManager.AppSettings["securityKey"];
                 page.Session["accessToken"] = CryptographyHelper.DecryptData(qbusr.Token, secuirtyKey);
                 page.Session["accessTokenSecret"] = CryptographyHelper.DecryptData(qbusr.Secret, secuirtyKey);

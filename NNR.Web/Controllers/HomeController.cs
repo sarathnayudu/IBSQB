@@ -1,4 +1,6 @@
-﻿using NNR.Web.Models;
+﻿using NNR.Web.BLogic;
+using NNR.Web.Models;
+using NNR.Web.utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,22 +13,15 @@ namespace NNR.Web.Controllers
     {
         public ActionResult Index()
         {
-            //string message = "<script type = 'text / javascript' > window.opener.location.reload(true); window.close();</ script >";
-            //Response.Write(message);
-
-            if (Session["show"] != null)
+            if (!string.IsNullOrEmpty((string)Session["accessToken"])
+      && !string.IsNullOrEmpty((string)Session["accessTokenSecret"]))
             {
-                bool value = System.Convert.ToBoolean(Session["show"]);
-                if (value)
-                {
-                    Session.Remove("show");
-                    //show a message to the user that token is invalid
-                    string message1 = "<SCRIPT LANGUAGE='JavaScript'>alert('Your authorization to this application to access your quickbook data is no longer Valid.Please provide authorization again.')</SCRIPT>";
-                    // show user the connect to quickbook page again
-                    Response.Write(message1);
-                }
+                return RedirectToAction("Index", "QuickBooksCustomers");
             }
-            return View();
+            else
+            {
+                return View();
+            }
         }
 
         public ActionResult About()
@@ -41,6 +36,6 @@ namespace NNR.Web.Controllers
             ViewBag.Message = "Your contact page.";
 
             return View();
-        }    
+        }
     }
 }

@@ -12,6 +12,10 @@
             <button class="btn btn-defualt btn-blue" id="sync_invoices_now_btn">Sync Now</button>
         </div>
     }
+    else
+    {
+        <ipp:connecttointuit href="/OauthGrant/Index"></ipp:connecttointuit>
+    }
     using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
     {
         @Html.AntiForgeryToken()

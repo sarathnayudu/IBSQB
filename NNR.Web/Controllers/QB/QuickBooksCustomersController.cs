@@ -14,6 +14,7 @@ using Intuit.Ipp.LinqExtender;
 using DevDefined.OAuth.Consumer;
 using DevDefined.OAuth.Framework;
 using NNR.Web.utils;
+using NNR.Web.Models;
 
 namespace NNR.Web.QB.Controllers
 {
@@ -64,8 +65,7 @@ namespace NNR.Web.QB.Controllers
                 ServiceContext context = new ServiceContext(realmId, intuitServicesType, oauthValidator);
                 DataService dataService = new DataService(context);
                 List<Customer> customers = dataService.FindAll(new Customer(), 1, 100).ToList();
-                ViewBag.MyCollection = customers;
-                ViewBag.CustomerCount = customers.Count();
+                
 
             }
             catch (InvalidTokenException exp)

@@ -21,12 +21,15 @@ namespace NNR.Web.BLogic
            QbUser qbusr= qe.QbUsers.Where(e => e.Email == qbUsrEmail).FirstOrDefault();
             if (usr != null && qbusr != null)
             {
-                qe.UserQbUsers.Add(new UserQbUser
+                if (usr.UserQbUsers.Count == 0)
                 {
-                    UserId=usr.Id,
-                    QbUserId=qbusr.ID
-                });
-                qe.SaveChanges();
+                    qe.UserQbUsers.Add(new UserQbUser
+                    {
+                        UserId = usr.Id,
+                        QbUserId = qbusr.ID
+                    });
+                    qe.SaveChanges();
+                }
             }
         }
 

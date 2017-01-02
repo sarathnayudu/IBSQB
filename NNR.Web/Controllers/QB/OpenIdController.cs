@@ -85,6 +85,14 @@ namespace NNR.Web.QB.Controllers
                     }
                     else
                     {
+                        if (this.User.Identity.IsAuthenticated)
+                        {
+                            //Add userQBuser
+                            QuickBookBlogic qblog = new QuickBookBlogic();
+                            qblog.RegisterUserQBUser(User.Identity.Name, Session["FriendlyEmail"].ToString());
+                            //  return View("/Home/Index");
+                        }
+                        else
                         if (qbusr.UserQbUsers.Count > 0)
                         {
                             QuickBookBlogic qbLog = new QuickBookBlogic();
@@ -108,8 +116,8 @@ namespace NNR.Web.QB.Controllers
                 Session["accessTokenSecret"] = "dummyAccessTokenSecret";
                 Session["Flag"] = true;
                 return Redirect("/CleanupOnDisconnect/Index");
-            }          
-            return Redirect("/Home/index");
+            }
+            return View();
         }       
     }
 }

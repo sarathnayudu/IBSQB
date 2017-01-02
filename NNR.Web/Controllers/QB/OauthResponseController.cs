@@ -57,15 +57,27 @@ namespace NNR.Web.QB.Controllers
                     //Add userQBuser
                     QuickBookBlogic qblog = new QuickBookBlogic();
                     qblog.RegisterUserQBUser(User.Identity.Name, Session["FriendlyEmail"].ToString());
-
-
                     //   return RedirectToAction("/Home/Index");
                 }
                 else
                 {
-                    return RedirectToActionPermanent("Register", "Account");
+                    QbUser qbusr = OauthAccessTokenStorageHelper.GetOauthAccessTokenForUser(Session["FriendlyEmail"].ToString(), this);
+
+                    if (qbusr.UserQbUsers.Count > 0)
+                    {
+                        QuickBookBlogic qbLog = new QuickBookBlogic();
+                        string usrEmail = qbLog.GetLatestUser(qbusr.Email);
+
+                        return RedirectToAction("LoginByQB", "Account", new { userEmail = usrEmail });
+
+                    }
+                    else
+                    {
+                        Session["IsRegister"] = true;
+                        return RedirectToAction("Register", "Account");
+                    }
                 }
-              
+
                 // This value is used to redirect to Default.aspx from Cleanup page when user clicks on ConnectToInuit widget.
                 Session["RedirectToDefault"] = true;
             }
@@ -77,7 +89,7 @@ namespace NNR.Web.QB.Controllers
             // Response.Write(message);
 
             return View();
-            
+
         }
 
         /// <summary>
@@ -124,5 +136,7 @@ namespace NNR.Web.QB.Controllers
                                             Constants.OauthEndPoints.IdFedOAuthBaseUrl,
                                              Constants.OauthEndPoints.IdFedOAuthBaseUrl + Constants.OauthEndPoints.UrlAccessToken);
         }
+
+
     }
 }
