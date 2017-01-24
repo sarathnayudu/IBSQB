@@ -67,17 +67,17 @@
     <Property Name="AccessFailedCount" Type="int" Nullable="false" />
     <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
   </EntityType>
-  <EntityType Name="QbUsers">
+  <EntityType Name="QbUser">
     <Key>
       <PropertyRef Name="ID" />
     </Key>
     <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Email" Type="nvarchar(max)" />
-    <Property Name="name" Type="nvarchar(max)" />
-    <Property Name="Token" Type="nvarchar(max)" />
-    <Property Name="Secret" Type="nvarchar(max)" />
-    <Property Name="RelaimID" Type="nchar" MaxLength="20" />
-    <Property Name="DataSource" Type="nchar" MaxLength="5" />
+    <Property Name="Email" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="name" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Token" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Secret" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="RelaimID" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="DataSource" Type="nchar" MaxLength="3" Nullable="false" />
   </EntityType>
   <EntityType Name="UserQbUser">
     <Key>
@@ -155,11 +155,11 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_UserQbUser_QbUsers">
-    <End Role="QbUsers" Type="Self.QbUsers" Multiplicity="1" />
+  <Association Name="FK_UserQbUser_QbUser">
+    <End Role="QbUser" Type="Self.QbUser" Multiplicity="1" />
     <End Role="UserQbUser" Type="Self.UserQbUser" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="QbUsers">
+      <Principal Role="QbUser">
         <PropertyRef Name="ID" />
       </Principal>
       <Dependent Role="UserQbUser">
@@ -174,7 +174,7 @@
     <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="QbUsers" EntityType="Self.QbUsers" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="QbUser" EntityType="Self.QbUser" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="UserQbUser" EntityType="Self.UserQbUser" Schema="dbo" store:Type="Tables" />
     <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
       <End Role="AspNetUsers" EntitySet="AspNetUsers" />
@@ -196,8 +196,8 @@
       <End Role="AspNetUsers" EntitySet="AspNetUsers" />
       <End Role="UserQbUser" EntitySet="UserQbUser" />
     </AssociationSet>
-    <AssociationSet Name="FK_UserQbUser_QbUsers" Association="Self.FK_UserQbUser_QbUsers">
-      <End Role="QbUsers" EntitySet="QbUsers" />
+    <AssociationSet Name="FK_UserQbUser_QbUser" Association="Self.FK_UserQbUser_QbUser">
+      <End Role="QbUser" EntitySet="QbUser" />
       <End Role="UserQbUser" EntitySet="UserQbUser" />
     </AssociationSet>
   </EntityContainer>

@@ -10,19 +10,6 @@ F:\MyFolder\Personal\Repositary\IBSQB\NNR.Web\bin\roslyn\System.Reflection.Metad
 F:\MyFolder\Personal\Repositary\IBSQB\NNR.Web\bin\roslyn\vbc.exe
 F:\MyFolder\Personal\Repositary\IBSQB\NNR.Web\bin\roslyn\VBCSCompiler.exe
 F:\MyFolder\Personal\Repositary\IBSQB\NNR.Web\bin\roslyn\VBCSCompiler.exe.config
-F:\MyFolder\Personal\Repositary\IBSQB\NNR.Web\bin\QBModel.Context.tt
-F:\MyFolder\Personal\Repositary\IBSQB\NNR.Web\bin\QBModel.tt
-F:\MyFolder\Personal\Repositary\IBSQB\NNR.Web\bin\QBModel.edmx.diagram
-F:\MyFolder\Personal\Repositary\IBSQB\NNR.Web\bin\AspNetRole.cs
-F:\MyFolder\Personal\Repositary\IBSQB\NNR.Web\bin\AspNetUser.cs
-F:\MyFolder\Personal\Repositary\IBSQB\NNR.Web\bin\AspNetUserClaim.cs
-F:\MyFolder\Personal\Repositary\IBSQB\NNR.Web\bin\AspNetUserLogin.cs
-F:\MyFolder\Personal\Repositary\IBSQB\NNR.Web\bin\C__MigrationHistory.cs
-F:\MyFolder\Personal\Repositary\IBSQB\NNR.Web\bin\QBModel.Context.cs
-F:\MyFolder\Personal\Repositary\IBSQB\NNR.Web\bin\QBModel.cs
-F:\MyFolder\Personal\Repositary\IBSQB\NNR.Web\bin\QBModel.Designer.cs
-F:\MyFolder\Personal\Repositary\IBSQB\NNR.Web\bin\QbUser.cs
-F:\MyFolder\Personal\Repositary\IBSQB\NNR.Web\bin\UserQbUser.cs
 F:\MyFolder\Personal\Repositary\IBSQB\NNR.Web\bin\NNR.Web.dll.config
 F:\MyFolder\Personal\Repositary\IBSQB\NNR.Web\bin\NNR.Web.dll
 F:\MyFolder\Personal\Repositary\IBSQB\NNR.Web\bin\NNR.Web.pdb
@@ -130,4 +117,3 @@ F:\MyFolder\Personal\Repositary\IBSQB\NNR.Web\bin\Org.Mentalis.Security.Cryptogr
 F:\MyFolder\Personal\Repositary\IBSQB\NNR.Web\bin\Mono.Math.xml
 F:\MyFolder\Personal\Repositary\IBSQB\NNR.Web\obj\Debug\NNR.Web.dll
 F:\MyFolder\Personal\Repositary\IBSQB\NNR.Web\obj\Debug\NNR.Web.pdb
-F:\MyFolder\Personal\Repositary\IBSQB\NNR.Web\obj\Debug\NNR.Web.csprojResolveAssemblyReference.cache

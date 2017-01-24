@@ -64,14 +64,23 @@
     </EntitySetMapping>
     <EntitySetMapping Name="QbUsers">
       <EntityTypeMapping TypeName="QBModel.QbUser">
-        <MappingFragment StoreEntitySet="QbUsers">
-          <ScalarProperty Name="DataSource" ColumnName="DataSource" />
-          <ScalarProperty Name="RelaimID" ColumnName="RelaimID" />
+        <MappingFragment StoreEntitySet="QbUser">
           <ScalarProperty Name="ID" ColumnName="ID" />
           <ScalarProperty Name="Email" ColumnName="Email" />
           <ScalarProperty Name="name" ColumnName="name" />
           <ScalarProperty Name="Token" ColumnName="Token" />
           <ScalarProperty Name="Secret" ColumnName="Secret" />
+          <ScalarProperty Name="RelaimID" ColumnName="RelaimID" />
+          <ScalarProperty Name="DataSource" ColumnName="DataSource" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserQbUsers">
+      <EntityTypeMapping TypeName="QBModel.UserQbUser">
+        <MappingFragment StoreEntitySet="UserQbUser">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="QbUserId" ColumnName="QbUserId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -83,14 +92,5 @@
         <ScalarProperty Name="Id" ColumnName="UserId" />
       </EndProperty>
     </AssociationSetMapping>
-    <EntitySetMapping Name="UserQbUsers">
-      <EntityTypeMapping TypeName="QBModel.UserQbUser">
-        <MappingFragment StoreEntitySet="UserQbUser">
-          <ScalarProperty Name="QbUserId" ColumnName="QbUserId" />
-          <ScalarProperty Name="UserId" ColumnName="UserId" />
-          <ScalarProperty Name="Id" ColumnName="Id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

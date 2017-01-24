@@ -63,21 +63,31 @@
     <Property Name="UserName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
     <NavigationProperty Name="AspNetUserClaims" Relationship="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserClaims" />
     <NavigationProperty Name="AspNetUserLogins" Relationship="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserLogins" />
+    <NavigationProperty Name="UserQbUsers" Relationship="Self.FK_UserQbUser_AspNetUsers" FromRole="AspNetUsers" ToRole="UserQbUser" />
     <NavigationProperty Name="AspNetRoles" Relationship="Self.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
-    <NavigationProperty Name="UserQbUsers" Relationship="QBModel.FK_UserQbUser_AspNetUsers" FromRole="AspNetUser" ToRole="UserQbUser" />
   </EntityType>
   <EntityType Name="QbUser">
     <Key>
       <PropertyRef Name="ID" />
     </Key>
     <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="Token" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="Secret" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="RelaimID" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
-    <Property Name="DataSource" Type="String" MaxLength="5" FixedLength="true" Unicode="true" />
-    <NavigationProperty Name="UserQbUsers" Relationship="QBModel.FK_UserQbUser_QbUsers" FromRole="QbUser" ToRole="UserQbUser" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Token" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Secret" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="RelaimID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="DataSource" Type="String" MaxLength="3" FixedLength="true" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="UserQbUsers" Relationship="Self.FK_UserQbUser_QbUser" FromRole="QbUser" ToRole="UserQbUser" />
+  </EntityType>
+  <EntityType Name="UserQbUser">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="QbUserId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="AspNetUser" Relationship="Self.FK_UserQbUser_AspNetUsers" FromRole="UserQbUser" ToRole="AspNetUsers" />
+    <NavigationProperty Name="QbUser" Relationship="Self.FK_UserQbUser_QbUser" FromRole="UserQbUser" ToRole="QbUser" />
   </EntityType>
   <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
     <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1">
@@ -107,6 +117,30 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_UserQbUser_AspNetUsers">
+    <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1" />
+    <End Role="UserQbUser" Type="Self.UserQbUser" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="UserQbUser">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserQbUser_QbUser">
+    <End Role="QbUser" Type="Self.QbUser" Multiplicity="1" />
+    <End Role="UserQbUser" Type="Self.UserQbUser" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="QbUser">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="UserQbUser">
+        <PropertyRef Name="QbUserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="AspNetUserRoles">
     <End Role="AspNetRoles" Type="Self.AspNetRole" Multiplicity="*" />
     <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="*" />
@@ -118,6 +152,7 @@
     <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogin" />
     <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUser" />
     <EntitySet Name="QbUsers" EntityType="Self.QbUser" />
+    <EntitySet Name="UserQbUsers" EntityType="Self.UserQbUser" />
     <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
       <End Role="AspNetUsers" EntitySet="AspNetUsers" />
       <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
@@ -126,52 +161,17 @@
       <End Role="AspNetUsers" EntitySet="AspNetUsers" />
       <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
     </AssociationSet>
+    <AssociationSet Name="FK_UserQbUser_AspNetUsers" Association="Self.FK_UserQbUser_AspNetUsers">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="UserQbUser" EntitySet="UserQbUsers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserQbUser_QbUser" Association="Self.FK_UserQbUser_QbUser">
+      <End Role="QbUser" EntitySet="QbUsers" />
+      <End Role="UserQbUser" EntitySet="UserQbUsers" />
+    </AssociationSet>
     <AssociationSet Name="AspNetUserRoles" Association="Self.AspNetUserRoles">
       <End Role="AspNetRoles" EntitySet="AspNetRoles" />
       <End Role="AspNetUsers" EntitySet="AspNetUsers" />
     </AssociationSet>
-    <EntitySet Name="UserQbUsers" EntityType="QBModel.UserQbUser" />
-    <AssociationSet Name="FK_UserQbUser_AspNetUsers" Association="QBModel.FK_UserQbUser_AspNetUsers">
-      <End Role="AspNetUser" EntitySet="AspNetUsers" />
-      <End Role="UserQbUser" EntitySet="UserQbUsers" />
-    </AssociationSet>
-    <AssociationSet Name="FK_UserQbUser_QbUsers" Association="QBModel.FK_UserQbUser_QbUsers">
-      <End Role="QbUser" EntitySet="QbUsers" />
-      <End Role="UserQbUser" EntitySet="UserQbUsers" />
-    </AssociationSet>
   </EntityContainer>
-  <EntityType Name="UserQbUser">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-    <Property Name="QbUserId" Type="Int32" Nullable="false" />
-    <NavigationProperty Name="AspNetUser" Relationship="QBModel.FK_UserQbUser_AspNetUsers" FromRole="UserQbUser" ToRole="AspNetUser" />
-    <NavigationProperty Name="QbUser" Relationship="QBModel.FK_UserQbUser_QbUsers" FromRole="UserQbUser" ToRole="QbUser" />
-  </EntityType>
-  <Association Name="FK_UserQbUser_AspNetUsers">
-    <End Type="QBModel.AspNetUser" Role="AspNetUser" Multiplicity="1" />
-    <End Type="QBModel.UserQbUser" Role="UserQbUser" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="AspNetUser">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="UserQbUser">
-        <PropertyRef Name="UserId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_UserQbUser_QbUsers">
-    <End Type="QBModel.QbUser" Role="QbUser" Multiplicity="1" />
-    <End Type="QBModel.UserQbUser" Role="UserQbUser" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="QbUser">
-        <PropertyRef Name="ID" />
-      </Principal>
-      <Dependent Role="UserQbUser">
-        <PropertyRef Name="QbUserId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
 </Schema>
