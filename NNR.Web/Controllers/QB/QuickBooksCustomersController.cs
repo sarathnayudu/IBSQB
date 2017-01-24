@@ -15,6 +15,7 @@ using DevDefined.OAuth.Consumer;
 using DevDefined.OAuth.Framework;
 using NNR.Web.utils;
 using NNR.Web.Models;
+using AutoMapper;
 
 namespace NNR.Web.QB.Controllers
 {
@@ -36,6 +37,7 @@ namespace NNR.Web.QB.Controllers
         /// <returns>Action Result.</returns>
         public ActionResult Index()
         {
+            List<Customers> lstCust = new List<Customers>();
             realmId = Session["realm"].ToString();
             accessToken = Session["accessToken"].ToString();
             accessTokenSecret = Session["accessTokenSecret"].ToString();
@@ -65,7 +67,21 @@ namespace NNR.Web.QB.Controllers
                 ServiceContext context = new ServiceContext(realmId, intuitServicesType, oauthValidator);
                 DataService dataService = new DataService(context);
                 List<Customer> customers = dataService.FindAll(new Customer(), 1, 100).ToList();
-                
+
+
+                foreach (Customer cust in customers)
+                {
+                    Customers customerUI = new Customers();
+                    customerUI.IsSelected = false;
+                    customerUI.Id = cust.Id;
+                    customerUI.CompanyName = cust.CompanyName;
+                    customerUI.FullyQualifiedName = cust.FullyQualifiedName;
+                    customerUI.EmailAddress = cust.PrimaryEmailAddr != null ? cust.PrimaryEmailAddr.Address : string.Empty;
+                    customerUI.Balance = cust.Balance;
+                    customerUI.CreditLimit = cust.CreditLimit;
+                    customerUI.TotalExpense = cust.TotalExpense;
+                    lstCust.Add(customerUI);
+                }
 
             }
             catch (InvalidTokenException exp)
@@ -81,7 +97,7 @@ namespace NNR.Web.QB.Controllers
                 throw exp;
             }
 
-            return View();
+            return View(lstCust);
         }
     }
 }

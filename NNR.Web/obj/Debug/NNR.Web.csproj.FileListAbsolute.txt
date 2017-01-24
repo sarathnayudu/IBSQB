@@ -1,134 +1,3 @@
-c:\users\user 2\documents\visual studio 2015\Projects\NNR.Web\NNR.Web\bin\roslyn\csc.exe
-c:\users\user 2\documents\visual studio 2015\Projects\NNR.Web\NNR.Web\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
-c:\users\user 2\documents\visual studio 2015\Projects\NNR.Web\NNR.Web\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
-c:\users\user 2\documents\visual studio 2015\Projects\NNR.Web\NNR.Web\bin\roslyn\Microsoft.CodeAnalysis.dll
-c:\users\user 2\documents\visual studio 2015\Projects\NNR.Web\NNR.Web\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
-c:\users\user 2\documents\visual studio 2015\Projects\NNR.Web\NNR.Web\bin\roslyn\Microsoft.CSharp.Core.targets
-c:\users\user 2\documents\visual studio 2015\Projects\NNR.Web\NNR.Web\bin\roslyn\Microsoft.VisualBasic.Core.targets
-c:\users\user 2\documents\visual studio 2015\Projects\NNR.Web\NNR.Web\bin\roslyn\System.Collections.Immutable.dll
-c:\users\user 2\documents\visual studio 2015\Projects\NNR.Web\NNR.Web\bin\roslyn\System.Reflection.Metadata.dll
-c:\users\user 2\documents\visual studio 2015\Projects\NNR.Web\NNR.Web\bin\roslyn\vbc.exe
-c:\users\user 2\documents\visual studio 2015\Projects\NNR.Web\NNR.Web\bin\roslyn\VBCSCompiler.exe
-c:\users\user 2\documents\visual studio 2015\Projects\NNR.Web\NNR.Web\bin\roslyn\VBCSCompiler.exe.config
-c:\users\user 2\documents\visual studio 2015\Projects\NNR.Web\NNR.Web\bin\NNR.Web.dll.config
-c:\users\user 2\documents\visual studio 2015\Projects\NNR.Web\NNR.Web\bin\NNR.Web.dll
-c:\users\user 2\documents\visual studio 2015\Projects\NNR.Web\NNR.Web\bin\NNR.Web.pdb
-c:\users\user 2\documents\visual studio 2015\Projects\NNR.Web\NNR.Web\bin\Antlr3.Runtime.dll
-c:\users\user 2\documents\visual studio 2015\Projects\NNR.Web\NNR.Web\bin\EntityFramework.dll
-c:\users\user 2\documents\visual studio 2015\Projects\NNR.Web\NNR.Web\bin\EntityFramework.SqlServer.dll
-c:\users\user 2\documents\visual studio 2015\Projects\NNR.Web\NNR.Web\bin\Microsoft.AspNet.Identity.Core.dll
-c:\users\user 2\documents\visual studio 2015\Projects\NNR.Web\NNR.Web\bin\Microsoft.AspNet.Identity.EntityFramework.dll
-c:\users\user 2\documents\visual studio 2015\Projects\NNR.Web\NNR.Web\bin\Microsoft.AspNet.Identity.Owin.dll
-c:\users\user 2\documents\visual studio 2015\Projects\NNR.Web\NNR.Web\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
-c:\users\user 2\documents\visual studio 2015\Projects\NNR.Web\NNR.Web\bin\Microsoft.Owin.dll
-c:\users\user 2\documents\visual studio 2015\Projects\NNR.Web\NNR.Web\bin\Microsoft.Owin.Host.SystemWeb.dll
-c:\users\user 2\documents\visual studio 2015\Projects\NNR.Web\NNR.Web\bin\Microsoft.Owin.Security.Cookies.dll
-c:\users\user 2\documents\visual studio 2015\Projects\NNR.Web\NNR.Web\bin\Microsoft.Owin.Security.dll
-c:\users\user 2\documents\visual studio 2015\Projects\NNR.Web\NNR.Web\bin\Microsoft.Owin.Security.Facebook.dll
-c:\users\user 2\documents\visual studio 2015\Projects\NNR.Web\NNR.Web\bin\Microsoft.Owin.Security.Google.dll
-c:\users\user 2\documents\visual studio 2015\Projects\NNR.Web\NNR.Web\bin\Microsoft.Owin.Security.MicrosoftAccount.dll
-c:\users\user 2\documents\visual studio 2015\Projects\NNR.Web\NNR.Web\bin\Microsoft.Owin.Security.OAuth.dll
-c:\users\user 2\documents\visual studio 2015\Projects\NNR.Web\NNR.Web\bin\Microsoft.Owin.Security.Twitter.dll
-c:\users\user 2\documents\visual studio 2015\Projects\NNR.Web\NNR.Web\bin\Microsoft.Web.Infrastructure.dll
-c:\users\user 2\documents\visual studio 2015\Projects\NNR.Web\NNR.Web\bin\Newtonsoft.Json.dll
-c:\users\user 2\documents\visual studio 2015\Projects\NNR.Web\NNR.Web\bin\Owin.dll
-c:\users\user 2\documents\visual studio 2015\Projects\NNR.Web\NNR.Web\bin\System.Web.Helpers.dll
-c:\users\user 2\documents\visual studio 2015\Projects\NNR.Web\NNR.Web\bin\System.Web.Mvc.dll
-c:\users\user 2\documents\visual studio 2015\Projects\NNR.Web\NNR.Web\bin\System.Web.Optimization.dll
-c:\users\user 2\documents\visual studio 2015\Projects\NNR.Web\NNR.Web\bin\System.Web.Razor.dll
-c:\users\user 2\documents\visual studio 2015\Projects\NNR.Web\NNR.Web\bin\System.Web.WebPages.Deployment.dll
-c:\users\user 2\documents\visual studio 2015\Projects\NNR.Web\NNR.Web\bin\System.Web.WebPages.dll
-c:\users\user 2\documents\visual studio 2015\Projects\NNR.Web\NNR.Web\bin\System.Web.WebPages.Razor.dll
-c:\users\user 2\documents\visual studio 2015\Projects\NNR.Web\NNR.Web\bin\WebGrease.dll
-c:\users\user 2\documents\visual studio 2015\Projects\NNR.Web\NNR.Web\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
-c:\users\user 2\documents\visual studio 2015\Projects\NNR.Web\NNR.Web\bin\System.Web.Helpers.xml
-c:\users\user 2\documents\visual studio 2015\Projects\NNR.Web\NNR.Web\bin\System.Web.Mvc.xml
-c:\users\user 2\documents\visual studio 2015\Projects\NNR.Web\NNR.Web\bin\System.Web.Optimization.xml
-c:\users\user 2\documents\visual studio 2015\Projects\NNR.Web\NNR.Web\bin\System.Web.Razor.xml
-c:\users\user 2\documents\visual studio 2015\Projects\NNR.Web\NNR.Web\bin\System.Web.WebPages.xml
-c:\users\user 2\documents\visual studio 2015\Projects\NNR.Web\NNR.Web\bin\System.Web.WebPages.Deployment.xml
-c:\users\user 2\documents\visual studio 2015\Projects\NNR.Web\NNR.Web\bin\System.Web.WebPages.Razor.xml
-c:\users\user 2\documents\visual studio 2015\Projects\NNR.Web\NNR.Web\bin\Antlr3.Runtime.pdb
-c:\users\user 2\documents\visual studio 2015\Projects\NNR.Web\NNR.Web\bin\Newtonsoft.Json.xml
-c:\users\user 2\documents\visual studio 2015\Projects\NNR.Web\NNR.Web\bin\EntityFramework.xml
-c:\users\user 2\documents\visual studio 2015\Projects\NNR.Web\NNR.Web\bin\EntityFramework.SqlServer.xml
-c:\users\user 2\documents\visual studio 2015\Projects\NNR.Web\NNR.Web\bin\Microsoft.AspNet.Identity.Core.xml
-c:\users\user 2\documents\visual studio 2015\Projects\NNR.Web\NNR.Web\bin\Microsoft.AspNet.Identity.Owin.xml
-c:\users\user 2\documents\visual studio 2015\Projects\NNR.Web\NNR.Web\bin\Microsoft.AspNet.Identity.EntityFramework.xml
-c:\users\user 2\documents\visual studio 2015\Projects\NNR.Web\NNR.Web\bin\Microsoft.Owin.xml
-c:\users\user 2\documents\visual studio 2015\Projects\NNR.Web\NNR.Web\bin\Microsoft.Owin.Host.SystemWeb.xml
-c:\users\user 2\documents\visual studio 2015\Projects\NNR.Web\NNR.Web\bin\Microsoft.Owin.Security.xml
-c:\users\user 2\documents\visual studio 2015\Projects\NNR.Web\NNR.Web\bin\Microsoft.Owin.Security.Facebook.xml
-c:\users\user 2\documents\visual studio 2015\Projects\NNR.Web\NNR.Web\bin\Microsoft.Owin.Security.Cookies.xml
-c:\users\user 2\documents\visual studio 2015\Projects\NNR.Web\NNR.Web\bin\Microsoft.Owin.Security.OAuth.xml
-c:\users\user 2\documents\visual studio 2015\Projects\NNR.Web\NNR.Web\bin\Microsoft.Owin.Security.Google.xml
-c:\users\user 2\documents\visual studio 2015\Projects\NNR.Web\NNR.Web\bin\Microsoft.Owin.Security.Twitter.xml
-c:\users\user 2\documents\visual studio 2015\Projects\NNR.Web\NNR.Web\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
-c:\users\user 2\documents\visual studio 2015\Projects\NNR.Web\NNR.Web\obj\Debug\NNR.Web.dll
-c:\users\user 2\documents\visual studio 2015\Projects\NNR.Web\NNR.Web\obj\Debug\NNR.Web.pdb
-c:\users\user 2\documents\visual studio 2015\Projects\NNR.Web\NNR.Web\bin\DevDefined.OAuth.dll
-c:\users\user 2\documents\visual studio 2015\Projects\NNR.Web\NNR.Web\bin\Intuit.Ipp.Core.dll
-c:\users\user 2\documents\visual studio 2015\Projects\NNR.Web\NNR.Web\bin\Intuit.Ipp.Data.dll
-c:\users\user 2\documents\visual studio 2015\Projects\NNR.Web\NNR.Web\bin\Intuit.Ipp.DataService.dll
-c:\users\user 2\documents\visual studio 2015\Projects\NNR.Web\NNR.Web\bin\Intuit.Ipp.Diagnostics.dll
-c:\users\user 2\documents\visual studio 2015\Projects\NNR.Web\NNR.Web\bin\Intuit.Ipp.Exception.dll
-c:\users\user 2\documents\visual studio 2015\Projects\NNR.Web\NNR.Web\bin\Intuit.Ipp.GlobalTaxService.dll
-c:\users\user 2\documents\visual studio 2015\Projects\NNR.Web\NNR.Web\bin\Intuit.Ipp.LinqExtender.dll
-c:\users\user 2\documents\visual studio 2015\Projects\NNR.Web\NNR.Web\bin\Intuit.Ipp.PlatformService.dll
-c:\users\user 2\documents\visual studio 2015\Projects\NNR.Web\NNR.Web\bin\Intuit.Ipp.QueryFilter.dll
-c:\users\user 2\documents\visual studio 2015\Projects\NNR.Web\NNR.Web\bin\Intuit.Ipp.ReportService.dll
-c:\users\user 2\documents\visual studio 2015\Projects\NNR.Web\NNR.Web\bin\Intuit.Ipp.Retry.dll
-c:\users\user 2\documents\visual studio 2015\Projects\NNR.Web\NNR.Web\bin\Intuit.Ipp.Security.dll
-c:\users\user 2\documents\visual studio 2015\Projects\NNR.Web\NNR.Web\bin\Intuit.Ipp.Utility.dll
-c:\users\user 2\documents\visual studio 2015\Projects\NNR.Web\NNR.Web\bin\Intuit.Ipp.WebHooksService.dll
-c:\users\user 2\documents\visual studio 2015\Projects\NNR.Web\NNR.Web\bin\Intuit.Ipp.Core.xml
-c:\users\user 2\documents\visual studio 2015\Projects\NNR.Web\NNR.Web\bin\Intuit.Ipp.Data.xml
-c:\users\user 2\documents\visual studio 2015\Projects\NNR.Web\NNR.Web\bin\Intuit.Ipp.DataService.xml
-c:\users\user 2\documents\visual studio 2015\Projects\NNR.Web\NNR.Web\bin\Intuit.Ipp.Diagnostics.xml
-c:\users\user 2\documents\visual studio 2015\Projects\NNR.Web\NNR.Web\bin\Intuit.Ipp.Exception.xml
-c:\users\user 2\documents\visual studio 2015\Projects\NNR.Web\NNR.Web\bin\Intuit.Ipp.GlobalTaxService.xml
-c:\users\user 2\documents\visual studio 2015\Projects\NNR.Web\NNR.Web\bin\Intuit.Ipp.LinqExtender.xml
-c:\users\user 2\documents\visual studio 2015\Projects\NNR.Web\NNR.Web\bin\Intuit.Ipp.PlatformService.xml
-c:\users\user 2\documents\visual studio 2015\Projects\NNR.Web\NNR.Web\bin\Intuit.Ipp.QueryFilter.xml
-c:\users\user 2\documents\visual studio 2015\Projects\NNR.Web\NNR.Web\bin\Intuit.Ipp.ReportService.xml
-c:\users\user 2\documents\visual studio 2015\Projects\NNR.Web\NNR.Web\bin\Intuit.Ipp.Retry.xml
-c:\users\user 2\documents\visual studio 2015\Projects\NNR.Web\NNR.Web\bin\Intuit.Ipp.Security.xml
-c:\users\user 2\documents\visual studio 2015\Projects\NNR.Web\NNR.Web\bin\Intuit.Ipp.Utility.xml
-c:\users\user 2\documents\visual studio 2015\Projects\NNR.Web\NNR.Web\bin\Intuit.Ipp.WebHooksService.xml
-c:\users\user 2\documents\visual studio 2015\Projects\NNR.Web\NNR.Web\bin\DotNetOpenAuth.AspNet.dll
-c:\users\user 2\documents\visual studio 2015\Projects\NNR.Web\NNR.Web\bin\DotNetOpenAuth.Core.dll
-c:\users\user 2\documents\visual studio 2015\Projects\NNR.Web\NNR.Web\bin\DotNetOpenAuth.OAuth.Consumer.dll
-c:\users\user 2\documents\visual studio 2015\Projects\NNR.Web\NNR.Web\bin\DotNetOpenAuth.OAuth.dll
-c:\users\user 2\documents\visual studio 2015\Projects\NNR.Web\NNR.Web\bin\DotNetOpenAuth.OpenId.dll
-c:\users\user 2\documents\visual studio 2015\Projects\NNR.Web\NNR.Web\bin\DotNetOpenAuth.OpenId.RelyingParty.dll
-c:\users\user 2\documents\visual studio 2015\Projects\NNR.Web\NNR.Web\bin\System.Net.Http.dll
-c:\users\user 2\documents\visual studio 2015\Projects\NNR.Web\NNR.Web\bin\System.Net.Http.WebRequest.dll
-c:\users\user 2\documents\visual studio 2015\Projects\NNR.Web\NNR.Web\bin\Org.Mentalis.Security.Cryptography.dll
-c:\users\user 2\documents\visual studio 2015\Projects\NNR.Web\NNR.Web\bin\Mono.Math.dll
-c:\users\user 2\documents\visual studio 2015\Projects\NNR.Web\NNR.Web\bin\DotNetOpenAuth.AspNet.xml
-c:\users\user 2\documents\visual studio 2015\Projects\NNR.Web\NNR.Web\bin\DotNetOpenAuth.Core.xml
-c:\users\user 2\documents\visual studio 2015\Projects\NNR.Web\NNR.Web\bin\DotNetOpenAuth.OAuth.xml
-c:\users\user 2\documents\visual studio 2015\Projects\NNR.Web\NNR.Web\bin\DotNetOpenAuth.OAuth.Consumer.xml
-c:\users\user 2\documents\visual studio 2015\Projects\NNR.Web\NNR.Web\bin\DotNetOpenAuth.OpenId.xml
-c:\users\user 2\documents\visual studio 2015\Projects\NNR.Web\NNR.Web\bin\DotNetOpenAuth.OpenId.RelyingParty.xml
-c:\users\user 2\documents\visual studio 2015\Projects\NNR.Web\NNR.Web\bin\System.Net.Http.xml
-c:\users\user 2\documents\visual studio 2015\Projects\NNR.Web\NNR.Web\bin\System.Net.Http.WebRequest.xml
-c:\users\user 2\documents\visual studio 2015\Projects\NNR.Web\NNR.Web\bin\Org.Mentalis.Security.Cryptography.xml
-c:\users\user 2\documents\visual studio 2015\Projects\NNR.Web\NNR.Web\bin\Mono.Math.xml
-C:\Users\User 2\Documents\Visual Studio 2015\Projects\NNR.Web\NNR.Web\obj\Debug\NNR.Web.csprojResolveAssemblyReference.cache
-C:\Users\User 2\Documents\Visual Studio 2015\Projects\NNR.Web\NNR.Web\bin\QBModel.Context.tt
-C:\Users\User 2\Documents\Visual Studio 2015\Projects\NNR.Web\NNR.Web\bin\QBModel.tt
-C:\Users\User 2\Documents\Visual Studio 2015\Projects\NNR.Web\NNR.Web\bin\QBModel.edmx.diagram
-C:\Users\User 2\Documents\Visual Studio 2015\Projects\NNR.Web\NNR.Web\bin\AspNetRole.cs
-C:\Users\User 2\Documents\Visual Studio 2015\Projects\NNR.Web\NNR.Web\bin\AspNetUser.cs
-C:\Users\User 2\Documents\Visual Studio 2015\Projects\NNR.Web\NNR.Web\bin\AspNetUserClaim.cs
-C:\Users\User 2\Documents\Visual Studio 2015\Projects\NNR.Web\NNR.Web\bin\AspNetUserLogin.cs
-C:\Users\User 2\Documents\Visual Studio 2015\Projects\NNR.Web\NNR.Web\bin\C__MigrationHistory.cs
-C:\Users\User 2\Documents\Visual Studio 2015\Projects\NNR.Web\NNR.Web\bin\QBModel.Context.cs
-C:\Users\User 2\Documents\Visual Studio 2015\Projects\NNR.Web\NNR.Web\bin\QBModel.cs
-C:\Users\User 2\Documents\Visual Studio 2015\Projects\NNR.Web\NNR.Web\bin\QBModel.Designer.cs
-C:\Users\User 2\Documents\Visual Studio 2015\Projects\NNR.Web\NNR.Web\bin\QbUser.cs
-C:\Users\User 2\Documents\Visual Studio 2015\Projects\NNR.Web\NNR.Web\bin\UserQbUser.cs
 F:\MyFolder\Personal\Repositary\IBSQB\NNR.Web\bin\roslyn\csc.exe
 F:\MyFolder\Personal\Repositary\IBSQB\NNR.Web\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
 F:\MyFolder\Personal\Repositary\IBSQB\NNR.Web\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
@@ -158,6 +27,7 @@ F:\MyFolder\Personal\Repositary\IBSQB\NNR.Web\bin\NNR.Web.dll.config
 F:\MyFolder\Personal\Repositary\IBSQB\NNR.Web\bin\NNR.Web.dll
 F:\MyFolder\Personal\Repositary\IBSQB\NNR.Web\bin\NNR.Web.pdb
 F:\MyFolder\Personal\Repositary\IBSQB\NNR.Web\bin\Antlr3.Runtime.dll
+F:\MyFolder\Personal\Repositary\IBSQB\NNR.Web\bin\AutoMapper.dll
 F:\MyFolder\Personal\Repositary\IBSQB\NNR.Web\bin\DevDefined.OAuth.dll
 F:\MyFolder\Personal\Repositary\IBSQB\NNR.Web\bin\DotNetOpenAuth.AspNet.dll
 F:\MyFolder\Personal\Repositary\IBSQB\NNR.Web\bin\DotNetOpenAuth.Core.dll
@@ -209,6 +79,7 @@ F:\MyFolder\Personal\Repositary\IBSQB\NNR.Web\bin\System.Web.WebPages.Razor.dll
 F:\MyFolder\Personal\Repositary\IBSQB\NNR.Web\bin\WebGrease.dll
 F:\MyFolder\Personal\Repositary\IBSQB\NNR.Web\bin\Org.Mentalis.Security.Cryptography.dll
 F:\MyFolder\Personal\Repositary\IBSQB\NNR.Web\bin\Mono.Math.dll
+F:\MyFolder\Personal\Repositary\IBSQB\NNR.Web\bin\AutoMapper.xml
 F:\MyFolder\Personal\Repositary\IBSQB\NNR.Web\bin\DotNetOpenAuth.AspNet.xml
 F:\MyFolder\Personal\Repositary\IBSQB\NNR.Web\bin\DotNetOpenAuth.Core.xml
 F:\MyFolder\Personal\Repositary\IBSQB\NNR.Web\bin\DotNetOpenAuth.OAuth.xml

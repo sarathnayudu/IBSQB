@@ -1,57 +1,66 @@
-﻿@model IEnumerable<Intuit.Ipp.Data.Customer>
+﻿@model IEnumerable<NNR.Web.Models.Customers>
 
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
-
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.isselected)
+            @Html.DisplayNameFor(model => model.IsSelected)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.CustId)
+            @Html.DisplayNameFor(model => model.Balance)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Name)
+            @Html.DisplayNameFor(model => model.CompanyName)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Number)
+            @Html.DisplayNameFor(model => model.CreditLimit)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Adresses)
+            @Html.DisplayNameFor(model => model.EmailAddress)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FullyQualifiedName)
+        </th>
+       
+        <th>
+            @Html.DisplayNameFor(model => model.TotalExpense)
+        </th>      
         <th></th>
     </tr>
 
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.isselected)
+            @Html.DisplayFor(modelItem => item.IsSelected)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.CustId)
+            @Html.DisplayFor(modelItem => item.Balance)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Name)
+            @Html.DisplayFor(modelItem => item.CompanyName)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Number)
+            @Html.DisplayFor(modelItem => item.CreditLimit)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Adresses)
+            @Html.DisplayFor(modelItem => item.EmailAddress)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            @Html.DisplayFor(modelItem => item.FullyQualifiedName)
         </td>
+       
+        <td>
+            @Html.DisplayFor(modelItem => item.TotalExpense)
+        </td> 
+        <td>
+            <p>
+                @Html.ActionLink("Create New", "Index", "Invoice", new { Id =item.Id},null)
+            </p>
+        </td>     
     </tr>
 }
 
