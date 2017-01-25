@@ -72,12 +72,12 @@
       <PropertyRef Name="ID" />
     </Key>
     <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Email" Type="nvarchar" MaxLength="50" Nullable="false" />
-    <Property Name="name" Type="nvarchar" MaxLength="50" Nullable="false" />
-    <Property Name="Token" Type="nvarchar" MaxLength="50" Nullable="false" />
-    <Property Name="Secret" Type="nvarchar" MaxLength="50" Nullable="false" />
-    <Property Name="RelaimID" Type="nvarchar" MaxLength="50" Nullable="false" />
-    <Property Name="DataSource" Type="nchar" MaxLength="3" Nullable="false" />
+    <Property Name="Email" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Token" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Secret" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="RelaimID" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="DataSource" Type="nvarchar" MaxLength="3" Nullable="false" />
   </EntityType>
   <EntityType Name="UserQbUser">
     <Key>
