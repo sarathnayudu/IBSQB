@@ -21,6 +21,8 @@ namespace NNR.Web
             this.AspNetUserLogins = new HashSet<AspNetUserLogin>();
             this.UserQbUsers = new HashSet<UserQbUser>();
             this.AspNetRoles = new HashSet<AspNetRole>();
+            this.Invoices = new HashSet<Invoice>();
+            this.UserMenus = new HashSet<UserMenu>();
         }
     
         public string Id { get; set; }
@@ -50,5 +52,9 @@ namespace NNR.Web
         public virtual ICollection<UserQbUser> UserQbUsers { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AspNetRole> AspNetRoles { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Invoice> Invoices { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<UserMenu> UserMenus { get; set; }
     }
 }

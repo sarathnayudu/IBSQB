@@ -5,7 +5,10 @@ using System.Web;
 
 namespace NNR.Web.Models
 {
-    public class Invoice
+    public class ComboBase
     {
+        public int Id { get; set; }
+        public string DisplayValue { get; set; }
+       
     }
 }

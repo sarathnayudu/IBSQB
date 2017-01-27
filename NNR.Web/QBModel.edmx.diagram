@@ -17,6 +17,24 @@
         <AssociationConnector Association="QBModel.FK_UserQbUser_AspNetUsers" ManuallyRouted="false" />
         <AssociationConnector Association="QBModel.FK_UserQbUser_QbUser" ManuallyRouted="false" />
         <AssociationConnector Association="QBModel.AspNetUserRoles" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="QBModel.Discount" Width="1.5" PointX="6.375" PointY="22.875" />
+        <EntityTypeShape EntityType="QBModel.DiscountType" Width="1.5" PointX="4.125" PointY="23" />
+        <EntityTypeShape EntityType="QBModel.Invoice" Width="1.5" PointX="8.625" PointY="9" />
+        <EntityTypeShape EntityType="QBModel.Menu" Width="1.5" PointX="3.375" PointY="10.875" />
+        <EntityTypeShape EntityType="QBModel.Product" Width="1.5" PointX="0.75" PointY="14" />
+        <EntityTypeShape EntityType="QBModel.ProductDetail" Width="1.5" PointX="3" PointY="18.5" />
+        <EntityTypeShape EntityType="QBModel.Tax" Width="1.5" PointX="6.375" PointY="15.25" />
+        <EntityTypeShape EntityType="QBModel.Term" Width="1.5" PointX="6.375" PointY="18.125" />
+        <EntityTypeShape EntityType="QBModel.UserMenu" Width="1.5" PointX="5.625" PointY="0.75" />
+        <AssociationConnector Association="QBModel.FK_Invoice_users" />
+        <AssociationConnector Association="QBModel.FK_UserMenus_User" />
+        <AssociationConnector Association="QBModel.FK_Discount_DiscountType" />
+        <AssociationConnector Association="QBModel.FK_Invoice_Discount" />
+        <AssociationConnector Association="QBModel.FK_Invoice_Product" />
+        <AssociationConnector Association="QBModel.FK_Invoice_Tax" />
+        <AssociationConnector Association="QBModel.FK_Invoice_Term" />
+        <AssociationConnector Association="QBModel.FK_UserMenus_Menus" />
+        <AssociationConnector Association="QBModel.FK_ProductDetail_Product" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
