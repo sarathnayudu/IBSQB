@@ -274,6 +274,8 @@
     <Compile Include="AspNetUserLogin.cs">
       <DependentUpon>QBModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="BLogic\BusinessBase.cs" />
+    <Compile Include="BLogic\Invoice.cs" />
     <Compile Include="BLogic\QuickBookBlogic.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />

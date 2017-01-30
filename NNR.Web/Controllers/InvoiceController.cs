@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NNR.Web.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -10,6 +11,16 @@ namespace NNR.Web.Controllers
     {
         // GET: Invoice
         public ActionResult Index(int Id)
+        {
+            InvoicePreferences invpref = new InvoicePreferences();
+            invpref.ListTerms = new List<ComboBase>();
+            invpref.ListProduct = new List<ComboBase>();
+            invpref.DiscountType = new List<ComboBase>();
+
+            return View(invpref);
+        }
+
+        public ActionResult Create(FormCollection fc)
         {
             return View();
         }
