@@ -17,15 +17,15 @@ namespace NNR.Web
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Discount()
         {
-            this.Invoices = new HashSet<Invoice>();
+            this.CustInvoices = new HashSet<CustInvoice>();
         }
     
         public int Id { get; set; }
         public float DiscountPercentage { get; set; }
         public int TypeId { get; set; }
     
-        public virtual DiscountType DiscountType { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Invoice> Invoices { get; set; }
+        public virtual ICollection<CustInvoice> CustInvoices { get; set; }
+        public virtual DiscountType DiscountType { get; set; }
     }
 }

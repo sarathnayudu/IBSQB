@@ -29,7 +29,7 @@ namespace NNR.Web.Models
 
         public double DiscountValue { get; set; }
 
-        public double AmountReceived { get; set; }
+        public decimal AmountReceived { get; set; }
 
         public double  Balance { get; set; }
 

@@ -17,7 +17,7 @@ namespace NNR.Web
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Tax()
         {
-            this.Invoices = new HashSet<Invoice>();
+            this.CustInvoices = new HashSet<CustInvoice>();
         }
     
         public int Id { get; set; }
@@ -27,6 +27,6 @@ namespace NNR.Web
         public float TaxPercentage { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Invoice> Invoices { get; set; }
+        public virtual ICollection<CustInvoice> CustInvoices { get; set; }
     }
 }

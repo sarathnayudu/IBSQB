@@ -67,6 +67,22 @@
     <Property Name="AccessFailedCount" Type="int" Nullable="false" />
     <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
   </EntityType>
+  <EntityType Name="CustInvoice">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="InvoiceDate" Type="date" Nullable="false" />
+    <Property Name="DueDate" Type="date" Nullable="false" />
+    <Property Name="TermQBID" Type="int" Nullable="false" />
+    <Property Name="Crew" Type="int" />
+    <Property Name="TaxId" Type="int" />
+    <Property Name="DiscountId" Type="int" />
+    <Property Name="AmountReceived" Type="money" />
+    <Property Name="Balance" Type="money" />
+    <Property Name="ProductId" Type="int" Nullable="false" />
+  </EntityType>
   <EntityType Name="Discount">
     <Key>
       <PropertyRef Name="Id" />
@@ -83,21 +99,15 @@
     <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="Description" Type="nvarchar" MaxLength="50" Nullable="false" />
   </EntityType>
-  <EntityType Name="Invoice">
+  <EntityType Name="InvoiceTermPeriod">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
-    <Property Name="InvoiceDate" Type="date" Nullable="false" />
-    <Property Name="DueDate" Type="date" Nullable="false" />
-    <Property Name="TermQBID" Type="int" Nullable="false" />
-    <Property Name="Crew" Type="int" />
-    <Property Name="TaxId" Type="int" />
-    <Property Name="DiscountId" Type="int" />
-    <Property Name="AmountReceived" Type="money" />
-    <Property Name="Balance" Type="money" />
-    <Property Name="ProductId" Type="int" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="DateFrom" Type="date" Nullable="false" />
+    <Property Name="DateTo" Type="date" Nullable="false" />
+    <Property Name="qbId" Type="nvarchar" MaxLength="128" Nullable="false" />
   </EntityType>
   <EntityType Name="Menus">
     <Key>
@@ -116,7 +126,7 @@
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
-    <Property Name="QBProductId" Type="int" />
+    <Property Name="QBProductId" Type="nvarchar" MaxLength="128" Nullable="false" />
   </EntityType>
   <EntityType Name="ProductDetail">
     <Key>
@@ -152,15 +162,6 @@
     <Property Name="TaxState" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="TaxCounty" Type="nvarchar" MaxLength="50" />
     <Property Name="TaxPercentage" Type="real" Nullable="false" />
-  </EntityType>
-  <EntityType Name="Term">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
-    <Property Name="DateFrom" Type="date" Nullable="false" />
-    <Property Name="DateTo" Type="date" Nullable="false" />
   </EntityType>
   <!--Errors Found During Generation:
 warning 6002: The table/view 'QB.dbo.UserMenus' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -256,60 +257,60 @@ warning 6002: The table/view 'QB.dbo.UserMenus' does not have a primary key defi
   </Association>
   <Association Name="FK_Invoice_Discount">
     <End Role="Discount" Type="Self.Discount" Multiplicity="0..1" />
-    <End Role="Invoice" Type="Self.Invoice" Multiplicity="*" />
+    <End Role="CustInvoice" Type="Self.CustInvoice" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Discount">
         <PropertyRef Name="Id" />
       </Principal>
-      <Dependent Role="Invoice">
+      <Dependent Role="CustInvoice">
         <PropertyRef Name="DiscountId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_Invoice_Product">
     <End Role="Product" Type="Self.Product" Multiplicity="1" />
-    <End Role="Invoice" Type="Self.Invoice" Multiplicity="*" />
+    <End Role="CustInvoice" Type="Self.CustInvoice" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Product">
         <PropertyRef Name="Id" />
       </Principal>
-      <Dependent Role="Invoice">
+      <Dependent Role="CustInvoice">
         <PropertyRef Name="ProductId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_Invoice_Tax">
     <End Role="Tax" Type="Self.Tax" Multiplicity="0..1" />
-    <End Role="Invoice" Type="Self.Invoice" Multiplicity="*" />
+    <End Role="CustInvoice" Type="Self.CustInvoice" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Tax">
         <PropertyRef Name="Id" />
       </Principal>
-      <Dependent Role="Invoice">
+      <Dependent Role="CustInvoice">
         <PropertyRef Name="TaxId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_Invoice_Term">
-    <End Role="Term" Type="Self.Term" Multiplicity="1" />
-    <End Role="Invoice" Type="Self.Invoice" Multiplicity="*" />
+    <End Role="InvoiceTermPeriod" Type="Self.InvoiceTermPeriod" Multiplicity="1" />
+    <End Role="CustInvoice" Type="Self.CustInvoice" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="Term">
+      <Principal Role="InvoiceTermPeriod">
         <PropertyRef Name="Id" />
       </Principal>
-      <Dependent Role="Invoice">
+      <Dependent Role="CustInvoice">
         <PropertyRef Name="TermQBID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_Invoice_users">
     <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
-    <End Role="Invoice" Type="Self.Invoice" Multiplicity="*" />
+    <End Role="CustInvoice" Type="Self.CustInvoice" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="AspNetUsers">
         <PropertyRef Name="Id" />
       </Principal>
-      <Dependent Role="Invoice">
+      <Dependent Role="CustInvoice">
         <PropertyRef Name="UserId" />
       </Dependent>
     </ReferentialConstraint>
@@ -381,15 +382,15 @@ warning 6002: The table/view 'QB.dbo.UserMenus' does not have a primary key defi
     <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CustInvoice" EntityType="Self.CustInvoice" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Discount" EntityType="Self.Discount" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="DiscountType" EntityType="Self.DiscountType" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="Invoice" EntityType="Self.Invoice" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="InvoiceTermPeriod" EntityType="Self.InvoiceTermPeriod" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Menus" EntityType="Self.Menus" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ProductDetail" EntityType="Self.ProductDetail" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="QbUser" EntityType="Self.QbUser" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Tax" EntityType="Self.Tax" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="Term" EntityType="Self.Term" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="UserQbUser" EntityType="Self.UserQbUser" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="UserMenus" EntityType="Self.UserMenus" store:Type="Tables" store:Schema="dbo">
       <DefiningQuery>SELECT 
@@ -422,23 +423,23 @@ warning 6002: The table/view 'QB.dbo.UserMenus' does not have a primary key defi
     </AssociationSet>
     <AssociationSet Name="FK_Invoice_Discount" Association="Self.FK_Invoice_Discount">
       <End Role="Discount" EntitySet="Discount" />
-      <End Role="Invoice" EntitySet="Invoice" />
+      <End Role="CustInvoice" EntitySet="CustInvoice" />
     </AssociationSet>
     <AssociationSet Name="FK_Invoice_Product" Association="Self.FK_Invoice_Product">
       <End Role="Product" EntitySet="Product" />
-      <End Role="Invoice" EntitySet="Invoice" />
+      <End Role="CustInvoice" EntitySet="CustInvoice" />
     </AssociationSet>
     <AssociationSet Name="FK_Invoice_Tax" Association="Self.FK_Invoice_Tax">
       <End Role="Tax" EntitySet="Tax" />
-      <End Role="Invoice" EntitySet="Invoice" />
+      <End Role="CustInvoice" EntitySet="CustInvoice" />
     </AssociationSet>
     <AssociationSet Name="FK_Invoice_Term" Association="Self.FK_Invoice_Term">
-      <End Role="Term" EntitySet="Term" />
-      <End Role="Invoice" EntitySet="Invoice" />
+      <End Role="InvoiceTermPeriod" EntitySet="InvoiceTermPeriod" />
+      <End Role="CustInvoice" EntitySet="CustInvoice" />
     </AssociationSet>
     <AssociationSet Name="FK_Invoice_users" Association="Self.FK_Invoice_users">
       <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-      <End Role="Invoice" EntitySet="Invoice" />
+      <End Role="CustInvoice" EntitySet="CustInvoice" />
     </AssociationSet>
     <AssociationSet Name="FK_ProductDetail_Product" Association="Self.FK_ProductDetail_Product">
       <End Role="Product" EntitySet="Product" />

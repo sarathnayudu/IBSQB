@@ -1,4 +1,5 @@
-﻿using NNR.Web.Models;
+﻿using NNR.Web.BLogic;
+using NNR.Web.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,18 +11,17 @@ namespace NNR.Web.Controllers
     public class InvoiceController : Controller
     {
         // GET: Invoice
-        public ActionResult Index(int Id)
+        public ActionResult Index(string custqbId)
         {
-            InvoicePreferences invpref = new InvoicePreferences();
-            invpref.ListTerms = new List<ComboBase>();
-            invpref.ListProduct = new List<ComboBase>();
-            invpref.DiscountType = new List<ComboBase>();
+            QuickBookBlogic qblog = new QuickBookBlogic();
+            InvoicePreferences invpref =  qblog.GetCustomerPreferences(custqbId);        
 
             return View(invpref);
         }
 
         public ActionResult Create(FormCollection fc)
         {
+
             return View();
         }
     }

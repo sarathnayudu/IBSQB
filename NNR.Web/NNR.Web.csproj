@@ -275,7 +275,7 @@
       <DependentUpon>QBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="BLogic\BusinessBase.cs" />
-    <Compile Include="BLogic\Invoice.cs" />
+    <Compile Include="BLogic\CustomerInvoice.cs" />
     <Compile Include="BLogic\QuickBookBlogic.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -290,6 +290,10 @@
     <Compile Include="Controllers\QB\OauthResponseController.cs" />
     <Compile Include="Controllers\QB\OpenIdController.cs" />
     <Compile Include="Controllers\QB\QuickBooksCustomersController.cs" />
+    <Compile Include="Controllers\SyncController.cs" />
+    <Compile Include="CustInvoice.cs">
+      <DependentUpon>QBModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="C__MigrationHistory.cs">
       <DependentUpon>QBModel.tt</DependentUpon>
     </Compile>
@@ -302,7 +306,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Invoice.cs">
+    <Compile Include="InvoiceTermPeriod.cs">
       <DependentUpon>QBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Menu.cs">
@@ -343,9 +347,6 @@
     </Compile>
     <Compile Include="Startup.cs" />
     <Compile Include="Tax.cs">
-      <DependentUpon>QBModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Term.cs">
       <DependentUpon>QBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="UserMenu.cs">
@@ -448,6 +449,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Sync\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

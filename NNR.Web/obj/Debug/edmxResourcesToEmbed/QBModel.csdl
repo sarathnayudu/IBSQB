@@ -63,10 +63,97 @@
     <Property Name="UserName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
     <NavigationProperty Name="AspNetUserClaims" Relationship="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserClaims" />
     <NavigationProperty Name="AspNetUserLogins" Relationship="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserLogins" />
+    <NavigationProperty Name="CustInvoices" Relationship="Self.FK_Invoice_users" FromRole="AspNetUsers" ToRole="CustInvoice" />
+    <NavigationProperty Name="UserMenus" Relationship="Self.FK_UserMenus_User" FromRole="AspNetUsers" ToRole="UserMenus" />
     <NavigationProperty Name="UserQbUsers" Relationship="Self.FK_UserQbUser_AspNetUsers" FromRole="AspNetUsers" ToRole="UserQbUser" />
     <NavigationProperty Name="AspNetRoles" Relationship="Self.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
-    <NavigationProperty Name="Invoices" Relationship="QBModel.FK_Invoice_users" FromRole="AspNetUser" ToRole="Invoice" />
-    <NavigationProperty Name="UserMenus" Relationship="QBModel.FK_UserMenus_User" FromRole="AspNetUser" ToRole="UserMenu" />
+  </EntityType>
+  <EntityType Name="CustInvoice">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="InvoiceDate" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="DueDate" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="TermQBID" Type="Int32" Nullable="false" />
+    <Property Name="Crew" Type="Int32" />
+    <Property Name="TaxId" Type="Int32" />
+    <Property Name="DiscountId" Type="Int32" />
+    <Property Name="AmountReceived" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="Balance" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="ProductId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="AspNetUser" Relationship="Self.FK_Invoice_users" FromRole="CustInvoice" ToRole="AspNetUsers" />
+    <NavigationProperty Name="Discount" Relationship="Self.FK_Invoice_Discount" FromRole="CustInvoice" ToRole="Discount" />
+    <NavigationProperty Name="Product" Relationship="Self.FK_Invoice_Product" FromRole="CustInvoice" ToRole="Product" />
+    <NavigationProperty Name="Tax" Relationship="Self.FK_Invoice_Tax" FromRole="CustInvoice" ToRole="Tax" />
+    <NavigationProperty Name="InvoiceTermPeriod" Relationship="Self.FK_Invoice_Term" FromRole="CustInvoice" ToRole="InvoiceTermPeriod" />
+  </EntityType>
+  <EntityType Name="Discount">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="DiscountPercentage" Type="Single" Nullable="false" />
+    <Property Name="TypeId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="CustInvoices" Relationship="Self.FK_Invoice_Discount" FromRole="Discount" ToRole="CustInvoice" />
+    <NavigationProperty Name="DiscountType" Relationship="Self.FK_Discount_DiscountType" FromRole="Discount" ToRole="DiscountType" />
+  </EntityType>
+  <EntityType Name="DiscountType">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Discounts" Relationship="Self.FK_Discount_DiscountType" FromRole="DiscountType" ToRole="Discount" />
+  </EntityType>
+  <EntityType Name="InvoiceTermPeriod">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="DateFrom" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="DateTo" Type="DateTime" Nullable="false" Precision="0" />
+    <NavigationProperty Name="CustInvoices" Relationship="Self.FK_Invoice_Term" FromRole="InvoiceTermPeriod" ToRole="CustInvoice" />
+    <Property Name="qbId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="Menu">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Text" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ParentID" Type="Int32" Nullable="false" />
+    <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="UpdatedDate" Type="DateTime" Nullable="false" Precision="0" />
+    <NavigationProperty Name="UserMenus" Relationship="Self.FK_UserMenus_Menus" FromRole="Menus" ToRole="UserMenus" />
+  </EntityType>
+  <EntityType Name="Product">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="QBProductId" Type="String" Nullable="false" MaxLength="128" Unicode="true" FixedLength="false" />
+    <NavigationProperty Name="CustInvoices" Relationship="Self.FK_Invoice_Product" FromRole="Product" ToRole="CustInvoice" />
+    <NavigationProperty Name="ProductDetails" Relationship="Self.FK_ProductDetail_Product" FromRole="Product" ToRole="ProductDetail" />
+  </EntityType>
+  <EntityType Name="ProductDetail">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ProductId" Type="Int32" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="QTY" Type="Single" Nullable="false" />
+    <Property Name="Rate" Type="Single" Nullable="false" />
+    <Property Name="Amount" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+    <Property Name="IsTaxable" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Product" Relationship="Self.FK_ProductDetail_Product" FromRole="ProductDetail" ToRole="Product" />
   </EntityType>
   <EntityType Name="QbUser">
     <Key>
@@ -81,6 +168,17 @@
     <Property Name="DataSource" Type="String" MaxLength="3" FixedLength="false" Unicode="true" Nullable="false" />
     <NavigationProperty Name="UserQbUsers" Relationship="Self.FK_UserQbUser_QbUser" FromRole="QbUser" ToRole="UserQbUser" />
   </EntityType>
+  <EntityType Name="Tax">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TaxContry" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="TaxState" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="TaxCounty" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="TaxPercentage" Type="Single" Nullable="false" />
+    <NavigationProperty Name="CustInvoices" Relationship="Self.FK_Invoice_Tax" FromRole="Tax" ToRole="CustInvoice" />
+  </EntityType>
   <EntityType Name="UserQbUser">
     <Key>
       <PropertyRef Name="Id" />
@@ -90,6 +188,22 @@
     <Property Name="QbUserId" Type="Int32" Nullable="false" />
     <NavigationProperty Name="AspNetUser" Relationship="Self.FK_UserQbUser_AspNetUsers" FromRole="UserQbUser" ToRole="AspNetUsers" />
     <NavigationProperty Name="QbUser" Relationship="Self.FK_UserQbUser_QbUser" FromRole="UserQbUser" ToRole="QbUser" />
+  </EntityType>
+  <EntityType Name="UserMenu">
+    <Key>
+      <PropertyRef Name="Id" />
+      <PropertyRef Name="UserId" />
+      <PropertyRef Name="MenuId" />
+      <PropertyRef Name="CreatedDate" />
+      <PropertyRef Name="UpdatedDate" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="MenuId" Type="Int32" Nullable="false" />
+    <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="UpdatedDate" Type="DateTime" Nullable="false" Precision="0" />
+    <NavigationProperty Name="AspNetUser" Relationship="Self.FK_UserMenus_User" FromRole="UserMenus" ToRole="AspNetUsers" />
+    <NavigationProperty Name="Menu" Relationship="Self.FK_UserMenus_Menus" FromRole="UserMenus" ToRole="Menus" />
   </EntityType>
   <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
     <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1">
@@ -119,6 +233,30 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_Invoice_users">
+    <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1" />
+    <End Role="CustInvoice" Type="Self.CustInvoice" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="CustInvoice">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserMenus_User">
+    <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1" />
+    <End Role="UserMenus" Type="Self.UserMenu" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="UserMenus">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_UserQbUser_AspNetUsers">
     <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1" />
     <End Role="UserQbUser" Type="Self.UserQbUser" Multiplicity="*" />
@@ -128,6 +266,90 @@
       </Principal>
       <Dependent Role="UserQbUser">
         <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Invoice_Discount">
+    <End Role="Discount" Type="Self.Discount" Multiplicity="0..1" />
+    <End Role="CustInvoice" Type="Self.CustInvoice" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Discount">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="CustInvoice">
+        <PropertyRef Name="DiscountId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Invoice_Product">
+    <End Role="Product" Type="Self.Product" Multiplicity="1" />
+    <End Role="CustInvoice" Type="Self.CustInvoice" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="CustInvoice">
+        <PropertyRef Name="ProductId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Invoice_Tax">
+    <End Role="Tax" Type="Self.Tax" Multiplicity="0..1" />
+    <End Role="CustInvoice" Type="Self.CustInvoice" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tax">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="CustInvoice">
+        <PropertyRef Name="TaxId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Invoice_Term">
+    <End Role="InvoiceTermPeriod" Type="Self.InvoiceTermPeriod" Multiplicity="1" />
+    <End Role="CustInvoice" Type="Self.CustInvoice" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="InvoiceTermPeriod">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="CustInvoice">
+        <PropertyRef Name="TermQBID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Discount_DiscountType">
+    <End Role="DiscountType" Type="Self.DiscountType" Multiplicity="1" />
+    <End Role="Discount" Type="Self.Discount" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DiscountType">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Discount">
+        <PropertyRef Name="TypeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserMenus_Menus">
+    <End Role="Menus" Type="Self.Menu" Multiplicity="1" />
+    <End Role="UserMenus" Type="Self.UserMenu" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Menus">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="UserMenus">
+        <PropertyRef Name="MenuId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ProductDetail_Product">
+    <End Role="Product" Type="Self.Product" Multiplicity="1" />
+    <End Role="ProductDetail" Type="Self.ProductDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ProductDetail">
+        <PropertyRef Name="ProductId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -153,8 +375,17 @@
     <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaim" />
     <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogin" />
     <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUser" />
+    <EntitySet Name="CustInvoices" EntityType="Self.CustInvoice" />
+    <EntitySet Name="Discounts" EntityType="Self.Discount" />
+    <EntitySet Name="DiscountTypes" EntityType="Self.DiscountType" />
+    <EntitySet Name="InvoiceTermPeriods" EntityType="Self.InvoiceTermPeriod" />
+    <EntitySet Name="Menus" EntityType="Self.Menu" />
+    <EntitySet Name="Products" EntityType="Self.Product" />
+    <EntitySet Name="ProductDetails" EntityType="Self.ProductDetail" />
     <EntitySet Name="QbUsers" EntityType="Self.QbUser" />
+    <EntitySet Name="Taxes" EntityType="Self.Tax" />
     <EntitySet Name="UserQbUsers" EntityType="Self.UserQbUser" />
+    <EntitySet Name="UserMenus" EntityType="Self.UserMenu" />
     <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
       <End Role="AspNetUsers" EntitySet="AspNetUsers" />
       <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
@@ -163,9 +394,45 @@
       <End Role="AspNetUsers" EntitySet="AspNetUsers" />
       <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
     </AssociationSet>
+    <AssociationSet Name="FK_Invoice_users" Association="Self.FK_Invoice_users">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="CustInvoice" EntitySet="CustInvoices" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserMenus_User" Association="Self.FK_UserMenus_User">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="UserMenus" EntitySet="UserMenus" />
+    </AssociationSet>
     <AssociationSet Name="FK_UserQbUser_AspNetUsers" Association="Self.FK_UserQbUser_AspNetUsers">
       <End Role="AspNetUsers" EntitySet="AspNetUsers" />
       <End Role="UserQbUser" EntitySet="UserQbUsers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Invoice_Discount" Association="Self.FK_Invoice_Discount">
+      <End Role="Discount" EntitySet="Discounts" />
+      <End Role="CustInvoice" EntitySet="CustInvoices" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Invoice_Product" Association="Self.FK_Invoice_Product">
+      <End Role="Product" EntitySet="Products" />
+      <End Role="CustInvoice" EntitySet="CustInvoices" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Invoice_Tax" Association="Self.FK_Invoice_Tax">
+      <End Role="Tax" EntitySet="Taxes" />
+      <End Role="CustInvoice" EntitySet="CustInvoices" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Invoice_Term" Association="Self.FK_Invoice_Term">
+      <End Role="InvoiceTermPeriod" EntitySet="InvoiceTermPeriods" />
+      <End Role="CustInvoice" EntitySet="CustInvoices" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Discount_DiscountType" Association="Self.FK_Discount_DiscountType">
+      <End Role="DiscountType" EntitySet="DiscountTypes" />
+      <End Role="Discount" EntitySet="Discounts" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserMenus_Menus" Association="Self.FK_UserMenus_Menus">
+      <End Role="Menus" EntitySet="Menus" />
+      <End Role="UserMenus" EntitySet="UserMenus" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProductDetail_Product" Association="Self.FK_ProductDetail_Product">
+      <End Role="Product" EntitySet="Products" />
+      <End Role="ProductDetail" EntitySet="ProductDetails" />
     </AssociationSet>
     <AssociationSet Name="FK_UserQbUser_QbUser" Association="Self.FK_UserQbUser_QbUser">
       <End Role="QbUser" EntitySet="QbUsers" />
@@ -175,271 +442,5 @@
       <End Role="AspNetRoles" EntitySet="AspNetRoles" />
       <End Role="AspNetUsers" EntitySet="AspNetUsers" />
     </AssociationSet>
-    <EntitySet Name="Discounts" EntityType="QBModel.Discount" />
-    <EntitySet Name="DiscountTypes" EntityType="QBModel.DiscountType" />
-    <EntitySet Name="Invoices" EntityType="QBModel.Invoice" />
-    <EntitySet Name="Menus" EntityType="QBModel.Menu" />
-    <EntitySet Name="Products" EntityType="QBModel.Product" />
-    <EntitySet Name="ProductDetails" EntityType="QBModel.ProductDetail" />
-    <EntitySet Name="Taxes" EntityType="QBModel.Tax" />
-    <EntitySet Name="Terms" EntityType="QBModel.Term" />
-    <EntitySet Name="UserMenus" EntityType="QBModel.UserMenu" />
-    <AssociationSet Name="FK_Invoice_users" Association="QBModel.FK_Invoice_users">
-      <End Role="AspNetUser" EntitySet="AspNetUsers" />
-      <End Role="Invoice" EntitySet="Invoices" />
-    </AssociationSet>
-    <AssociationSet Name="FK_UserMenus_User" Association="QBModel.FK_UserMenus_User">
-      <End Role="AspNetUser" EntitySet="AspNetUsers" />
-      <End Role="UserMenu" EntitySet="UserMenus" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Discount_DiscountType" Association="QBModel.FK_Discount_DiscountType">
-      <End Role="DiscountType" EntitySet="DiscountTypes" />
-      <End Role="Discount" EntitySet="Discounts" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Invoice_Discount" Association="QBModel.FK_Invoice_Discount">
-      <End Role="Discount" EntitySet="Discounts" />
-      <End Role="Invoice" EntitySet="Invoices" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Invoice_Product" Association="QBModel.FK_Invoice_Product">
-      <End Role="Product" EntitySet="Products" />
-      <End Role="Invoice" EntitySet="Invoices" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Invoice_Tax" Association="QBModel.FK_Invoice_Tax">
-      <End Role="Tax" EntitySet="Taxes" />
-      <End Role="Invoice" EntitySet="Invoices" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Invoice_Term" Association="QBModel.FK_Invoice_Term">
-      <End Role="Term" EntitySet="Terms" />
-      <End Role="Invoice" EntitySet="Invoices" />
-    </AssociationSet>
-    <AssociationSet Name="FK_UserMenus_Menus" Association="QBModel.FK_UserMenus_Menus">
-      <End Role="Menu" EntitySet="Menus" />
-      <End Role="UserMenu" EntitySet="UserMenus" />
-    </AssociationSet>
-    <AssociationSet Name="FK_ProductDetail_Product" Association="QBModel.FK_ProductDetail_Product">
-      <End Role="Product" EntitySet="Products" />
-      <End Role="ProductDetail" EntitySet="ProductDetails" />
-    </AssociationSet>
   </EntityContainer>
-  <EntityType Name="Discount">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="DiscountPercentage" Type="Single" Nullable="false" />
-    <Property Name="TypeId" Type="Int32" Nullable="false" />
-    <NavigationProperty Name="DiscountType" Relationship="QBModel.FK_Discount_DiscountType" FromRole="Discount" ToRole="DiscountType" />
-    <NavigationProperty Name="Invoices" Relationship="QBModel.FK_Invoice_Discount" FromRole="Discount" ToRole="Invoice" />
-  </EntityType>
-  <EntityType Name="DiscountType">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="Description" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-    <NavigationProperty Name="Discounts" Relationship="QBModel.FK_Discount_DiscountType" FromRole="DiscountType" ToRole="Discount" />
-  </EntityType>
-  <EntityType Name="Invoice">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-    <Property Name="InvoiceDate" Type="DateTime" Nullable="false" Precision="0" />
-    <Property Name="DueDate" Type="DateTime" Nullable="false" Precision="0" />
-    <Property Name="TermQBID" Type="Int32" Nullable="false" />
-    <Property Name="Crew" Type="Int32" />
-    <Property Name="TaxId" Type="Int32" />
-    <Property Name="DiscountId" Type="Int32" />
-    <Property Name="AmountReceived" Type="Decimal" Precision="19" Scale="4" />
-    <Property Name="Balance" Type="Decimal" Precision="19" Scale="4" />
-    <Property Name="ProductId" Type="Int32" Nullable="false" />
-    <NavigationProperty Name="AspNetUser" Relationship="QBModel.FK_Invoice_users" FromRole="Invoice" ToRole="AspNetUser" />
-    <NavigationProperty Name="Discount" Relationship="QBModel.FK_Invoice_Discount" FromRole="Invoice" ToRole="Discount" />
-    <NavigationProperty Name="Product" Relationship="QBModel.FK_Invoice_Product" FromRole="Invoice" ToRole="Product" />
-    <NavigationProperty Name="Tax" Relationship="QBModel.FK_Invoice_Tax" FromRole="Invoice" ToRole="Tax" />
-    <NavigationProperty Name="Term" Relationship="QBModel.FK_Invoice_Term" FromRole="Invoice" ToRole="Term" />
-  </EntityType>
-  <EntityType Name="Menu">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Text" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="Description" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="ParentID" Type="Int32" Nullable="false" />
-    <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="0" />
-    <Property Name="UpdatedDate" Type="DateTime" Nullable="false" Precision="0" />
-    <NavigationProperty Name="UserMenus" Relationship="QBModel.FK_UserMenus_Menus" FromRole="Menu" ToRole="UserMenu" />
-  </EntityType>
-  <EntityType Name="Product">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="QBProductId" Type="Int32" />
-    <NavigationProperty Name="Invoices" Relationship="QBModel.FK_Invoice_Product" FromRole="Product" ToRole="Invoice" />
-    <NavigationProperty Name="ProductDetails" Relationship="QBModel.FK_ProductDetail_Product" FromRole="Product" ToRole="ProductDetail" />
-  </EntityType>
-  <EntityType Name="ProductDetail">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="ProductId" Type="Int32" Nullable="false" />
-    <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="QTY" Type="Single" Nullable="false" />
-    <Property Name="Rate" Type="Single" Nullable="false" />
-    <Property Name="Amount" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
-    <Property Name="IsTaxable" Type="Boolean" Nullable="false" />
-    <NavigationProperty Name="Product" Relationship="QBModel.FK_ProductDetail_Product" FromRole="ProductDetail" ToRole="Product" />
-  </EntityType>
-  <EntityType Name="Tax">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="TaxContry" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="TaxState" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="TaxCounty" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="TaxPercentage" Type="Single" Nullable="false" />
-    <NavigationProperty Name="Invoices" Relationship="QBModel.FK_Invoice_Tax" FromRole="Tax" ToRole="Invoice" />
-  </EntityType>
-  <EntityType Name="Term">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="DateFrom" Type="DateTime" Nullable="false" Precision="0" />
-    <Property Name="DateTo" Type="DateTime" Nullable="false" Precision="0" />
-    <NavigationProperty Name="Invoices" Relationship="QBModel.FK_Invoice_Term" FromRole="Term" ToRole="Invoice" />
-  </EntityType>
-  <EntityType Name="UserMenu">
-    <Key>
-      <PropertyRef Name="Id" />
-      <PropertyRef Name="UserId" />
-      <PropertyRef Name="MenuId" />
-      <PropertyRef Name="CreatedDate" />
-      <PropertyRef Name="UpdatedDate" />
-    </Key>
-    <Property Name="Id" Type="Int32" Nullable="false" />
-    <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-    <Property Name="MenuId" Type="Int32" Nullable="false" />
-    <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="0" />
-    <Property Name="UpdatedDate" Type="DateTime" Nullable="false" Precision="0" />
-    <NavigationProperty Name="AspNetUser" Relationship="QBModel.FK_UserMenus_User" FromRole="UserMenu" ToRole="AspNetUser" />
-    <NavigationProperty Name="Menu" Relationship="QBModel.FK_UserMenus_Menus" FromRole="UserMenu" ToRole="Menu" />
-  </EntityType>
-  <Association Name="FK_Invoice_users">
-    <End Type="QBModel.AspNetUser" Role="AspNetUser" Multiplicity="1" />
-    <End Type="QBModel.Invoice" Role="Invoice" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="AspNetUser">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="Invoice">
-        <PropertyRef Name="UserId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_UserMenus_User">
-    <End Type="QBModel.AspNetUser" Role="AspNetUser" Multiplicity="1" />
-    <End Type="QBModel.UserMenu" Role="UserMenu" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="AspNetUser">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="UserMenu">
-        <PropertyRef Name="UserId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_Discount_DiscountType">
-    <End Type="QBModel.DiscountType" Role="DiscountType" Multiplicity="1" />
-    <End Type="QBModel.Discount" Role="Discount" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="DiscountType">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="Discount">
-        <PropertyRef Name="TypeId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_Invoice_Discount">
-    <End Type="QBModel.Discount" Role="Discount" Multiplicity="0..1" />
-    <End Type="QBModel.Invoice" Role="Invoice" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Discount">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="Invoice">
-        <PropertyRef Name="DiscountId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_Invoice_Product">
-    <End Type="QBModel.Product" Role="Product" Multiplicity="1" />
-    <End Type="QBModel.Invoice" Role="Invoice" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Product">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="Invoice">
-        <PropertyRef Name="ProductId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_Invoice_Tax">
-    <End Type="QBModel.Tax" Role="Tax" Multiplicity="0..1" />
-    <End Type="QBModel.Invoice" Role="Invoice" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Tax">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="Invoice">
-        <PropertyRef Name="TaxId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_Invoice_Term">
-    <End Type="QBModel.Term" Role="Term" Multiplicity="1" />
-    <End Type="QBModel.Invoice" Role="Invoice" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Term">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="Invoice">
-        <PropertyRef Name="TermQBID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_UserMenus_Menus">
-    <End Type="QBModel.Menu" Role="Menu" Multiplicity="1" />
-    <End Type="QBModel.UserMenu" Role="UserMenu" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Menu">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="UserMenu">
-        <PropertyRef Name="MenuId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_ProductDetail_Product">
-    <End Type="QBModel.Product" Role="Product" Multiplicity="1" />
-    <End Type="QBModel.ProductDetail" Role="ProductDetail" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Product">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="ProductDetail">
-        <PropertyRef Name="ProductId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
 </Schema>

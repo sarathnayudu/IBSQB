@@ -17,16 +17,16 @@ namespace NNR.Web
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Product()
         {
-            this.Invoices = new HashSet<Invoice>();
+            this.CustInvoices = new HashSet<CustInvoice>();
             this.ProductDetails = new HashSet<ProductDetail>();
         }
     
         public int Id { get; set; }
         public string Name { get; set; }
-        public Nullable<int> QBProductId { get; set; }
+        public string QBProductId { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Invoice> Invoices { get; set; }
+        public virtual ICollection<CustInvoice> CustInvoices { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ProductDetail> ProductDetails { get; set; }
     }

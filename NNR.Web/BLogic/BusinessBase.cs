@@ -1,4 +1,5 @@
 ﻿using Intuit.Ipp.Core;
+using Intuit.Ipp.Data;
 using Intuit.Ipp.DataService;
 using Intuit.Ipp.Security;
 using System;
@@ -17,8 +18,7 @@ namespace NNR.Web.BLogic
         public String realmId, accessToken, accessTokenSecret, consumerKey, consumerSecret, dataSourcetype;
 
         public BusinessBase()
-        {
-           
+        {         
            
                 realmId =(string) HttpContext.Current.Session["realm"];
                 accessToken = (string)HttpContext.Current.Session["accessToken"];
@@ -70,5 +70,28 @@ namespace NNR.Web.BLogic
 
 
         }
+
+        public Customer GetCustomerById(string custid)
+        {
+            return DataService.FindById(new Intuit.Ipp.Data.Customer { Id = custid });
+        }
+
+        public List<Intuit.Ipp.Data.Term> GetTerm()
+        {
+            return DataService.FindAll(new Term(), 1, 100).ToList();
+        }
+
+        public List<Intuit.Ipp.Data.Item> GetItem()
+        {
+            List<Item> lstItem = DataService.FindAll(new Item(), 1, 100).ToList();
+            return lstItem;
+        }
+
+        public List<Intuit.Ipp.Data.Term> Getterm()
+        {
+            List<Term> lstterm = DataService.FindAll(new Term(), 1, 100).ToList();
+            return lstterm;
+        }
+       
     }
 }
