@@ -9,10 +9,14 @@ using System.Web.Mvc;
 
 namespace NNR.Web.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
         public ActionResult Index()
         {
+            if (User.Identity.IsAuthenticated)
+            {
+                FillQbUserDetails(User.Identity.Name);
+            }
             if (!string.IsNullOrEmpty((string)Session["accessToken"])
       && !string.IsNullOrEmpty((string)Session["accessTokenSecret"]))
             {

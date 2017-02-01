@@ -16,7 +16,7 @@ using NNR.Web.utils;
 namespace NNR.Web.Controllers
 {
     [Authorize]
-    public class AccountController : Controller
+    public class AccountController : BaseController
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
@@ -129,13 +129,6 @@ namespace NNR.Web.Controllers
             }
         }
 
-        private void FillQbUserDetails(string userEmail)
-        {
-            QuickBookBlogic qblog = new QuickBookBlogic();
-            QbUser qbusr = qblog.GetQbUserbyUserEmail(userEmail);
-            if (qbusr != null)
-                OauthAccessTokenStorageHelper.GetOauthAccessTokenForUser(qbusr.Email, this);
-        }
 
         //
         // GET: /Account/VerifyCode

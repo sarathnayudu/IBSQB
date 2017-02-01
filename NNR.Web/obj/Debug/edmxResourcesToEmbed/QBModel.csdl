@@ -116,8 +116,8 @@
     <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="DateFrom" Type="DateTime" Nullable="false" Precision="0" />
     <Property Name="DateTo" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="qbId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
     <NavigationProperty Name="CustInvoices" Relationship="Self.FK_Invoice_Term" FromRole="InvoiceTermPeriod" ToRole="CustInvoice" />
-    <Property Name="qbId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityType Name="Menu">
     <Key>
@@ -137,7 +137,7 @@
     </Key>
     <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="QBProductId" Type="String" Nullable="false" MaxLength="128" Unicode="true" FixedLength="false" />
+    <Property Name="QBProductId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
     <NavigationProperty Name="CustInvoices" Relationship="Self.FK_Invoice_Product" FromRole="Product" ToRole="CustInvoice" />
     <NavigationProperty Name="ProductDetails" Relationship="Self.FK_ProductDetail_Product" FromRole="Product" ToRole="ProductDetail" />
   </EntityType>

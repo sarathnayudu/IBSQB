@@ -278,6 +278,7 @@
     <Compile Include="BLogic\CustomerInvoice.cs" />
     <Compile Include="BLogic\QuickBookBlogic.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InvoiceController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -446,9 +447,11 @@
     <Content Include="Views\OpenId\Index.cshtml" />
     <Content Include="Views\QuickBooksCustomers\Index.cshtml" />
     <Content Include="Views\Invoice\Index.cshtml" />
+    <Content Include="Views\Invoice\Productpartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Base\" />
     <Folder Include="Views\Sync\" />
   </ItemGroup>
   <ItemGroup>

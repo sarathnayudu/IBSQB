@@ -47,9 +47,9 @@ namespace NNR.Web.BLogic
                     prodDetail.IsTaxable = itm.Taxable;
                     prodDetail.ProductId = prodobj.Id;
                     prodDetail.QTY =(float) itm.QtyOnHand;
-
+                    prodDetail.Name = itm.Name;
                     prodDetail.Rate =(float) itm.UnitPrice;
-
+                    prodDetail.Amount =(decimal) (prodDetail.QTY * prodDetail.Rate);
                     prodobj.ProductDetails.Add(prodDetail);
                     _context.SaveChanges();
                 }
@@ -57,7 +57,7 @@ namespace NNR.Web.BLogic
         }
 
         private void SyncTerms()
-        {
+        {           
             List<Term> qbTerms = GetTerm();
             List<InvoiceTermPeriod> invTerms = _context.InvoiceTermPeriods.ToList();
             foreach (Term trm in qbTerms)
@@ -67,8 +67,8 @@ namespace NNR.Web.BLogic
                     InvoiceTermPeriod invtrmobj = new InvoiceTermPeriod();
                     invtrmobj.Name = trm.Name;
                     invtrmobj.qbId = trm.Id;
-                    invtrmobj.DateFrom = DateTime.Now;
-                    invtrmobj.DateTo = DateTime.Now.AddMonths(1);
+                    invtrmobj.DateFrom = DateTime.Now.Date;
+                    invtrmobj.DateTo = DateTime.Now.AddMonths(1).Date;
                     _context.InvoiceTermPeriods.Add(invtrmobj);
                     _context.SaveChanges();
                 }
@@ -124,6 +124,7 @@ namespace NNR.Web.BLogic
 
             Customer cust = GetCustomerById(custQBId);
 
+            invpref.CustQBId = cust.Id;
             invpref.CustomerName = cust.FamilyName;
             invpref.BillingAdress = cust.BillAddr.Line1;
             invpref.Crew = string.Empty;

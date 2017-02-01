@@ -4,18 +4,18 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="0cd72ce59d7146ae8cbaa36d17a35562" Name="Diagram1">
+      <Diagram DiagramId="115d2ba6bea242c69a1f3e75f3759eb7" Name="Diagram1">
         <EntityTypeShape EntityType="QBModel.C__MigrationHistory" Width="1.5" PointX="8.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="QBModel.AspNetRole" Width="1.5" PointX="0.75" PointY="8.375" IsExpanded="true" />
         <EntityTypeShape EntityType="QBModel.AspNetUserClaim" Width="1.5" PointX="5.25" PointY="6.875" IsExpanded="true" />
         <EntityTypeShape EntityType="QBModel.AspNetUserLogin" Width="1.5" PointX="5.25" PointY="9.625" IsExpanded="true" />
         <EntityTypeShape EntityType="QBModel.AspNetUser" Width="1.5" PointX="3" PointY="6.375" IsExpanded="true" />
         <EntityTypeShape EntityType="QBModel.CustInvoice" Width="1.5" PointX="8.25" PointY="7.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="QBModel.Discount" Width="1.5" PointX="6" PointY="13" IsExpanded="true" />
-        <EntityTypeShape EntityType="QBModel.DiscountType" Width="1.5" PointX="3.75" PointY="13.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="QBModel.InvoiceTermPeriod" Width="1.5" PointX="6" PointY="15.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QBModel.Discount" Width="1.5" PointX="6" PointY="12.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="QBModel.DiscountType" Width="1.5" PointX="3.75" PointY="13" IsExpanded="true" />
+        <EntityTypeShape EntityType="QBModel.InvoiceTermPeriod" Width="1.5" PointX="6" PointY="15.625" IsExpanded="true" />
         <EntityTypeShape EntityType="QBModel.Menu" Width="1.5" PointX="6" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="QBModel.Product" Width="1.5" PointX="6" PointY="18.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="QBModel.Product" Width="1.5" PointX="6" PointY="18.625" IsExpanded="true" />
         <EntityTypeShape EntityType="QBModel.ProductDetail" Width="1.5" PointX="8.25" PointY="18.125" IsExpanded="true" />
         <EntityTypeShape EntityType="QBModel.QbUser" Width="1.5" PointX="3" PointY="2.875" IsExpanded="true" />
         <EntityTypeShape EntityType="QBModel.Tax" Width="1.5" PointX="6" PointY="21.25" IsExpanded="true" />

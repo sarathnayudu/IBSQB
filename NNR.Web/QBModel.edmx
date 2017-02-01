@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="QBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="QBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="__MigrationHistory">
           <Key>
             <PropertyRef Name="MigrationId" />
@@ -467,7 +467,8 @@ warning 6002: The table/view 'QB.dbo.UserMenus' does not have a primary key defi
             <End Role="UserQbUser" EntitySet="UserQbUser" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="QBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -587,8 +588,8 @@ warning 6002: The table/view 'QB.dbo.UserMenus' does not have a primary key defi
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="DateFrom" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="DateTo" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="qbId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="CustInvoices" Relationship="Self.FK_Invoice_Term" FromRole="InvoiceTermPeriod" ToRole="CustInvoice" />
-          <Property Name="qbId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Menu">
           <Key>
@@ -608,7 +609,7 @@ warning 6002: The table/view 'QB.dbo.UserMenus' does not have a primary key defi
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="QBProductId" Type="String" Nullable="false" MaxLength="128" Unicode="true" FixedLength="false" />
+          <Property Name="QBProductId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="CustInvoices" Relationship="Self.FK_Invoice_Product" FromRole="Product" ToRole="CustInvoice" />
           <NavigationProperty Name="ProductDetails" Relationship="Self.FK_ProductDetail_Product" FromRole="Product" ToRole="ProductDetail" />
         </EntityType>
@@ -1019,11 +1020,11 @@ warning 6002: The table/view 'QB.dbo.UserMenus' does not have a primary key defi
           <EntitySetMapping Name="InvoiceTermPeriods">
             <EntityTypeMapping TypeName="QBModel.InvoiceTermPeriod">
               <MappingFragment StoreEntitySet="InvoiceTermPeriod">
-                <ScalarProperty Name="qbId" ColumnName="qbId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="DateFrom" ColumnName="DateFrom" />
                 <ScalarProperty Name="DateTo" ColumnName="DateTo" />
+                <ScalarProperty Name="qbId" ColumnName="qbId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

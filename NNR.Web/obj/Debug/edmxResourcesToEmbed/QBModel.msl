@@ -100,11 +100,11 @@
     <EntitySetMapping Name="InvoiceTermPeriods">
       <EntityTypeMapping TypeName="QBModel.InvoiceTermPeriod">
         <MappingFragment StoreEntitySet="InvoiceTermPeriod">
-          <ScalarProperty Name="qbId" ColumnName="qbId" />
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="DateFrom" ColumnName="DateFrom" />
           <ScalarProperty Name="DateTo" ColumnName="DateTo" />
+          <ScalarProperty Name="qbId" ColumnName="qbId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

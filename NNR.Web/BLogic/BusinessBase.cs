@@ -16,7 +16,7 @@ namespace NNR.Web.BLogic
         /// RealmId, AccessToken, AccessTokenSecret, ConsumerKey, ConsumerSecret, DataSourceType
         /// </summary>
         public String realmId, accessToken, accessTokenSecret, consumerKey, consumerSecret, dataSourcetype;
-
+        private QBEntities context = new QBEntities();
         public BusinessBase()
         {         
            
@@ -65,7 +65,7 @@ namespace NNR.Web.BLogic
         {
             get
             {
-                return new QBEntities();
+                return context;
             }
 
 

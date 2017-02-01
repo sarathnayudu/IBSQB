@@ -24,5 +24,11 @@ namespace NNR.Web.Controllers
 
             return View();
         }
+
+        public ActionResult Productpartial(int prodid)
+        {
+
+            return PartialView(new ProductDetail());
+        }
     }
 }
