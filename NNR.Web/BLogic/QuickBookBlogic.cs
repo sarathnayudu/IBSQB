@@ -56,6 +56,21 @@ namespace NNR.Web.BLogic
             }
         }
 
+        public List<ServiceDetails> GetServiceDetails(int prodid)
+        {
+            return _context.ProductDetails.Where(e => e.ProductId == prodid).Select(x => new ServiceDetails
+            {
+                Id = x.Id,
+                Amount = x.Amount,
+                Description = x.Description,
+                IsTaxable = x.IsTaxable,
+                Name = x.Name,
+                ProductId = x.ProductId,
+                QTY = x.QTY,
+                Rate = x.Rate
+            }).ToList();
+        }
+
         private void SyncTerms()
         {           
             List<Term> qbTerms = GetTerm();

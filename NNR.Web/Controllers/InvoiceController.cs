@@ -27,8 +27,10 @@ namespace NNR.Web.Controllers
 
         public ActionResult Productpartial(int prodid)
         {
+            QuickBookBlogic qblog = new QuickBookBlogic();
+            List<ServiceDetails> Listsevdetail = qblog.GetServiceDetails(prodid);
 
-            return PartialView(new ProductDetail());
+            return PartialView(Listsevdetail);
         }
     }
 }

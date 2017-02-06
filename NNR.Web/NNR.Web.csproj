@@ -320,6 +320,7 @@
     <Compile Include="Models\InvoiceItems.cs" />
     <Compile Include="Models\InvoicePreferences.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\ServiceDetails.cs" />
     <Compile Include="NLogExceptionHandlerAttribute.cs" />
     <Compile Include="Product.cs">
       <DependentUpon>QBModel.tt</DependentUpon>

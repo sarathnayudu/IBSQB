@@ -1,64 +1,12 @@
-﻿@model NNR.Web.ProductDetail
+﻿@model List<NNR.Web.Models.ServiceDetails>
+@{
+    var grid = new WebGrid(Model);
+}
 
 <div>
     <h4>ProductDetail</h4>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.ProductId)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.ProductId)
-        </dd>
+    @grid.GetHtml()
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.QTY)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.QTY)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Rate)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Rate)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Amount)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Amount)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.IsTaxable)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.IsTaxable)
-        </dd>
-
-    </dl>
 </div>
