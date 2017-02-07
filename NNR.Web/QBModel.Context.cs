@@ -33,6 +33,7 @@ namespace NNR.Web
         public virtual DbSet<CustInvoice> CustInvoices { get; set; }
         public virtual DbSet<Discount> Discounts { get; set; }
         public virtual DbSet<DiscountType> DiscountTypes { get; set; }
+        public virtual DbSet<Error> Errors { get; set; }
         public virtual DbSet<InvoiceTermPeriod> InvoiceTermPeriods { get; set; }
         public virtual DbSet<Menu> Menus { get; set; }
         public virtual DbSet<Product> Products { get; set; }
@@ -40,6 +41,7 @@ namespace NNR.Web
         public virtual DbSet<QbUser> QbUsers { get; set; }
         public virtual DbSet<Tax> Taxes { get; set; }
         public virtual DbSet<UserQbUser> UserQbUsers { get; set; }
+        public virtual DbSet<userstable> userstables { get; set; }
         public virtual DbSet<UserMenu> UserMenus { get; set; }
     }
 }

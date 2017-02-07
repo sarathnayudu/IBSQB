@@ -97,7 +97,7 @@ namespace NNR.Web.QB.Controllers
                 OauthAccessTokenStorageHelper.RemoveInvalidOauthAccessToken(Session["FriendlyEmail"].ToString(), this);
             }
 
-            return View();
+            return RedirectToAction("Index", "Home");
         }
     }
 }

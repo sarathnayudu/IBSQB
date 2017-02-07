@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="QBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="ntcmonitoringModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="__MigrationHistory">
           <Key>
             <PropertyRef Name="MigrationId" />
@@ -104,6 +104,16 @@
           <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Description" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
+        <EntityType Name="Error">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Machinename" Type="varchar" MaxLength="50" />
+          <Property Name="Username" Type="varchar" MaxLength="50" />
+          <Property Name="Message" Type="text" />
+          <Property Name="CreatedDate" Type="datetime" />
+        </EntityType>
         <EntityType Name="InvoiceTermPeriod">
           <Key>
             <PropertyRef Name="Id" />
@@ -163,13 +173,13 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="TaxContry" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="TaxState" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="TaxCounty" Type="nvarchar" MaxLength="50" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="TaxPercentage" Type="real" Nullable="false" />
+          <Property Name="TaxQBId" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'QB.dbo.UserMenus' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'NTCMonitoring.dbo.UserMenus' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="UserMenus">
           <Key>
             <PropertyRef Name="Id" />
@@ -191,6 +201,17 @@ warning 6002: The table/view 'QB.dbo.UserMenus' does not have a primary key defi
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="QbUserId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="userstable">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Username" Type="nchar" MaxLength="100" />
+          <Property Name="Starttime" Type="datetime" />
+          <Property Name="Endtime" Type="datetime" />
+          <Property Name="Ideltime" Type="int" />
+          <Property Name="Machinename" Type="nchar" MaxLength="100" />
         </EntityType>
         <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
           <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
@@ -380,7 +401,7 @@ warning 6002: The table/view 'QB.dbo.UserMenus' does not have a primary key defi
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="QBModelStoreContainer">
+        <EntityContainer Name="ntcmonitoringModelStoreContainer">
           <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" Schema="dbo" store:Type="Tables" />
@@ -390,6 +411,7 @@ warning 6002: The table/view 'QB.dbo.UserMenus' does not have a primary key defi
           <EntitySet Name="CustInvoice" EntityType="Self.CustInvoice" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Discount" EntityType="Self.Discount" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DiscountType" EntityType="Self.DiscountType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Error" EntityType="Self.Error" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="InvoiceTermPeriod" EntityType="Self.InvoiceTermPeriod" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Menus" EntityType="Self.Menus" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
@@ -397,6 +419,7 @@ warning 6002: The table/view 'QB.dbo.UserMenus' does not have a primary key defi
           <EntitySet Name="QbUser" EntityType="Self.QbUser" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tax" EntityType="Self.Tax" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserQbUser" EntityType="Self.UserQbUser" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="userstable" EntityType="Self.userstable" Schema="NTCMonitoring" store:Type="Tables" />
           <EntitySet Name="UserMenus" EntityType="Self.UserMenus" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [UserMenus].[Id] AS [Id], 
@@ -471,7 +494,7 @@ warning 6002: The table/view 'QB.dbo.UserMenus' does not have a primary key defi
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="QBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="ntcmonitoringModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="C__MigrationHistory">
           <Key>
             <PropertyRef Name="MigrationId" />
@@ -580,6 +603,16 @@ warning 6002: The table/view 'QB.dbo.UserMenus' does not have a primary key defi
           <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="Discounts" Relationship="Self.FK_Discount_DiscountType" FromRole="DiscountType" ToRole="Discount" />
         </EntityType>
+        <EntityType Name="Error">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Machinename" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Message" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+        </EntityType>
         <EntityType Name="InvoiceTermPeriod">
           <Key>
             <PropertyRef Name="Id" />
@@ -645,10 +678,10 @@ warning 6002: The table/view 'QB.dbo.UserMenus' does not have a primary key defi
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="TaxContry" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="TaxState" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="TaxCounty" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="TaxPercentage" Type="Single" Nullable="false" />
+          <Property Name="TaxQBId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="CustInvoices" Relationship="Self.FK_Invoice_Tax" FromRole="Tax" ToRole="CustInvoice" />
         </EntityType>
         <EntityType Name="UserQbUser">
@@ -660,6 +693,17 @@ warning 6002: The table/view 'QB.dbo.UserMenus' does not have a primary key defi
           <Property Name="QbUserId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="AspNetUser" Relationship="Self.FK_UserQbUser_AspNetUsers" FromRole="UserQbUser" ToRole="AspNetUsers" />
           <NavigationProperty Name="QbUser" Relationship="Self.FK_UserQbUser_QbUser" FromRole="UserQbUser" ToRole="QbUser" />
+        </EntityType>
+        <EntityType Name="userstable">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Username" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
+          <Property Name="Starttime" Type="DateTime" Precision="3" />
+          <Property Name="Endtime" Type="DateTime" Precision="3" />
+          <Property Name="Ideltime" Type="Int32" />
+          <Property Name="Machinename" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
         </EntityType>
         <EntityType Name="UserMenu">
           <Key>
@@ -850,6 +894,7 @@ warning 6002: The table/view 'QB.dbo.UserMenus' does not have a primary key defi
           <EntitySet Name="CustInvoices" EntityType="Self.CustInvoice" />
           <EntitySet Name="Discounts" EntityType="Self.Discount" />
           <EntitySet Name="DiscountTypes" EntityType="Self.DiscountType" />
+          <EntitySet Name="Errors" EntityType="Self.Error" />
           <EntitySet Name="InvoiceTermPeriods" EntityType="Self.InvoiceTermPeriod" />
           <EntitySet Name="Menus" EntityType="Self.Menu" />
           <EntitySet Name="Products" EntityType="Self.Product" />
@@ -857,6 +902,7 @@ warning 6002: The table/view 'QB.dbo.UserMenus' does not have a primary key defi
           <EntitySet Name="QbUsers" EntityType="Self.QbUser" />
           <EntitySet Name="Taxes" EntityType="Self.Tax" />
           <EntitySet Name="UserQbUsers" EntityType="Self.UserQbUser" />
+          <EntitySet Name="userstables" EntityType="Self.userstable" />
           <EntitySet Name="UserMenus" EntityType="Self.UserMenu" />
           <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
@@ -920,9 +966,9 @@ warning 6002: The table/view 'QB.dbo.UserMenus' does not have a primary key defi
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="QBModelStoreContainer" CdmEntityContainer="QBEntities">
+        <EntityContainerMapping StorageEntityContainer="ntcmonitoringModelStoreContainer" CdmEntityContainer="QBEntities">
           <EntitySetMapping Name="C__MigrationHistory">
-            <EntityTypeMapping TypeName="QBModel.C__MigrationHistory">
+            <EntityTypeMapping TypeName="ntcmonitoringModel.C__MigrationHistory">
               <MappingFragment StoreEntitySet="__MigrationHistory">
                 <ScalarProperty Name="MigrationId" ColumnName="MigrationId" />
                 <ScalarProperty Name="ContextKey" ColumnName="ContextKey" />
@@ -932,7 +978,7 @@ warning 6002: The table/view 'QB.dbo.UserMenus' does not have a primary key defi
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="AspNetRoles">
-            <EntityTypeMapping TypeName="QBModel.AspNetRole">
+            <EntityTypeMapping TypeName="ntcmonitoringModel.AspNetRole">
               <MappingFragment StoreEntitySet="AspNetRoles">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -940,7 +986,7 @@ warning 6002: The table/view 'QB.dbo.UserMenus' does not have a primary key defi
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="AspNetUserClaims">
-            <EntityTypeMapping TypeName="QBModel.AspNetUserClaim">
+            <EntityTypeMapping TypeName="ntcmonitoringModel.AspNetUserClaim">
               <MappingFragment StoreEntitySet="AspNetUserClaims">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
@@ -950,7 +996,7 @@ warning 6002: The table/view 'QB.dbo.UserMenus' does not have a primary key defi
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="AspNetUserLogins">
-            <EntityTypeMapping TypeName="QBModel.AspNetUserLogin">
+            <EntityTypeMapping TypeName="ntcmonitoringModel.AspNetUserLogin">
               <MappingFragment StoreEntitySet="AspNetUserLogins">
                 <ScalarProperty Name="LoginProvider" ColumnName="LoginProvider" />
                 <ScalarProperty Name="ProviderKey" ColumnName="ProviderKey" />
@@ -959,7 +1005,7 @@ warning 6002: The table/view 'QB.dbo.UserMenus' does not have a primary key defi
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="AspNetUsers">
-            <EntityTypeMapping TypeName="QBModel.AspNetUser">
+            <EntityTypeMapping TypeName="ntcmonitoringModel.AspNetUser">
               <MappingFragment StoreEntitySet="AspNetUsers">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />
@@ -983,7 +1029,7 @@ warning 6002: The table/view 'QB.dbo.UserMenus' does not have a primary key defi
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="CustInvoices">
-            <EntityTypeMapping TypeName="QBModel.CustInvoice">
+            <EntityTypeMapping TypeName="ntcmonitoringModel.CustInvoice">
               <MappingFragment StoreEntitySet="CustInvoice">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
@@ -1000,7 +1046,7 @@ warning 6002: The table/view 'QB.dbo.UserMenus' does not have a primary key defi
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Discounts">
-            <EntityTypeMapping TypeName="QBModel.Discount">
+            <EntityTypeMapping TypeName="ntcmonitoringModel.Discount">
               <MappingFragment StoreEntitySet="Discount">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="DiscountPercentage" ColumnName="DiscountPercentage" />
@@ -1009,7 +1055,7 @@ warning 6002: The table/view 'QB.dbo.UserMenus' does not have a primary key defi
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="DiscountTypes">
-            <EntityTypeMapping TypeName="QBModel.DiscountType">
+            <EntityTypeMapping TypeName="ntcmonitoringModel.DiscountType">
               <MappingFragment StoreEntitySet="DiscountType">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -1017,8 +1063,19 @@ warning 6002: The table/view 'QB.dbo.UserMenus' does not have a primary key defi
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Errors">
+            <EntityTypeMapping TypeName="ntcmonitoringModel.Error">
+              <MappingFragment StoreEntitySet="Error">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Machinename" ColumnName="Machinename" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Message" ColumnName="Message" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="InvoiceTermPeriods">
-            <EntityTypeMapping TypeName="QBModel.InvoiceTermPeriod">
+            <EntityTypeMapping TypeName="ntcmonitoringModel.InvoiceTermPeriod">
               <MappingFragment StoreEntitySet="InvoiceTermPeriod">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -1029,7 +1086,7 @@ warning 6002: The table/view 'QB.dbo.UserMenus' does not have a primary key defi
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Menus">
-            <EntityTypeMapping TypeName="QBModel.Menu">
+            <EntityTypeMapping TypeName="ntcmonitoringModel.Menu">
               <MappingFragment StoreEntitySet="Menus">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Text" ColumnName="Text" />
@@ -1041,7 +1098,7 @@ warning 6002: The table/view 'QB.dbo.UserMenus' does not have a primary key defi
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Products">
-            <EntityTypeMapping TypeName="QBModel.Product">
+            <EntityTypeMapping TypeName="ntcmonitoringModel.Product">
               <MappingFragment StoreEntitySet="Product">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -1050,7 +1107,7 @@ warning 6002: The table/view 'QB.dbo.UserMenus' does not have a primary key defi
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ProductDetails">
-            <EntityTypeMapping TypeName="QBModel.ProductDetail">
+            <EntityTypeMapping TypeName="ntcmonitoringModel.ProductDetail">
               <MappingFragment StoreEntitySet="ProductDetail">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="ProductId" ColumnName="ProductId" />
@@ -1064,7 +1121,7 @@ warning 6002: The table/view 'QB.dbo.UserMenus' does not have a primary key defi
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="QbUsers">
-            <EntityTypeMapping TypeName="QBModel.QbUser">
+            <EntityTypeMapping TypeName="ntcmonitoringModel.QbUser">
               <MappingFragment StoreEntitySet="QbUser">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
@@ -1077,18 +1134,18 @@ warning 6002: The table/view 'QB.dbo.UserMenus' does not have a primary key defi
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Taxes">
-            <EntityTypeMapping TypeName="QBModel.Tax">
+            <EntityTypeMapping TypeName="ntcmonitoringModel.Tax">
               <MappingFragment StoreEntitySet="Tax">
                 <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="TaxContry" ColumnName="TaxContry" />
-                <ScalarProperty Name="TaxState" ColumnName="TaxState" />
-                <ScalarProperty Name="TaxCounty" ColumnName="TaxCounty" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="TaxPercentage" ColumnName="TaxPercentage" />
+                <ScalarProperty Name="TaxQBId" ColumnName="TaxQBId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="UserQbUsers">
-            <EntityTypeMapping TypeName="QBModel.UserQbUser">
+            <EntityTypeMapping TypeName="ntcmonitoringModel.UserQbUser">
               <MappingFragment StoreEntitySet="UserQbUser">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
@@ -1096,8 +1153,20 @@ warning 6002: The table/view 'QB.dbo.UserMenus' does not have a primary key defi
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="userstables">
+            <EntityTypeMapping TypeName="ntcmonitoringModel.userstable">
+              <MappingFragment StoreEntitySet="userstable">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Starttime" ColumnName="Starttime" />
+                <ScalarProperty Name="Endtime" ColumnName="Endtime" />
+                <ScalarProperty Name="Ideltime" ColumnName="Ideltime" />
+                <ScalarProperty Name="Machinename" ColumnName="Machinename" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="UserMenus">
-            <EntityTypeMapping TypeName="QBModel.UserMenu">
+            <EntityTypeMapping TypeName="ntcmonitoringModel.UserMenu">
               <MappingFragment StoreEntitySet="UserMenus">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
@@ -1107,7 +1176,7 @@ warning 6002: The table/view 'QB.dbo.UserMenus' does not have a primary key defi
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <AssociationSetMapping Name="AspNetUserRoles" TypeName="QBModel.AspNetUserRoles" StoreEntitySet="AspNetUserRoles">
+          <AssociationSetMapping Name="AspNetUserRoles" TypeName="ntcmonitoringModel.AspNetUserRoles" StoreEntitySet="AspNetUserRoles">
             <EndProperty Name="AspNetRoles">
               <ScalarProperty Name="Id" ColumnName="RoleId" />
             </EndProperty>

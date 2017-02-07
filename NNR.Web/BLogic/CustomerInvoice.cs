@@ -16,9 +16,11 @@ namespace NNR.Web.BLogic
         public string InvoiceNumber { get; set; }
 
 
-        public CustomerInvoice()
+        public CustomerInvoice(string CustQBId, string InvoiceDate, string Duedate, string Crew, 
+            string SelectedDiscountTypeId, string DiscountValue, string Memo, string InvoiceMessage, 
+            string SelectedTermId, string SelectedProductId, string SelectedTaxId)
         {
-            TaxCode = GetTaxCode();
+          //  TaxCode = GetTaxCode();
             Account = GetAccount();
            // Item = GetItem();
            // Term = GetTerm();
@@ -35,11 +37,6 @@ namespace NNR.Web.BLogic
             return lstAccount.FirstOrDefault();
         }
 
-        private Intuit.Ipp.Data.TaxCode GetTaxCode()
-        {
-            List<TaxCode> lstTaxCode = DataService.FindAll(new TaxCode(), 1, 100).ToList();
-            return lstTaxCode.Count() > 0 ? lstTaxCode[0] : null;
-        }
 
         public void CreateTaxCode()
         {

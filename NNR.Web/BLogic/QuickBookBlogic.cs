@@ -7,7 +7,7 @@ using System.Web;
 
 namespace NNR.Web.BLogic
 {
-    public class QuickBookBlogic:BusinessBase
+    public class QuickBookBlogic : BusinessBase
     {
         public QbUser GetQbuser(string qbEmail)
         {
@@ -24,6 +24,41 @@ namespace NNR.Web.BLogic
             SyncTerms();
             //sync products/services\
             SyncItem();
+            //sync taxcodes
+            SyncTaxCodes();
+        }
+
+        private void SyncTaxCodes()
+        {
+            List<TaxCode> taxcodes = GetTaxCode();
+
+            List<Tax> ListTax = _context.Taxes.ToList();
+            foreach (TaxCode itm in taxcodes)
+            {
+                if (ListTax.Where(e => e.TaxQBId == itm.Id).FirstOrDefault() == null)
+                {
+                    Tax tx = new Tax();
+                    tx.Name = itm.Name;
+                    tx.Description = itm.Description;
+                    tx.TaxPercentage = (float)5.0;
+                    tx.TaxQBId = itm.Id;
+
+                    _context.Taxes.Add(tx);
+                    _context.SaveChanges();
+
+
+                }
+            }
+        }
+
+        internal void DisconnectQBUser(string qbUsrEmail)
+        {
+            QbUser qbusr = _context.QbUsers.Where(e => e.Email == qbUsrEmail).FirstOrDefault();
+            if(qbusr!=null)
+            {
+                qbusr.UserQbUsers.Clear();
+                _context.SaveChanges();
+            }
         }
 
         private void SyncItem()
@@ -38,7 +73,7 @@ namespace NNR.Web.BLogic
                     Product prodobj = new Product();
                     prodobj.Name = itm.Name;
                     prodobj.QBProductId = itm.Id;
-                  
+
                     _context.Products.Add(prodobj);
                     _context.SaveChanges();
 
@@ -46,10 +81,10 @@ namespace NNR.Web.BLogic
                     prodDetail.Description = itm.Description;
                     prodDetail.IsTaxable = itm.Taxable;
                     prodDetail.ProductId = prodobj.Id;
-                    prodDetail.QTY =(float) itm.QtyOnHand;
+                    prodDetail.QTY = (float)itm.QtyOnHand;
                     prodDetail.Name = itm.Name;
-                    prodDetail.Rate =(float) itm.UnitPrice;
-                    prodDetail.Amount =(decimal) (prodDetail.QTY * prodDetail.Rate);
+                    prodDetail.Rate = (float)itm.UnitPrice;
+                    prodDetail.Amount = (decimal)(prodDetail.QTY * prodDetail.Rate);
                     prodobj.ProductDetails.Add(prodDetail);
                     _context.SaveChanges();
                 }
@@ -72,12 +107,12 @@ namespace NNR.Web.BLogic
         }
 
         private void SyncTerms()
-        {           
+        {
             List<Term> qbTerms = GetTerm();
             List<InvoiceTermPeriod> invTerms = _context.InvoiceTermPeriods.ToList();
             foreach (Term trm in qbTerms)
             {
-               if(invTerms.Where(e=>e.qbId==trm.Id).FirstOrDefault()==null)
+                if (invTerms.Where(e => e.qbId == trm.Id).FirstOrDefault() == null)
                 {
                     InvoiceTermPeriod invtrmobj = new InvoiceTermPeriod();
                     invtrmobj.Name = trm.Name;
@@ -89,14 +124,14 @@ namespace NNR.Web.BLogic
                 }
             }
 
-           
+
         }
 
         public void RegisterUserQBUser(string userName, string qbUsrEmail)
         {
             QBEntities qe = new QBEntities();
-           AspNetUser usr= qe.AspNetUsers.Where(e => e.UserName == userName).FirstOrDefault();
-           QbUser qbusr= qe.QbUsers.Where(e => e.Email == qbUsrEmail).FirstOrDefault();
+            AspNetUser usr = qe.AspNetUsers.Where(e => e.UserName == userName).FirstOrDefault();
+            QbUser qbusr = qe.QbUsers.Where(e => e.Email == qbUsrEmail).FirstOrDefault();
             if (usr != null && qbusr != null)
             {
                 if (usr.UserQbUsers.Count == 0)
@@ -115,9 +150,9 @@ namespace NNR.Web.BLogic
         {
             QBEntities qe = new QBEntities();
             QbUser qbusr = qe.QbUsers.Where(e => e.Email == qbUsrEmail).FirstOrDefault();
-          
-            return qbusr != null && qbusr.UserQbUsers!=null ? 
-                qbusr.UserQbUsers.OrderByDescending(e=>e.Id).FirstOrDefault().AspNetUser.Email : string.Empty;
+
+            return qbusr != null && qbusr.UserQbUsers != null ?
+                qbusr.UserQbUsers.OrderByDescending(e => e.Id).FirstOrDefault().AspNetUser.Email : string.Empty;
         }
 
 
@@ -125,10 +160,10 @@ namespace NNR.Web.BLogic
         {
             QBEntities qe = new QBEntities();
             UserQbUser usrQbUsr = qe.UserQbUsers.Where(e => e.AspNetUser.Email == userEmail).FirstOrDefault();
-            QbUser qbusr=null;
+            QbUser qbusr = null;
             if (usrQbUsr != null)
             {
-                 qbusr = qe.QbUsers.Where(e => e.ID == usrQbUsr.QbUserId).FirstOrDefault();
+                qbusr = qe.QbUsers.Where(e => e.ID == usrQbUsr.QbUserId).FirstOrDefault();
             }
             return qbusr;
         }
@@ -145,14 +180,14 @@ namespace NNR.Web.BLogic
             invpref.Crew = string.Empty;
             invpref.DiscountType = _context.DiscountTypes.Select(e => new ComboBase
             {
-                Id=e.Id,
-                DisplayValue=e.Name
+                Id = e.Id,
+                DisplayValue = e.Name
             }).ToList();
 
             invpref.AmountReceived = cust.TotalRevenue;
 
             invpref.Email = cust.PrimaryEmailAddr.Address;
-            invpref.ListProduct= _context.Products.Select(e => new ComboBase
+            invpref.ListProduct = _context.Products.Select(e => new ComboBase
             {
                 Id = e.Id,
                 DisplayValue = e.Name
@@ -163,6 +198,14 @@ namespace NNR.Web.BLogic
                 Id = e.Id,
                 DisplayValue = e.Name
             }).ToList();
+
+            invpref.Tax = _context.Taxes.Select(e => new ComboBase
+            {
+                Id = e.Id,
+                DisplayValue = e.Name
+            }).ToList();
+
+
 
             return invpref;
         }

@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Schema Namespace="QBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+<Schema Namespace="ntcmonitoringModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
   <EntityType Name="__MigrationHistory">
     <Key>
       <PropertyRef Name="MigrationId" />
@@ -99,6 +99,16 @@
     <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="Description" Type="nvarchar" MaxLength="50" Nullable="false" />
   </EntityType>
+  <EntityType Name="Error">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Machinename" Type="varchar" MaxLength="50" />
+    <Property Name="Username" Type="varchar" MaxLength="50" />
+    <Property Name="Message" Type="text" />
+    <Property Name="CreatedDate" Type="datetime" />
+  </EntityType>
   <EntityType Name="InvoiceTermPeriod">
     <Key>
       <PropertyRef Name="Id" />
@@ -158,13 +168,13 @@
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="TaxContry" Type="nvarchar" MaxLength="50" Nullable="false" />
-    <Property Name="TaxState" Type="nvarchar" MaxLength="50" Nullable="false" />
-    <Property Name="TaxCounty" Type="nvarchar" MaxLength="50" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Description" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="TaxPercentage" Type="real" Nullable="false" />
+    <Property Name="TaxQBId" Type="nvarchar" MaxLength="50" />
   </EntityType>
   <!--Errors Found During Generation:
-warning 6002: The table/view 'QB.dbo.UserMenus' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'NTCMonitoring.dbo.UserMenus' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="UserMenus">
     <Key>
       <PropertyRef Name="Id" />
@@ -186,6 +196,17 @@ warning 6002: The table/view 'QB.dbo.UserMenus' does not have a primary key defi
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
     <Property Name="QbUserId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="userstable">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Username" Type="nchar" MaxLength="100" />
+    <Property Name="Starttime" Type="datetime" />
+    <Property Name="Endtime" Type="datetime" />
+    <Property Name="Ideltime" Type="int" />
+    <Property Name="Machinename" Type="nchar" MaxLength="100" />
   </EntityType>
   <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
     <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
@@ -375,7 +396,7 @@ warning 6002: The table/view 'QB.dbo.UserMenus' does not have a primary key defi
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <EntityContainer Name="QBModelStoreContainer">
+  <EntityContainer Name="ntcmonitoringModelStoreContainer">
     <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" Schema="dbo" store:Type="Tables" />
@@ -385,6 +406,7 @@ warning 6002: The table/view 'QB.dbo.UserMenus' does not have a primary key defi
     <EntitySet Name="CustInvoice" EntityType="Self.CustInvoice" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Discount" EntityType="Self.Discount" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="DiscountType" EntityType="Self.DiscountType" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Error" EntityType="Self.Error" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="InvoiceTermPeriod" EntityType="Self.InvoiceTermPeriod" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Menus" EntityType="Self.Menus" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
@@ -392,6 +414,7 @@ warning 6002: The table/view 'QB.dbo.UserMenus' does not have a primary key defi
     <EntitySet Name="QbUser" EntityType="Self.QbUser" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Tax" EntityType="Self.Tax" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="UserQbUser" EntityType="Self.UserQbUser" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="userstable" EntityType="Self.userstable" Schema="NTCMonitoring" store:Type="Tables" />
     <EntitySet Name="UserMenus" EntityType="Self.UserMenus" store:Type="Tables" store:Schema="dbo">
       <DefiningQuery>SELECT 
     [UserMenus].[Id] AS [Id], 

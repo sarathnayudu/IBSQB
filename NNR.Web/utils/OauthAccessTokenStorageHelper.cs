@@ -19,16 +19,19 @@ namespace NNR.Web.utils
         /// <param name="emailID"></param>
         internal static void RemoveInvalidOauthAccessToken(string emailID, Controller page)
         {
-            string path = page.Server.MapPath("/") + @"OauthAccessTokenStorage.xml";
-            string searchUserXpath = "//record[@usermailid='" + emailID + "']";
-            XmlDocument doc = new XmlDocument();
-            doc.Load(path);
-            XmlNode record = doc.SelectSingleNode(searchUserXpath);
-            if (record != null)
-            {
-                doc.DocumentElement.RemoveChild(record);
-                doc.Save(path);
-            }
+            //string path = page.Server.MapPath("/") + @"OauthAccessTokenStorage.xml";
+            //string searchUserXpath = "//record[@usermailid='" + emailID + "']";
+            //XmlDocument doc = new XmlDocument();
+            //doc.Load(path);
+            //XmlNode record = doc.SelectSingleNode(searchUserXpath);
+            //if (record != null)
+            //{
+            //    doc.DocumentElement.RemoveChild(record);
+            //    doc.Save(path);
+            //}
+
+            QuickBookBlogic blog = new QuickBookBlogic();
+            blog.DisconnectQBUser(page.Session["FriendlyEmail"].ToString());
 
             //Rermove it from session
             page.Session.Remove("realm");
@@ -121,7 +124,7 @@ namespace NNR.Web.utils
                 qbusr.RelaimID = page.Session["realm"].ToString();
                 qbusr.Secret = CryptographyHelper.EncryptData(page.Session["accessTokenSecret"].ToString(), secuirtyKey);
                 qbusr.Token = CryptographyHelper.EncryptData(page.Session["accessToken"].ToString(), secuirtyKey);
-                QBEntities entity = new QBEntities();
+               QBEntities entity = new QBEntities();
                 entity.QbUsers.Add(qbusr);
                 entity.SaveChanges();
             }

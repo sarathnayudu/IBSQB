@@ -21,6 +21,9 @@ namespace NNR.Web.Controllers
 
         public ActionResult Create(FormCollection fc)
         {
+            CustomerInvoice custInv = new CustomerInvoice(fc["CustQBId"], fc["InvoiceDate"], fc["Duedate"], fc["Crew"],
+                fc["SelectedDiscountTypeId"], fc["DiscountValue"], fc["Memo"], fc["InvoiceMessage"],
+               fc["SelectedTermId"], fc["SelectedProductId"], fc["SelectedTaxId"]);
 
             return View();
         }

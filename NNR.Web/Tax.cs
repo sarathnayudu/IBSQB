@@ -21,10 +21,10 @@ namespace NNR.Web
         }
     
         public int Id { get; set; }
-        public string TaxContry { get; set; }
-        public string TaxState { get; set; }
-        public string TaxCounty { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
         public float TaxPercentage { get; set; }
+        public string TaxQBId { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CustInvoice> CustInvoices { get; set; }

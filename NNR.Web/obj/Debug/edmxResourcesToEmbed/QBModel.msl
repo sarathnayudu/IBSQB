@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-  <EntityContainerMapping StorageEntityContainer="QBModelStoreContainer" CdmEntityContainer="QBEntities">
+  <EntityContainerMapping StorageEntityContainer="ntcmonitoringModelStoreContainer" CdmEntityContainer="QBEntities">
     <EntitySetMapping Name="C__MigrationHistory">
-      <EntityTypeMapping TypeName="QBModel.C__MigrationHistory">
+      <EntityTypeMapping TypeName="ntcmonitoringModel.C__MigrationHistory">
         <MappingFragment StoreEntitySet="__MigrationHistory">
           <ScalarProperty Name="MigrationId" ColumnName="MigrationId" />
           <ScalarProperty Name="ContextKey" ColumnName="ContextKey" />
@@ -12,7 +12,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="AspNetRoles">
-      <EntityTypeMapping TypeName="QBModel.AspNetRole">
+      <EntityTypeMapping TypeName="ntcmonitoringModel.AspNetRole">
         <MappingFragment StoreEntitySet="AspNetRoles">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Name" ColumnName="Name" />
@@ -20,7 +20,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="AspNetUserClaims">
-      <EntityTypeMapping TypeName="QBModel.AspNetUserClaim">
+      <EntityTypeMapping TypeName="ntcmonitoringModel.AspNetUserClaim">
         <MappingFragment StoreEntitySet="AspNetUserClaims">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="UserId" ColumnName="UserId" />
@@ -30,7 +30,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="AspNetUserLogins">
-      <EntityTypeMapping TypeName="QBModel.AspNetUserLogin">
+      <EntityTypeMapping TypeName="ntcmonitoringModel.AspNetUserLogin">
         <MappingFragment StoreEntitySet="AspNetUserLogins">
           <ScalarProperty Name="LoginProvider" ColumnName="LoginProvider" />
           <ScalarProperty Name="ProviderKey" ColumnName="ProviderKey" />
@@ -39,7 +39,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="AspNetUsers">
-      <EntityTypeMapping TypeName="QBModel.AspNetUser">
+      <EntityTypeMapping TypeName="ntcmonitoringModel.AspNetUser">
         <MappingFragment StoreEntitySet="AspNetUsers">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="FirstName" ColumnName="FirstName" />
@@ -63,7 +63,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="CustInvoices">
-      <EntityTypeMapping TypeName="QBModel.CustInvoice">
+      <EntityTypeMapping TypeName="ntcmonitoringModel.CustInvoice">
         <MappingFragment StoreEntitySet="CustInvoice">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="UserId" ColumnName="UserId" />
@@ -80,7 +80,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Discounts">
-      <EntityTypeMapping TypeName="QBModel.Discount">
+      <EntityTypeMapping TypeName="ntcmonitoringModel.Discount">
         <MappingFragment StoreEntitySet="Discount">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="DiscountPercentage" ColumnName="DiscountPercentage" />
@@ -89,7 +89,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="DiscountTypes">
-      <EntityTypeMapping TypeName="QBModel.DiscountType">
+      <EntityTypeMapping TypeName="ntcmonitoringModel.DiscountType">
         <MappingFragment StoreEntitySet="DiscountType">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Name" ColumnName="Name" />
@@ -97,8 +97,19 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="Errors">
+      <EntityTypeMapping TypeName="ntcmonitoringModel.Error">
+        <MappingFragment StoreEntitySet="Error">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Machinename" ColumnName="Machinename" />
+          <ScalarProperty Name="Username" ColumnName="Username" />
+          <ScalarProperty Name="Message" ColumnName="Message" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="InvoiceTermPeriods">
-      <EntityTypeMapping TypeName="QBModel.InvoiceTermPeriod">
+      <EntityTypeMapping TypeName="ntcmonitoringModel.InvoiceTermPeriod">
         <MappingFragment StoreEntitySet="InvoiceTermPeriod">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Name" ColumnName="Name" />
@@ -109,7 +120,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Menus">
-      <EntityTypeMapping TypeName="QBModel.Menu">
+      <EntityTypeMapping TypeName="ntcmonitoringModel.Menu">
         <MappingFragment StoreEntitySet="Menus">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Text" ColumnName="Text" />
@@ -121,7 +132,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Products">
-      <EntityTypeMapping TypeName="QBModel.Product">
+      <EntityTypeMapping TypeName="ntcmonitoringModel.Product">
         <MappingFragment StoreEntitySet="Product">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Name" ColumnName="Name" />
@@ -130,7 +141,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="ProductDetails">
-      <EntityTypeMapping TypeName="QBModel.ProductDetail">
+      <EntityTypeMapping TypeName="ntcmonitoringModel.ProductDetail">
         <MappingFragment StoreEntitySet="ProductDetail">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="ProductId" ColumnName="ProductId" />
@@ -144,7 +155,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="QbUsers">
-      <EntityTypeMapping TypeName="QBModel.QbUser">
+      <EntityTypeMapping TypeName="ntcmonitoringModel.QbUser">
         <MappingFragment StoreEntitySet="QbUser">
           <ScalarProperty Name="ID" ColumnName="ID" />
           <ScalarProperty Name="Email" ColumnName="Email" />
@@ -157,18 +168,18 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Taxes">
-      <EntityTypeMapping TypeName="QBModel.Tax">
+      <EntityTypeMapping TypeName="ntcmonitoringModel.Tax">
         <MappingFragment StoreEntitySet="Tax">
           <ScalarProperty Name="Id" ColumnName="Id" />
-          <ScalarProperty Name="TaxContry" ColumnName="TaxContry" />
-          <ScalarProperty Name="TaxState" ColumnName="TaxState" />
-          <ScalarProperty Name="TaxCounty" ColumnName="TaxCounty" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
           <ScalarProperty Name="TaxPercentage" ColumnName="TaxPercentage" />
+          <ScalarProperty Name="TaxQBId" ColumnName="TaxQBId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="UserQbUsers">
-      <EntityTypeMapping TypeName="QBModel.UserQbUser">
+      <EntityTypeMapping TypeName="ntcmonitoringModel.UserQbUser">
         <MappingFragment StoreEntitySet="UserQbUser">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="UserId" ColumnName="UserId" />
@@ -176,8 +187,20 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="userstables">
+      <EntityTypeMapping TypeName="ntcmonitoringModel.userstable">
+        <MappingFragment StoreEntitySet="userstable">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Username" ColumnName="Username" />
+          <ScalarProperty Name="Starttime" ColumnName="Starttime" />
+          <ScalarProperty Name="Endtime" ColumnName="Endtime" />
+          <ScalarProperty Name="Ideltime" ColumnName="Ideltime" />
+          <ScalarProperty Name="Machinename" ColumnName="Machinename" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="UserMenus">
-      <EntityTypeMapping TypeName="QBModel.UserMenu">
+      <EntityTypeMapping TypeName="ntcmonitoringModel.UserMenu">
         <MappingFragment StoreEntitySet="UserMenus">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="UserId" ColumnName="UserId" />
@@ -187,7 +210,7 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <AssociationSetMapping Name="AspNetUserRoles" TypeName="QBModel.AspNetUserRoles" StoreEntitySet="AspNetUserRoles">
+    <AssociationSetMapping Name="AspNetUserRoles" TypeName="ntcmonitoringModel.AspNetUserRoles" StoreEntitySet="AspNetUserRoles">
       <EndProperty Name="AspNetRoles">
         <ScalarProperty Name="Id" ColumnName="RoleId" />
       </EndProperty>

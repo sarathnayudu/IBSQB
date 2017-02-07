@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Schema Namespace="QBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+<Schema Namespace="ntcmonitoringModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
   <EntityType Name="C__MigrationHistory">
     <Key>
       <PropertyRef Name="MigrationId" />
@@ -108,6 +108,16 @@
     <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
     <NavigationProperty Name="Discounts" Relationship="Self.FK_Discount_DiscountType" FromRole="DiscountType" ToRole="Discount" />
   </EntityType>
+  <EntityType Name="Error">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Machinename" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Message" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+  </EntityType>
   <EntityType Name="InvoiceTermPeriod">
     <Key>
       <PropertyRef Name="Id" />
@@ -173,10 +183,10 @@
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="TaxContry" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="TaxState" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="TaxCounty" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="TaxPercentage" Type="Single" Nullable="false" />
+    <Property Name="TaxQBId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="CustInvoices" Relationship="Self.FK_Invoice_Tax" FromRole="Tax" ToRole="CustInvoice" />
   </EntityType>
   <EntityType Name="UserQbUser">
@@ -188,6 +198,17 @@
     <Property Name="QbUserId" Type="Int32" Nullable="false" />
     <NavigationProperty Name="AspNetUser" Relationship="Self.FK_UserQbUser_AspNetUsers" FromRole="UserQbUser" ToRole="AspNetUsers" />
     <NavigationProperty Name="QbUser" Relationship="Self.FK_UserQbUser_QbUser" FromRole="UserQbUser" ToRole="QbUser" />
+  </EntityType>
+  <EntityType Name="userstable">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Username" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
+    <Property Name="Starttime" Type="DateTime" Precision="3" />
+    <Property Name="Endtime" Type="DateTime" Precision="3" />
+    <Property Name="Ideltime" Type="Int32" />
+    <Property Name="Machinename" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
   </EntityType>
   <EntityType Name="UserMenu">
     <Key>
@@ -378,6 +399,7 @@
     <EntitySet Name="CustInvoices" EntityType="Self.CustInvoice" />
     <EntitySet Name="Discounts" EntityType="Self.Discount" />
     <EntitySet Name="DiscountTypes" EntityType="Self.DiscountType" />
+    <EntitySet Name="Errors" EntityType="Self.Error" />
     <EntitySet Name="InvoiceTermPeriods" EntityType="Self.InvoiceTermPeriod" />
     <EntitySet Name="Menus" EntityType="Self.Menu" />
     <EntitySet Name="Products" EntityType="Self.Product" />
@@ -385,6 +407,7 @@
     <EntitySet Name="QbUsers" EntityType="Self.QbUser" />
     <EntitySet Name="Taxes" EntityType="Self.Tax" />
     <EntitySet Name="UserQbUsers" EntityType="Self.UserQbUser" />
+    <EntitySet Name="userstables" EntityType="Self.userstable" />
     <EntitySet Name="UserMenus" EntityType="Self.UserMenu" />
     <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
       <End Role="AspNetUsers" EntitySet="AspNetUsers" />

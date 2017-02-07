@@ -304,6 +304,9 @@
     <Compile Include="DiscountType.cs">
       <DependentUpon>QBModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Error.cs">
+      <DependentUpon>QBModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -355,6 +358,9 @@
       <DependentUpon>QBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="UserQbUser.cs">
+      <DependentUpon>QBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="userstable.cs">
       <DependentUpon>QBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="utils\ApplicationConstants.cs" />

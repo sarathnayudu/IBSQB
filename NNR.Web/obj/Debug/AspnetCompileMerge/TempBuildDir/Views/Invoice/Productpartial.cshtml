@@ -1,0 +1,12 @@
+﻿@model List<NNR.Web.Models.ServiceDetails>
+@{
+    var grid = new WebGrid(Model);
+}
+
+<div>
+    <h4>ProductDetail</h4>
+    <hr />
+
+    @grid.GetHtml()
+
+</div>

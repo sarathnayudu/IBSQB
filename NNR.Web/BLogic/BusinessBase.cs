@@ -92,6 +92,13 @@ namespace NNR.Web.BLogic
             List<Term> lstterm = DataService.FindAll(new Term(), 1, 100).ToList();
             return lstterm;
         }
-       
+
+
+        public List<Intuit.Ipp.Data.TaxCode> GetTaxCode()
+        {
+            List<TaxCode> lstTaxCode = DataService.FindAll(new TaxCode(), 1, 100).ToList();
+            return lstTaxCode;
+        }
+
     }
 }
