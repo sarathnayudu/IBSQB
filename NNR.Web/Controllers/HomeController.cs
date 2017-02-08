@@ -12,6 +12,7 @@ namespace NNR.Web.Controllers
     public class HomeController : BaseController
     {
         public ActionResult Index()
+
         {
             if (User.Identity.IsAuthenticated)
             {

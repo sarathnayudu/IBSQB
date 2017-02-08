@@ -95,9 +95,10 @@ namespace NNR.Web.QB.Controllers
 
                 //Remove the Oauth access token from the OauthAccessTokenStorage.xml
                 OauthAccessTokenStorageHelper.RemoveInvalidOauthAccessToken(Session["FriendlyEmail"].ToString(), this);
+                
             }
 
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("LogOffWhileDiscQB", "Account");
         }
     }
 }

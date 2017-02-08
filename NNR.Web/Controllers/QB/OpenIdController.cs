@@ -37,7 +37,7 @@ namespace NNR.Web.QB.Controllers
         /// </summary>
         /// <returns></returns>
         public ActionResult Index()
-        {
+        { 
             var openid_identifier = ConfigurationManager.AppSettings["openid_identifier"].ToString(); ;
             var response = openid.GetResponse();
             if (response == null)

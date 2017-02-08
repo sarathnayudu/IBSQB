@@ -51,12 +51,14 @@ namespace NNR.Web.BLogic
             }
         }
 
-        internal void DisconnectQBUser(string qbUsrEmail)
-        {
+        internal void DisconnectQBUser(string qbUsrEmail,string userEmail)
+        {          
             QbUser qbusr = _context.QbUsers.Where(e => e.Email == qbUsrEmail).FirstOrDefault();
             if(qbusr!=null)
             {
-                qbusr.UserQbUsers.Clear();
+                List<UserQbUser> Listuserqbusr = _context.UserQbUsers.Where(e => e.QbUserId == qbusr.ID).ToList();
+                _context.UserQbUsers.RemoveRange(Listuserqbusr);
+                _context.QbUsers.Remove(qbusr);
                 _context.SaveChanges();
             }
         }

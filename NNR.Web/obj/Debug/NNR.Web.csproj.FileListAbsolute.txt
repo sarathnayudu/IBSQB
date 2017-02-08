@@ -117,3 +117,4 @@ F:\MyFolder\Personal\Repositary\IBSQB\NNR.Web\bin\Org.Mentalis.Security.Cryptogr
 F:\MyFolder\Personal\Repositary\IBSQB\NNR.Web\bin\Mono.Math.xml
 F:\MyFolder\Personal\Repositary\IBSQB\NNR.Web\obj\Debug\NNR.Web.dll
 F:\MyFolder\Personal\Repositary\IBSQB\NNR.Web\obj\Debug\NNR.Web.pdb
+F:\MyFolder\Personal\Repositary\IBSQB\NNR.Web\obj\Debug\NNR.Web.csprojResolveAssemblyReference.cache

@@ -31,7 +31,7 @@ namespace NNR.Web.utils
             //}
 
             QuickBookBlogic blog = new QuickBookBlogic();
-            blog.DisconnectQBUser(page.Session["FriendlyEmail"].ToString());
+            blog.DisconnectQBUser(page.Session["FriendlyEmail"].ToString(),page.User.Identity.Name);
 
             //Rermove it from session
             page.Session.Remove("realm");

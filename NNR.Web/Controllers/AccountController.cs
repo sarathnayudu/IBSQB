@@ -442,6 +442,12 @@ namespace NNR.Web.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        public ActionResult LogOffWhileDiscQB()
+        {
+            AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+            return RedirectToAction("Index", "Home");
+        }
+
         //
         // GET: /Account/ExternalLoginFailure
         [AllowAnonymous]
