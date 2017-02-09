@@ -18,17 +18,15 @@
         $("#partial").load('/Invoice/Productpartial/?prodid=' + id);
     }
 </script>
-
-
 @using (Html.BeginForm("Create", "Invoice"))
 {
     @Html.AntiForgeryToken()
     <div class="table-responsive">
         <h4>InvoicePreferences</h4>
-        @Html.ValidationSummary("",new { @class = "text-danger" })
+      
         <div style="display: none;">
             @Html.EditorFor(model => model.CustQBId)
-            @Html.ValidationMessageFor(model => model.CustQBId, "*", new { @class = "text-danger" })
+            @Html.ValidationMessageFor(model => model.CustQBId, "", new { @class = "text-danger" })
         </div>
 
         <table class="table">
@@ -79,7 +77,7 @@
                             <div class="col-lg-8">
 
                                 @Html.EditorFor(model => model.InvoiceDate, new { @class = "form-control datecontrol", placeholder = "Enter Drop-off date here..." })
-                                @Html.ValidationMessageFor(model => model.InvoiceDate, "*", new { @class = "text-danger" })
+                                @Html.ValidationMessageFor(model => model.InvoiceDate, "", new { @class = "text-danger" })
 
                             </div>
                         </div>
@@ -89,7 +87,7 @@
                             @Html.LabelFor(model => model.Duedate, htmlAttributes: new { @class = "col-lg-4" })
                             <div class="col-lg-8">
                                 @Html.EditorFor(model => model.Duedate, new { @class = "form-control datecontrol", placeholder = "Enter Drop-off date here..." })
-                                @Html.ValidationMessageFor(model => model.Duedate, "*", new { @class = "text-danger" })
+                                @Html.ValidationMessageFor(model => model.Duedate, "", new { @class = "text-danger" })
                             </div>
                         </div>
                     </th>
@@ -98,7 +96,7 @@
                             @Html.LabelFor(model => model.Crew, htmlAttributes: new { @class = "col-lg-4" })
                             <div class="col-lg-8">
                                 @Html.EditorFor(model => model.Crew, new { @class = "form-control", placeholder = "Enter Crew" })
-                                @Html.ValidationMessageFor(model => model.Crew, "*", new { @class = "text-danger" })
+                                @Html.ValidationMessageFor(model => model.Crew, "", new { @class = "text-danger" })
                             </div>
                         </div>
                     </th>
@@ -135,7 +133,7 @@
                             <div class="col-lg-8">
 
                                 @Html.EditorFor(model => model.Memo, new { @class = "form-control", placeholder = "Enter Memo" })
-                                @Html.ValidationMessageFor(model => model.Memo, "*", new { @class = "text-danger" })
+                                @Html.ValidationMessageFor(model => model.Memo, "", new { @class = "text-danger" })
                             </div>
                         </div>
 
@@ -166,7 +164,7 @@
                             @Html.LabelFor(model => model.InvoiceMessage, htmlAttributes: new { @class = "col-lg-4" })
                             <div class="col-lg-8">
                                 @Html.EditorFor(model => model.InvoiceMessage, new { @class = "form-control", placeholder = "Enter Memo" })
-                                @Html.ValidationMessageFor(model => model.InvoiceMessage, "*", new { @class = "text-danger" })
+                                @Html.ValidationMessageFor(model => model.InvoiceMessage, "", new { @class = "text-danger" })
                             </div>
                         </div>
                     </th>
@@ -186,7 +184,7 @@
                             @Html.Label("Terms", htmlAttributes: new { @class = "col-lg-4" })
                             <div class="col-lg-8">
                                 @Html.DropDownListFor(model => model.SelectedTermId, new SelectList(Model.ListTerms, "Id", "DisplayValue"), "- Please Select -")
-                                @Html.ValidationMessageFor(model => model.SelectedTermId, "*", new { @class = "text-danger" })
+                                @Html.ValidationMessageFor(model => model.SelectedTermId, "", new { @class = "text-danger" })
 
                             </div>
                         </div>
@@ -197,7 +195,7 @@
                             <div class="col-lg-8">
                                 @Html.DropDownListFor(model => model.SelectedProductId, new SelectList(Model.ListProduct, "Id", "DisplayValue"), "- Please Select -",
                                new { @onchange = "loadPartial(this.value)" })
-                                @Html.ValidationMessageFor(model => model.SelectedProductId, "*", new { @class = "text-danger" })
+                                @Html.ValidationMessageFor(model => model.SelectedProductId, "", new { @class = "text-danger" })
 
                             </div>
                         </div>
@@ -212,7 +210,7 @@
                             @Html.Label("Tax Related", htmlAttributes: new { @class = "col-lg-4" })
                             <div class="col-lg-8">
                                 @Html.DropDownListFor(model => model.SelectedTaxId, new SelectList(Model.Tax, "Id", "DisplayValue"), "- Please Select Tax")
-                                @Html.ValidationMessageFor(model => model.InvoiceMessage, "*", new { @class = "text-danger" })
+                                @Html.ValidationMessageFor(model => model.InvoiceMessage, "", new { @class = "text-danger" })
                             </div>
                         </div>
                     </th>
