@@ -180,12 +180,14 @@ namespace NNR.Web.BLogic
             invpref.CustomerName = cust.FamilyName;
             invpref.BillingAdress = cust.BillAddr.Line1;
             invpref.Crew = string.Empty;
+        
+
             invpref.DiscountType = _context.DiscountTypes.Select(e => new ComboBase
             {
                 Id = e.Id,
                 DisplayValue = e.Name
             }).ToList();
-
+           
             invpref.AmountReceived = cust.TotalRevenue;
 
             invpref.Email = cust.PrimaryEmailAddr.Address;
@@ -207,7 +209,7 @@ namespace NNR.Web.BLogic
                 DisplayValue = e.Name
             }).ToList();
 
-
+          
 
             return invpref;
         }

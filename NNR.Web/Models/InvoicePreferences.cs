@@ -7,29 +7,41 @@ using System.Web;
 namespace NNR.Web.Models
 {
     public class InvoicePreferences
-    {
+    {       
+      
         public int CustomerId { get; set; }
+        [Required]
+        [MinLength(1, ErrorMessage = "* Select A term ID")]
         public string CustQBId { get; set; }
         public string CustomerName { get; set; }
         public string Email { get; set; }
+       
         public string BillingAdress { get; set; }
-
-        public string SelectedTermId { get; set; }
+        [Required]
+        [Range(0, int.MaxValue,ErrorMessage = "* Select A term ID")]
+        public int SelectedTermId { get; set; }
+      
         public List<ComboBase> ListTerms { get; set; }
+        [Required]
+        [MinLength(1, ErrorMessage = "* Select A term ID")]
         [DataType(DataType.Date)]
         public DateTime InvoiceDate { get; set; }
         [DataType(DataType.Date)]
+        [Required]
         public DateTime Duedate { get; set; }
-
+        [Required]
         public string Crew { get; set; }
-
-        public string SelectedProductId { get; set; }
+        [Required]
+        [Range(0, int.MaxValue, ErrorMessage = "* Select A term ID")]
+        public int SelectedProductId { get; set; }
         public List<ComboBase> ListProduct { get; set; }
-
-        public string SelectedTaxId { get; set; }
+        [Required]
+        [Range(0, int.MaxValue, ErrorMessage = "* Select A term ID")]
+        public int SelectedTaxId { get; set; }
         public List<ComboBase> Tax { get; set; }
 
-        public string SelectedDiscountTypeId { get; set; }
+        public int SelectedDiscountTypeId { get; set; }
+        [Range(0, int.MaxValue, ErrorMessage = "* Select A term ID")]
         public List<ComboBase> DiscountType { get; set; }
 
         public double DiscountValue { get; set; }

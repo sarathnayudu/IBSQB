@@ -19,8 +19,8 @@ namespace NNR.Web.BLogic
         public DateTime invDuedate { get; set; }
 
 
-        public CustomerInvoice(string CustQBId, string InvoiceDate, string Duedate, string Crew, 
-            string SelectedDiscountTypeId, string DiscountValue, string Memo, string InvoiceMessage, 
+        public CustomerInvoice(string CustQBId, DateTime InvoiceDate, DateTime Duedate, string Crew, 
+            int SelectedDiscountTypeId, double DiscountValue, string Memo, string InvoiceMessage, 
             int SelectedTermId, int SelectedProductId, int SelectedTaxId)
         {
            string selTaxQBId= _context.Taxes.Where(e => e.Id == SelectedTaxId).FirstOrDefault().TaxQBId;
@@ -33,8 +33,8 @@ namespace NNR.Web.BLogic
             Item = GetItem(selProductQBId);
             Term = GetTerm(selTrmQBId);
             InvoiceNumber = "IBS" + "12345";
-            ServiceDate = Convert.ToDateTime(InvoiceDate);
-            invDuedate = Convert.ToDateTime(Duedate);
+            ServiceDate = InvoiceDate;
+            invDuedate = Duedate;
             Customer = GetCustomerById(CustQBId);
         }
 

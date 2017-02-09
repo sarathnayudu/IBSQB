@@ -19,14 +19,23 @@ namespace NNR.Web.Controllers
             return View(invpref);
         }
 
-        public ActionResult Create(FormCollection fc)
+        public ActionResult Create(InvoicePreferences model)
         {
-            CustomerInvoice custInv = new CustomerInvoice(fc["CustQBId"], fc["InvoiceDate"], fc["Duedate"], fc["Crew"],
-                fc["SelectedDiscountTypeId"], fc["DiscountValue"], fc["Memo"], fc["InvoiceMessage"],
-              Convert.ToInt32(fc["SelectedTermId"]), Convert.ToInt32(fc["SelectedProductId"]), Convert.ToInt32(fc["SelectedTaxId"]));
-
-            custInv.NewInvoice();
-            return View();
+            if (ModelState.IsValid)
+            {
+                CustomerInvoice custInv = new CustomerInvoice(model.CustQBId, model.InvoiceDate, model.Duedate, model.Crew,
+                   model.SelectedDiscountTypeId, model.DiscountValue,model.Memo, model.InvoiceMessage,
+                  model.SelectedTermId, model.SelectedProductId, model.SelectedTaxId);
+                custInv.NewInvoice();
+                return RedirectToAction("Index", "Home");
+            }
+            QuickBookBlogic qblog = new QuickBookBlogic();
+            InvoicePreferences modelNew= qblog.GetCustomerPreferences(model.CustQBId);
+            model.ListProduct = modelNew.ListProduct;
+            model.ListTerms = modelNew.ListTerms;
+            model.Tax= modelNew.Tax;
+            model.DiscountType = modelNew.DiscountType;
+            return View("Index",model);
         }
 
         public ActionResult Productpartial(int prodid)
