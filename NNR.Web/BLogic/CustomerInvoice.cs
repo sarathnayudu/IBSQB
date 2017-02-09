@@ -15,21 +15,43 @@ namespace NNR.Web.BLogic
         private Term Term { get; set; }
         public string InvoiceNumber { get; set; }
 
+        public DateTime ServiceDate { get; set; }
+        public DateTime invDuedate { get; set; }
+
 
         public CustomerInvoice(string CustQBId, string InvoiceDate, string Duedate, string Crew, 
             string SelectedDiscountTypeId, string DiscountValue, string Memo, string InvoiceMessage, 
-            string SelectedTermId, string SelectedProductId, string SelectedTaxId)
+            int SelectedTermId, int SelectedProductId, int SelectedTaxId)
         {
-          //  TaxCode = GetTaxCode();
+           string selTaxQBId= _context.Taxes.Where(e => e.Id == SelectedTaxId).FirstOrDefault().TaxQBId;
+            string selTrmQBId = _context.InvoiceTermPeriods.Where(e => e.Id == SelectedTermId).FirstOrDefault().qbId;
+            string selProductQBId = _context.Products.Where(e => e.Id == SelectedProductId).FirstOrDefault().QBProductId;
+
+
+            TaxCode = GetTaxCode(selTaxQBId);
             Account = GetAccount();
-           // Item = GetItem();
-           // Term = GetTerm();
+            Item = GetItem(selProductQBId);
+            Term = GetTerm(selTrmQBId);
             InvoiceNumber = "IBS" + "12345";
+            ServiceDate = Convert.ToDateTime(InvoiceDate);
+            invDuedate = Convert.ToDateTime(Duedate);
+            Customer = GetCustomerById(CustQBId);
         }
 
-       
+        private Term GetTerm(string selectedTermId)
+        {
+            return GetTerm().Where(e => e.Id == selectedTermId).FirstOrDefault();
+        }
 
-      
+        private Item GetItem(string selectedProductId)
+        {
+            return GetItem().Where(e => e.Id == selectedProductId).FirstOrDefault();
+        }
+
+        private TaxCode GetTaxCode(string selectedTaxId)
+        {
+          return  GetTaxCode().Where(e => e.Id == selectedTaxId).FirstOrDefault();
+        }
 
         private Intuit.Ipp.Data.Account GetAccount()
         {
@@ -83,9 +105,8 @@ namespace NNR.Web.BLogic
             DataService.Add(TaxCode);
         }
 
-        public void NewInvoice(string custid)
-        {
-            Customer = GetCustomerById(custid);
+        public void NewInvoice()
+        {          
             DataService.Add(CreateInvoice());
         }
 
@@ -152,7 +173,7 @@ namespace NNR.Web.BLogic
                 Value = "TAX"
             };
             //Line Sales Item Line Detail - ServiceDate 
-            lineSalesItemLineDetail.ServiceDate = DateTime.Now.Date;
+            lineSalesItemLineDetail.ServiceDate = ServiceDate;
             lineSalesItemLineDetail.ServiceDateSpecified = true;
             //Assign Sales Item Line Detail to Line Item
             invoiceLine.AnyIntuitObject = lineSalesItemLineDetail;
@@ -219,7 +240,7 @@ namespace NNR.Web.BLogic
             };
 
             //DueDate
-            invoice.DueDate = DateTime.Now.AddDays(30).Date;
+            invoice.DueDate = invDuedate;
             invoice.DueDateSpecified = true;
 
             //ARAccountRef

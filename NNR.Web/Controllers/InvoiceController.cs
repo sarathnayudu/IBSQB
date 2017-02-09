@@ -23,8 +23,9 @@ namespace NNR.Web.Controllers
         {
             CustomerInvoice custInv = new CustomerInvoice(fc["CustQBId"], fc["InvoiceDate"], fc["Duedate"], fc["Crew"],
                 fc["SelectedDiscountTypeId"], fc["DiscountValue"], fc["Memo"], fc["InvoiceMessage"],
-               fc["SelectedTermId"], fc["SelectedProductId"], fc["SelectedTaxId"]);
+              Convert.ToInt32(fc["SelectedTermId"]), Convert.ToInt32(fc["SelectedProductId"]), Convert.ToInt32(fc["SelectedTaxId"]));
 
+            custInv.NewInvoice();
             return View();
         }
 
