@@ -42,6 +42,22 @@ namespace NNR.Web.utils
         }
 
         /// <summary>
+        /// Remove oauth access toekn from storage 
+        /// </summary>
+        /// <param name="emailID"></param>
+        internal static void RemoveInvalidOauthAccessToken(Controller page)
+        {
+            //Rermove it from session
+            page.Session.Remove("realm");
+            page.Session.Remove("dataSource");
+            page.Session.Remove("accessToken");
+            page.Session.Remove("accessTokenSecret");
+            page.Session.Remove("Flag");
+        }
+
+
+
+        /// <summary>
         /// get the oauth access token for the user from OauthAccessTokenStorage.xml
         /// </summary>
         /// <param name="emailID"></param>

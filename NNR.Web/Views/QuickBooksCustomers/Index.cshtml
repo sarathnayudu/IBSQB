@@ -6,36 +6,40 @@
 }
 
 <div class="table-responsive">
-    <h4>Customers</h4>
-
-    <table class="table">
-
-        <thead>
+    <table class="table table-bordered table-condensed table-striped table-hover sortable">
+        @if (Model.Count() == 0)
+        {
             <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.Balance)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.CompanyName)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.CreditLimit)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.EmailAddress)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.FullyQualifiedName)
-                </th>
-
-                <th>
-                    @Html.DisplayNameFor(model => model.TotalExpense)
-                </th>
-                <th></th>
+                <td colspan="10">No Record's found.</td>
             </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
+        }
+        else
+        {
+            <thead>
+                <tr>
+                    <th data-defaultsign="_19">
+                        @Html.DisplayNameFor(model => model.Balance)
+                    </th>
+                    <th data-defaultsign="AZ">
+                        @Html.DisplayNameFor(model => model.CompanyName)
+                    </th>
+                    <th data-defaultsign="_19">
+                        @Html.DisplayNameFor(model => model.CreditLimit)
+                    </th>
+                    <th data-defaultsign="AZ">
+                        @Html.DisplayNameFor(model => model.EmailAddress)
+                    </th>
+                    <th data-defaultsign="AZ">
+                        @Html.DisplayNameFor(model => model.FullyQualifiedName)
+                    </th>
+
+                    <th data-defaultsign="_19">
+                        @Html.DisplayNameFor(model => model.TotalExpense)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            foreach (var item in Model)
             {
                 <tr>
                     <td>
@@ -64,6 +68,7 @@
                     </td>
                 </tr>
             }
-        </tbody>
+        }
     </table>
-</div>
+</div>  
+

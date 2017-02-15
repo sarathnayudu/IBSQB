@@ -23,7 +23,7 @@ namespace NNR.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                CustomerInvoice custInv = new CustomerInvoice(model.CustQBId, model.InvoiceDate, model.Duedate, model.Crew,
+                CustomerInvoice custInv = new CustomerInvoice(model.CustQBId,Convert.ToDateTime(model.InvoiceDate), Convert.ToDateTime(model.Duedate), model.Crew,
                    model.SelectedDiscountTypeId, model.DiscountValue,model.Memo, model.InvoiceMessage,
                   model.SelectedTermId, model.SelectedProductId, model.SelectedTaxId);
                 custInv.NewInvoice();

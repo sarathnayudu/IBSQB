@@ -438,6 +438,7 @@ namespace NNR.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult LogOff()
         {
+            OauthAccessTokenStorageHelper.RemoveInvalidOauthAccessToken(this);
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
             return RedirectToAction("Index", "Home");
         }

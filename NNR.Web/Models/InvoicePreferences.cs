@@ -25,10 +25,10 @@ namespace NNR.Web.Models
         [Required]
         [MinLength(1, ErrorMessage = "* Select A term ID")]
         [DataType(DataType.Date)]
-        public DateTime InvoiceDate { get; set; }
-        [DataType(DataType.Date)]
+        public string InvoiceDate { get; set; }
         [Required]
-        public DateTime Duedate { get; set; }
+        [DataType(DataType.Date)]
+        public string Duedate { get; set; }
         [Required]
         public string Crew { get; set; }
         [Required]
